@@ -26,8 +26,7 @@
     feitos: ler("feitos", {}),
     passosFeitos: ler("passosFeitos", {}),
     compras: ler("compras", RECEITAS.map(r => r.id)),
-    comprado: ler("comprado", {}),
-    medida: ler("medida", "g")
+    comprado: ler("comprado", {})
   };
   const receita = (id) => RECEITAS.find(r => r.id === id);
 
@@ -131,7 +130,7 @@
           bolachas.push({
             x: Math.round(x), y: Math.round(y), s: Math.round(tam * (.92 + Math.random() * .16)),
             r: Math.round(Math.random() * 360),
-            l, i: Math.random() < .55 && img ? MINI(img) : IMGS_CORTINA[Math.floor(Math.random() * IMGS_CORTINA.length)]
+            l, i: img ? MINI(img) : IMGS_CORTINA[Math.floor(Math.random() * IMGS_CORTINA.length)]
           });
         }
       }
@@ -194,26 +193,23 @@
      ========================================================= */
   function iniciarInicio() {
     $("#cartoes").innerHTML = RECEITAS.map(r => `
-      <a class="cartao" href="${r.pagina}" data-ir="${r.imagem}" style="--cor:${r.cor}">
-        <span class="cartao__fundo" aria-hidden="true">${r.palavra}</span>
-        <img class="cartao__foto" src="${r.imagem}" alt="">
-        <div class="cartao__info">
-          <div class="cartao__topo">
-            <h3 class="cartao__nome">${r.nome}</h3>
-            <span class="cartao__seta" aria-hidden="true">${SVG_SETA}</span>
-          </div>
-          <p class="cartao__desc">${r.descricao}</p>
-          <div class="cartao__meta">
-            <span><img src="assets/img/mini/cookie.png" alt="">${BASE_COOKIES} cookies</span>
-            <span>${SVG_RELOGIO}${r.tempoTotal}</span>
-            <span>${nivel(r.nivel)}</span>
+      <a class="l-cartao" href="${r.pagina}" data-ir="${r.imagem}" style="--cor:${r.cor};--suave:${r.corSuave}">
+        <div class="l-cartao__foto">
+          <span class="l-cartao__selo">${NIVEIS[r.nivel]}</span>
+          <img src="${r.imagem}" alt="">
+        </div>
+        <div class="l-cartao__corpo">
+          <h3>${r.nome}</h3>
+          <p>${r.subtitulo}</p>
+          <div class="l-cartao__base">
+            <span class="l-cartao__tempo">${SVG_RELOGIO}${r.tempoTotal}</span>
+            <span class="l-cartao__btn">Ver receita ${SVG_SETA}</span>
           </div>
         </div>
       </a>`).join("");
 
-    $("#regras-grelha").innerHTML = REGRAS_DO_REINO.map((g, i) => `
-      <article class="regra">
-        <span class="regra__n" aria-hidden="true">${i + 1}</span>
+    $("#regras-grelha").innerHTML = REGRAS_DO_REINO.map(g => `
+      <article class="l-regra">
         <img src="${ICON(g.icone)}" alt="">
         <h3>${g.t}</h3>
         <p>${g.d}</p>
@@ -285,6 +281,7 @@
     const data = `${dd(agora.getDate())}/${dd(agora.getMonth() + 1)}/${agora.getFullYear()}`;
     const hora = `${dd(agora.getHours())}:${dd(agora.getMinutes())}`;
     const riscados = itens.filter(([k]) => estado.comprado[k]).length;
+    const badge = $("#nav-badge"); if (badge) badge.textContent = itens.length - riscados;
     $("#talao").innerHTML = `
       <img class="talao__logo" src="assets/img/king-g.png" alt="">
       <p class="talao__marca">COOKIE'S DO KING G</p>
@@ -419,24 +416,18 @@
               </div>
             </div>
             ${estado.doses[r.id] !== BASE_COOKIES ? `<p class="dose__nota">Quantidades ajustadas de ${BASE_COOKIES} para ${estado.doses[r.id]} cookies. <button class="link" data-repor>Repor</button></p>` : ""}
-            <div class="medida" role="group" aria-label="Unidades de medida">
-              <button data-medida="g" aria-pressed="${estado.medida === "g"}">Gramas</button>
-              <button data-medida="vol" aria-pressed="${estado.medida === "vol"}">Chávenas e colheres</button>
-            </div>
             ${r.grupos.map(g => `
               <h3 class="grupo__titulo">${g.titulo}</h3>
-              <ul class="lista-ing ${estado.medida === "vol" ? "lista-ing--vol" : ""}">${g.itens.map(it => {
+              <ul class="lista-ing">${g.itens.map(it => {
                 const k = idx++;
-                const v = estado.medida === "vol" ? emVolume(it, f) : null;
-                const q = v ? v.q : quantidade(it, f);
-                const n = v && v.nome ? v.nome : it.n;
+                const v = it.u === "ml" ? null : emVolume(it, f);
                 const nota = v && v.nota ? ` <em class="check__nota">${v.nota}</em>` : "";
                 return `
                 <li><label class="check">
                   <input type="checkbox" data-ing="${k}" ${feitos[k] ? "checked" : ""}>
                   <span class="check__caixa">${SVG_CHECK}</span>
-                  <span class="check__q">${q}</span>
-                  <span class="check__txt">${n}${nota}</span>
+                  <span class="check__q">${quantidade(it, f)}${v ? `<small>${v.q}</small>` : ""}</span>
+                  <span class="check__txt">${it.n}${nota}</span>
                 </label></li>`; }).join("")}
               </ul>`).join("")}
             <button class="mini" data-limpar-ing>Desmarcar ingredientes</button>
@@ -499,8 +490,6 @@
         $(`[data-dose="${dose.dataset.dose}"]`).focus();
         return;
       }
-      const med = e.target.closest("[data-medida]");
-      if (med) { estado.medida = med.dataset.medida; guardar("medida", estado.medida); desenhar(); $(`[data-medida="${estado.medida}"]`).focus(); return; }
       if (e.target.closest("[data-repor]")) { estado.doses[r.id] = BASE_COOKIES; guardar("doses", estado.doses); desenhar(); return; }
       if (e.target.closest("[data-limpar-ing]")) { estado.feitos[r.id] = {}; guardar("feitos", estado.feitos); desenhar(); return; }
       if (e.target.closest("[data-limpar-passos]")) { estado.passosFeitos[r.id] = {}; guardar("passosFeitos", estado.passosFeitos); desenhar(); return; }
