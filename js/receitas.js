@@ -4,7 +4,8 @@
    Quantidades para 6 cookies. Nos passos, {N} é trocado pelo
    número de cookies escolhido no site.
 
-   unidades: "g", "ml", "cc" (colher de chá), "cs" (colher de sopa), "un"
+   Todas as quantidades estão em gramas ("g").
+   "loja" diz como comprar (ex.: ovos à unidade) para a lista de compras.
    ========================================================= */
 
 const BASE_COOKIES = 6;
@@ -37,7 +38,7 @@ const RECEITAS = [
         titulo: "Recheio de mousse (ganache batida)",
         itens: [
           { q: 100, u: "g", n: "chocolate de leite ou negro (50–55%), picado fino" },
-          { q: 60, u: "ml", n: "natas para bater (35% gordura)" }
+          { q: 60, u: "g", n: "natas para bater (35% gordura)" }
         ]
       },
       {
@@ -46,13 +47,13 @@ const RECEITAS = [
           { q: 115, u: "g", n: "manteiga com sal, a 18–20 °C" },
           { q: 130, u: "g", n: "açúcar mascavado claro" },
           { q: 50, u: "g", n: "açúcar branco" },
-          { q: 1, u: "un", n: "ovo grande (≈50 g sem casca), à temperatura ambiente", plural: "ovos grandes (≈50 g sem casca cada), à temperatura ambiente" },
-          { q: 1, u: "cc", n: "extrato de baunilha" },
+          { q: 50, u: "g", n: "ovo batido (1 ovo grande ≈ 50 g), à temperatura ambiente", loja: { por: 50, n: "ovo grande", plural: "ovos grandes" } },
+          { q: 5, u: "g", n: "extrato de baunilha" },
           { q: 175, u: "g", n: "farinha sem fermento" },
           { q: 30, u: "g", n: "cacau em pó sem açúcar" },
-          { q: 1.5, u: "cc", n: "amido de milho (Maizena)" },
-          { q: 0.5, u: "cc", n: "bicarbonato de sódio" },
-          { q: 0.5, u: "cc", n: "sal grosso (ou ¼ c. chá de sal fino)" },
+          { q: 4, u: "g", n: "amido de milho (Maizena)" },
+          { q: 3, u: "g", n: "bicarbonato de sódio" },
+          { q: 2, u: "g", n: "sal fino" },
           { q: 120, u: "g", n: "chocolate de leite, em pedaços de 1 cm" }
         ]
       }
@@ -128,20 +129,20 @@ const RECEITAS = [
           { q: 115, u: "g", n: "manteiga com sal, a 18–20 °C" },
           { q: 120, u: "g", n: "açúcar mascavado claro" },
           { q: 50, u: "g", n: "açúcar branco" },
-          { q: 1, u: "un", n: "ovo grande (≈50 g sem casca), à temperatura ambiente", plural: "ovos grandes (≈50 g sem casca cada), à temperatura ambiente" },
-          { q: 1, u: "cc", n: "extrato de baunilha" },
+          { q: 50, u: "g", n: "ovo batido (1 ovo grande ≈ 50 g), à temperatura ambiente", loja: { por: 50, n: "ovo grande", plural: "ovos grandes" } },
+          { q: 5, u: "g", n: "extrato de baunilha" },
           { q: 200, u: "g", n: "farinha sem fermento" },
-          { q: 1.5, u: "cc", n: "amido de milho (Maizena)" },
-          { q: 0.5, u: "cc", n: "bicarbonato de sódio" },
-          { q: 0.5, u: "cc", n: "sal grosso (ou ¼ c. chá de sal fino)" },
+          { q: 4, u: "g", n: "amido de milho (Maizena)" },
+          { q: 3, u: "g", n: "bicarbonato de sódio" },
+          { q: 2, u: "g", n: "sal fino" },
           { q: 60, u: "g", n: "chocolate de leite, em pedaços de 1 cm" },
-          { q: 2, u: "un", n: "embalagem de Kinder Bueno (2 barras), em pedaços de 1 cm", plural: "embalagens de Kinder Bueno (2 barras cada), em pedaços de 1 cm" }
+          { q: 86, u: "g", n: "Kinder Bueno (2 embalagens de 43 g), em pedaços de 1 cm", loja: { por: 43, n: "Kinder Bueno (emb. 43 g)", plural: "Kinder Bueno (emb. 43 g)" } }
         ]
       },
       {
         titulo: "Cobertura",
         itens: [
-          { q: 1, u: "un", n: "embalagem de Kinder Bueno (2 barras)", plural: "embalagens de Kinder Bueno (2 barras cada)" },
+          { q: 43, u: "g", n: "Kinder Bueno (1 embalagem de 43 g)", loja: { por: 43, n: "Kinder Bueno (emb. 43 g)", plural: "Kinder Bueno (emb. 43 g)" } },
           { q: 40, u: "g", n: "chocolate de leite" },
           { q: 25, u: "g", n: "chocolate branco" }
         ]
@@ -149,9 +150,9 @@ const RECEITAS = [
     ],
     passos: [
       { t: "Porcionar e congelar a Nutella", icone: "frio", min: 60,
-        d: "Forra um prato com papel vegetal e faz {N} porções de 15 g de Nutella (uma colher de chá bem cheia cada). Congela 60 minutos, até estarem rijas." },
+        d: "Forra um prato com papel vegetal e faz {N} porções de 15 g de Nutella. Congela 60 minutos, até estarem rijas." },
       { t: "Cortar os Kinder Bueno", icone: "faca", min: 0,
-        d: "Corta as barras da massa em pedaços de ≈1 cm. Corta as barras da cobertura em 12 pedaços (6 por barra) e reserva-as. Usa uma faca afiada e corta de uma só vez para o recheio não esmagar." },
+        d: "Corta o Kinder Bueno da massa em pedaços de ≈1 cm. Corta o da cobertura em pedaços de ≈2 cm (2 por cookie) e reserva-os. Usa uma faca afiada e corta de uma só vez para o recheio não esmagar." },
       { t: "Pré-aquecer o forno", icone: "forno", min: 15,
         d: "Liga o forno a 190 °C, calor em cima e em baixo, com a grelha na posição do meio. Deixa aquecer pelo menos 15 minutos. Forra dois tabuleiros com papel vegetal. Num forno só ventilado, usa 170–175 °C." },
       { t: "Bater a manteiga com os açúcares", icone: "vara", min: 3,
@@ -210,15 +211,15 @@ const RECEITAS = [
           { q: 115, u: "g", n: "manteiga com sal, a 18–20 °C" },
           { q: 100, u: "g", n: "açúcar mascavado claro" },
           { q: 80, u: "g", n: "açúcar branco" },
-          { q: 1, u: "un", n: "ovo grande (≈50 g sem casca), à temperatura ambiente", plural: "ovos grandes (≈50 g sem casca cada), à temperatura ambiente" },
-          { q: 1, u: "cc", n: "extrato de baunilha" },
-          { q: 1, u: "cs", n: "leite (15 ml)" },
-          { q: 1.5, u: "cc", n: "corante alimentar vermelho em gel" },
+          { q: 50, u: "g", n: "ovo batido (1 ovo grande ≈ 50 g), à temperatura ambiente", loja: { por: 50, n: "ovo grande", plural: "ovos grandes" } },
+          { q: 5, u: "g", n: "extrato de baunilha" },
+          { q: 15, u: "g", n: "leite" },
+          { q: 6, u: "g", n: "corante alimentar vermelho em gel" },
           { q: 190, u: "g", n: "farinha sem fermento" },
           { q: 15, u: "g", n: "cacau em pó sem açúcar" },
-          { q: 1.5, u: "cc", n: "amido de milho (Maizena)" },
-          { q: 0.5, u: "cc", n: "bicarbonato de sódio" },
-          { q: 0.5, u: "cc", n: "sal grosso (ou ¼ c. chá de sal fino)" }
+          { q: 4, u: "g", n: "amido de milho (Maizena)" },
+          { q: 3, u: "g", n: "bicarbonato de sódio" },
+          { q: 2, u: "g", n: "sal fino" }
         ]
       },
       {
@@ -233,7 +234,7 @@ const RECEITAS = [
       { t: "Bater a manteiga com os açúcares", icone: "vara", min: 3,
         d: "Bate a manteiga, o açúcar mascavado e o açúcar branco em velocidade média durante 3 minutos, até a mistura ficar mais clara e fofa." },
       { t: "Juntar o ovo, o leite e o corante", icone: "taca", min: 1,
-        d: "Junta o ovo, a baunilha, o leite e o corante e bate 45 segundos, até a cor ficar uniforme. A massa deve ficar vermelho intenso: o cacau vai escurecê-la ligeiramente. Se estiver pálida, acrescenta ½ colher de chá de corante." },
+        d: "Junta o ovo, a baunilha, o leite e o corante e bate 45 segundos, até a cor ficar uniforme. A massa deve ficar vermelho intenso: o cacau vai escurecê-la ligeiramente. Se estiver pálida, acrescenta mais 2 g de corante." },
       { t: "Misturar os ingredientes secos", icone: "peneira", min: 0,
         d: "Numa taça à parte, mistura a farinha, o cacau peneirado, o amido de milho, o bicarbonato e o sal com uma vara de mão." },
       { t: "Juntar os secos à massa", icone: "colher", min: 0,

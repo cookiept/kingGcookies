@@ -22,7 +22,7 @@
 
   <header class="nav">
     <a class="nav__marca" href="index.html" aria-label="Cookie's do King G, início">
-      <img src="assets/img/king-head.png" alt="" width="44" height="44">
+      <img src="assets/img/king-g.png" alt="" width="58" height="44">
       <span>Cookie's do King <em class="g">G</em></span>
     </a>
     <button class="nav__menu" aria-expanded="false" aria-controls="nav-links" aria-label="Abrir menu">
@@ -94,19 +94,18 @@
     </section>
 
     <section class="compras contentor" id="compras">
-      <div class="compras__cabeca">
-        <div>
-          <p class="sobrancelha">Missão supermercado</p>
-          <h2 class="titulo">Lista de compras</h2>
-          <p class="compras__intro">Escolhe o que vais fazer. A lista junta tudo e soma as quantidades, com as doses que escolheste em cada receita.</p>
+      <div class="compras__lado">
+        <p class="sobrancelha">Missão supermercado</p>
+        <h2 class="titulo">Lista de compras</h2>
+        <p class="compras__intro">Escolhe as receitas que vais fazer. O talão junta os ingredientes e soma as quantidades, com as doses que escolheste em cada receita. Vai riscando o que já tens no cesto.</p>
+        <div class="compras__escolha" id="compras-escolha"></div>
+        <div class="compras__acoes">
+          <button class="btn btn--real" id="copiar-lista">Copiar lista</button>
+          <button class="btn btn--contorno" id="limpar-lista">Desmarcar tudo</button>
         </div>
-        <img src="assets/img/icons/medidor.png" alt="" aria-hidden="true" class="compras__icone">
       </div>
-      <div class="compras__escolha" id="compras-escolha"></div>
-      <ul class="compras__lista" id="compras-lista"></ul>
-      <div class="compras__acoes">
-        <button class="btn btn--real" id="copiar-lista">Copiar lista</button>
-        <button class="btn btn--contorno" id="limpar-lista">Desmarcar tudo</button>
+      <div class="talao-wrap">
+        <div class="talao" id="talao"></div>
       </div>
     </section>
   </main>
@@ -115,7 +114,7 @@
     <svg class="onda onda--rodape" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 70c180-60 360-60 540-10s360 70 540 20 270-70 360-40V120H0Z"/></svg>
     <div class="rodape__dentro">
       <div class="contentor rodape__grelha">
-        <img src="assets/img/king-head.png" alt="" width="96" height="96">
+        <img src="assets/img/king-g.png" alt="" width="125" height="96">
         <div>
           <p class="rodape__marca">Cookie's do King <em class="g">G</em></p>
           <p class="script script--claro">Feito com manteiga a mais e zero vergonha.</p>

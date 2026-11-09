@@ -7,3 +7,5 @@
 @font-face { font-family: "DM Sans"; font-weight: 700; font-display: swap; src: url("../assets/fonts/dm-sans-latin-700-normal.woff2") format("woff2"); }
 @font-face { font-family: "Jost"; font-weight: 500; font-display: swap; src: url("../assets/fonts/jost-latin-500-normal.woff2") format("woff2"); }
 @font-face { font-family: "Jost"; font-weight: 600; font-display: swap; src: url("../assets/fonts/jost-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Space Mono"; font-weight: 400; font-display: swap; src: url("../assets/fonts/space-mono-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Space Mono"; font-weight: 700; font-display: swap; src: url("../assets/fonts/space-mono-latin-700-normal.woff2") format("woff2"); }

@@ -147,8 +147,8 @@
     const BLOB = '<path d="M421 72c62 38 118 102 128 176 10 75-26 160-86 218-60 57-145 87-226 72-82-15-160-75-185-153C27 307 55 212 116 146 177 80 272 43 339 44c30 1 57 11 82 28Z"/>';
     const FR = { .25: "¼", .5: "½", .75: "¾" };
     const frac = x => { const r = Math.round(x * 4) / 4, i = Math.floor(r), d = +(r - i).toFixed(2); return (i || "") + (FR[d] || ""); };
-    const qt = it => ({ g: Math.round(it.q) + " g", ml: Math.round(it.q) + " ml", cc: frac(it.q) + " c. chá", cs: frac(it.q) + " c. sopa", un: frac(it.q) })[it.u];
-    const nome = it => (it.u === "un" && it.q > 1 && it.plural) ? it.plural : it.n;
+    const qt = it => it.qtd || (Math.round(it.q) + " g");
+    const nome = it => it.n;
     const txt = t => t.replace(/\{N\}/g, BASE_COOKIES);
     const nivel = n => `<span class="nivel">${[1, 2, 3].map(i => `<i class="${i <= n ? "on" : ""}"></i>`).join("")}</span> ${NIVEIS[n]}`;
     const rodape = n => `<div class="rodape-p"><span>Cookie's do King G</span><span>${n}</span></div>`;
@@ -250,14 +250,18 @@
       </section>`;
     });
 
+    const curto = t => t && t.split(/[(,]/)[0].trim();
     const mapa = new Map();
     RECEITAS.forEach(r => r.grupos.forEach(g => g.itens.forEach(it => {
-      const curto = s => s && s.split(/[(,]/)[0].trim();
-      const k = curto(it.n).toLowerCase() + "|" + it.u;
-      const a = mapa.get(k) || { ...it, q: 0, n: curto(it.n), plural: curto(it.plural) };
+      const k = (it.loja ? it.loja.n : curto(it.n)).toLowerCase();
+      const a = mapa.get(k) || { q: 0, n: curto(it.n), loja: it.loja };
       a.q += it.q; mapa.set(k, a);
     })));
-    const lista = [...mapa.values()].sort((a, b) => (a.u === "g" ? 0 : 1) - (b.u === "g" ? 0 : 1) || b.q - a.q);
+    const lista = [...mapa.values()].map(it => {
+      if (!it.loja) return it;
+      const n = Math.max(1, Math.ceil(it.q / it.loja.por - 0.001));
+      return { q: it.q, qtd: String(n), n: n > 1 ? it.loja.plural : it.loja.n };
+    }).sort((a, b) => b.q - a.q);
 
     html += `
       <section class="pagina final">

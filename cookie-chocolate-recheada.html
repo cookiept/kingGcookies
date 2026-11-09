@@ -22,7 +22,7 @@
 
   <header class="nav">
     <a class="nav__marca" href="index.html" aria-label="Cookie's do King G, início">
-      <img src="assets/img/king-head.png" alt="" width="44" height="44">
+      <img src="assets/img/king-g.png" alt="" width="58" height="44">
       <span>Cookie's do King <em class="g">G</em></span>
     </a>
     <button class="nav__menu" aria-expanded="false" aria-controls="nav-links" aria-label="Abrir menu">
@@ -43,7 +43,7 @@
     <svg class="onda onda--rodape" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 70c180-60 360-60 540-10s360 70 540 20 270-70 360-40V120H0Z"/></svg>
     <div class="rodape__dentro">
       <div class="contentor rodape__grelha">
-        <img src="assets/img/king-head.png" alt="" width="96" height="96">
+        <img src="assets/img/king-g.png" alt="" width="125" height="96">
         <div>
           <p class="rodape__marca">Cookie's do King <em class="g">G</em></p>
           <p class="script script--claro">Feito com manteiga a mais e zero vergonha.</p>

@@ -40,7 +40,7 @@
   function quantidade(item, f) {
     const q = item.q * f;
     switch (item.u) {
-      case "g":  return (q < 20 ? Math.max(1, Math.round(q)) : Math.round(q / 5) * 5) + " g";
+      case "g":  return (q < 100 ? Math.max(1, Math.round(q)) : Math.round(q / 5) * 5) + " g";
       case "ml": return Math.max(5, Math.round(q / 5) * 5) + " ml";
       case "cc": return fracao(q) + " c. chá";
       case "cs": return fracao(q) + " c. sopa";
@@ -223,43 +223,91 @@
     });
     document.addEventListener("change", (e) => {
       const c = e.target.closest("[data-comprado]");
-      if (c) { estado.comprado[c.dataset.comprado] = c.checked; guardar("comprado", estado.comprado); }
+      if (c) { estado.comprado[c.dataset.comprado] = c.checked; guardar("comprado", estado.comprado); desenharCompras(); $(`[data-comprado="${c.dataset.comprado}"]`).focus(); }
     });
     $("#copiar-lista").addEventListener("click", async () => {
       const itens = desenharCompras().filter(([k]) => !estado.comprado[k]);
-      const linhas = ["Lista de compras · Cookie's do King G", ""].concat(itens.map(([, it]) => `• ${quantidade(it, 1)} ${nomeItem(it, 1)}`));
+      const linhas = ["Lista de compras · Cookie's do King G", ""].concat(itens.map(([, it]) => `• ${it.qtd} ${it.nome}`));
       try { await navigator.clipboard.writeText(linhas.join("\n")); avisar("Lista copiada."); }
       catch (e) { avisar("Não foi possível copiar. Tira um print."); }
     });
     $("#limpar-lista").addEventListener("click", () => { estado.comprado = {}; guardar("comprado", {}); desenharCompras(); });
   }
 
-  /* lista de compras: junta ingredientes iguais e soma */
-  const chave = (it) => it.n.split(/[(,]/)[0].replace(/\s+/g, " ").trim().toLowerCase() + "|" + it.u;
-  const curto = (s) => s && s.split(/[(,]/)[0].trim();
-  function desenharCompras() {
-    $("#compras-escolha").innerHTML = RECEITAS.map(r => `
-      <button class="chip" aria-pressed="${estado.compras.includes(r.id)}" data-compra="${r.id}">
-        <img src="${r.imagem}" alt="">${r.nome} · ${estado.doses[r.id]}
-      </button>`).join("");
+  /* lista de compras em forma de talão: junta ingredientes iguais e soma */
+  const curto = (txt) => txt && txt.split(/[(,]/)[0].trim();
+  const chave = (it) => (it.loja ? it.loja.n : curto(it.n)).toLowerCase();
+  function itensCompra() {
     const mapa = new Map();
     RECEITAS.filter(r => estado.compras.includes(r.id)).forEach(r => {
       const f = fator(r);
       r.grupos.forEach(g => g.itens.forEach(it => {
         const k = chave(it);
-        const a = mapa.get(k) || { ...it, q: 0, n: curto(it.n), plural: curto(it.plural) };
+        const a = mapa.get(k) || { q: 0, n: curto(it.n), loja: it.loja };
         a.q += it.q * f; mapa.set(k, a);
       }));
     });
-    const itens = [...mapa.entries()].sort((a, b) => (a[1].u === "g" ? 0 : 1) - (b[1].u === "g" ? 0 : 1) || b[1].q - a[1].q);
-    $("#compras-lista").innerHTML = itens.length ? itens.map(([k, it]) => `
-      <li><label class="check">
-        <input type="checkbox" data-comprado="${k}" ${estado.comprado[k] ? "checked" : ""}>
-        <span class="check__caixa">${SVG_CHECK}</span>
-        <span class="check__q">${quantidade(it, 1)}</span>
-        <span class="check__txt">${nomeItem(it, 1)}</span>
-      </label></li>`).join("")
-      : `<li class="compras__vazio">Escolhe pelo menos uma cookie.</li>`;
+    return [...mapa.entries()].map(([k, it]) => {
+      if (it.loja) {
+        const n = Math.max(1, Math.ceil(it.q / it.loja.por - 0.001));
+        return [k, { qtd: String(n), nome: n > 1 ? it.loja.plural : it.loja.n, peso: it.q }];
+      }
+      return [k, { qtd: quantidade({ q: it.q, u: "g" }, 1), nome: it.n, peso: it.q }];
+    }).sort((a, b) => b[1].peso - a[1].peso);
+  }
+  const codigoBarras = (() => {
+    let x = 7, partes = [], pos = 0;
+    for (let i = 0; i < 46; i++) {
+      x = (x * 9301 + 49297) % 233280;
+      const w = 1 + (x % 4), gap = 1 + ((x >> 3) % 3);
+      partes.push(`var(--tinta-talao) ${pos}px ${pos + w}px, transparent ${pos + w}px ${pos + w + gap}px`);
+      pos += w + gap;
+    }
+    return { css: `linear-gradient(90deg, ${partes.join(", ")})`, largura: pos };
+  })();
+  const SIM = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  function desenharCompras() {
+    $("#compras-escolha").innerHTML = RECEITAS.map(r => `
+      <button class="chip" aria-pressed="${estado.compras.includes(r.id)}" data-compra="${r.id}">
+        <img src="${r.imagem}" alt="">${r.nome} · ${estado.doses[r.id]}
+      </button>`).join("");
+    const itens = itensCompra();
+    const escolhidas = RECEITAS.filter(r => estado.compras.includes(r.id));
+    const cookies = escolhidas.reduce((n, r) => n + estado.doses[r.id], 0);
+    const agora = new Date();
+    const dd = (n) => String(n).padStart(2, "0");
+    const data = `${dd(agora.getDate())}/${dd(agora.getMonth() + 1)}/${agora.getFullYear()}`;
+    const hora = `${dd(agora.getHours())}:${dd(agora.getMinutes())}`;
+    const riscados = itens.filter(([k]) => estado.comprado[k]).length;
+    $("#talao").innerHTML = `
+      <img class="talao__logo" src="assets/img/king-g.png" alt="">
+      <p class="talao__marca">COOKIE'S DO KING G</p>
+      <p class="talao__centro">Padaria Real · Edição Caseira<br>LISTA DE COMPRAS</p>
+      <div class="talao__linha"><span>DATA ${data}</span><span>HORA ${hora}</span></div>
+      <div class="talao__linha"><span>TALÃO Nº ${String(cookies).padStart(4, "0")}</span><span>OP. KING G</span></div>
+      <hr>
+      ${escolhidas.length ? escolhidas.map(r => `<div class="talao__linha talao__receita"><span>${r.nome.toUpperCase()}</span><span>x${estado.doses[r.id]}</span></div>`).join("") : ""}
+      <hr>
+      <div class="talao__linha talao__cab"><span>QTD</span><span class="talao__art">ARTIGO</span></div>
+      <ul class="talao__lista">
+        ${itens.length ? itens.map(([k, it]) => `
+          <li><label class="tal-item">
+            <input type="checkbox" data-comprado="${k}" ${estado.comprado[k] ? "checked" : ""}>
+            <span class="tal-item__caixa">${SIM}</span>
+            <span class="tal-item__q">${it.qtd}</span>
+            <span class="tal-item__n">${it.nome}</span>
+          </label></li>`).join("")
+          : `<li class="talao__vazio">*** NENHUMA RECEITA ESCOLHIDA ***</li>`}
+      </ul>
+      <hr class="talao__duplo">
+      <div class="talao__linha talao__total"><span>ARTIGOS</span><span>${itens.length}</span></div>
+      <div class="talao__linha talao__total"><span>NO CESTO</span><span>${riscados}/${itens.length}</span></div>
+      <div class="talao__linha talao__total talao__grande"><span>COOKIES</span><span>${cookies}</span></div>
+      <hr>
+      <div class="talao__linha"><span>PAGAMENTO</span><span>MANTEIGA</span></div>
+      <div class="talao__linha"><span>TROCO</span><span>0,00 MIGALHAS</span></div>
+      <div class="talao__barras" style="background:${codigoBarras.css};width:${codigoBarras.largura}px" aria-hidden="true"></div>
+      <p class="talao__centro">OBRIGADO E VOLTE SEMPRE<br>*** NÃO SERVE COMO FATURA ***</p>`;
     return itens;
   }
 
