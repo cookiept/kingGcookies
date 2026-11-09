@@ -4,7 +4,7 @@
    Quantidades para 6 cookies. Nos passos, {N} é trocado pelo
    número de cookies escolhido no site.
 
-   Todas as quantidades estão em gramas ("g").
+   Quantidades em gramas ("g"); líquidos em mililitros ("ml").
    "loja" diz como comprar (ex.: ovos à unidade) para a lista de compras.
    ========================================================= */
 
@@ -39,7 +39,7 @@ const RECEITAS = [
         titulo: "Recheio de mousse (ganache batida)",
         itens: [
           { q: 100, u: "g", n: "chocolate de leite ou negro (50–55%), picado fino" },
-          { q: 60, u: "g", n: "natas para bater (35% gordura)" }
+          { q: 60, u: "ml", n: "natas para bater (35% gordura)" }
         ]
       },
       {
@@ -49,7 +49,7 @@ const RECEITAS = [
           { q: 130, u: "g", n: "açúcar mascavado claro" },
           { q: 50, u: "g", n: "açúcar branco" },
           { q: 50, u: "g", n: "ovo batido (1 ovo grande ≈ 50 g), à temperatura ambiente", loja: { por: 50, n: "ovo grande", plural: "ovos grandes", un: "ovo", unPl: "ovos", nomeVol: "grande, à temperatura ambiente", nomeVolPl: "grandes, à temperatura ambiente" } },
-          { q: 5, u: "g", n: "extrato de baunilha" },
+          { q: 5, u: "ml", n: "extrato de baunilha" },
           { q: 175, u: "g", n: "farinha sem fermento" },
           { q: 30, u: "g", n: "cacau em pó sem açúcar" },
           { q: 4, u: "g", n: "amido de milho (Maizena)" },
@@ -132,7 +132,7 @@ const RECEITAS = [
           { q: 120, u: "g", n: "açúcar mascavado claro" },
           { q: 50, u: "g", n: "açúcar branco" },
           { q: 50, u: "g", n: "ovo batido (1 ovo grande ≈ 50 g), à temperatura ambiente", loja: { por: 50, n: "ovo grande", plural: "ovos grandes", un: "ovo", unPl: "ovos", nomeVol: "grande, à temperatura ambiente", nomeVolPl: "grandes, à temperatura ambiente" } },
-          { q: 5, u: "g", n: "extrato de baunilha" },
+          { q: 5, u: "ml", n: "extrato de baunilha" },
           { q: 200, u: "g", n: "farinha sem fermento" },
           { q: 4, u: "g", n: "amido de milho (Maizena)" },
           { q: 3, u: "g", n: "bicarbonato de sódio" },
@@ -215,8 +215,8 @@ const RECEITAS = [
           { q: 100, u: "g", n: "açúcar mascavado claro" },
           { q: 80, u: "g", n: "açúcar branco" },
           { q: 50, u: "g", n: "ovo batido (1 ovo grande ≈ 50 g), à temperatura ambiente", loja: { por: 50, n: "ovo grande", plural: "ovos grandes", un: "ovo", unPl: "ovos", nomeVol: "grande, à temperatura ambiente", nomeVolPl: "grandes, à temperatura ambiente" } },
-          { q: 5, u: "g", n: "extrato de baunilha" },
-          { q: 15, u: "g", n: "leite" },
+          { q: 5, u: "ml", n: "extrato de baunilha" },
+          { q: 15, u: "ml", n: "leite" },
           { q: 6, u: "g", n: "corante alimentar vermelho em gel" },
           { q: 190, u: "g", n: "farinha sem fermento" },
           { q: 15, u: "g", n: "cacau em pó sem açúcar" },
@@ -311,6 +311,7 @@ const MEDIDAS = [
 
 /* devolve { q: "1⅓ chávenas", nota } ou null se não houver conversão */
 function emVolume(item, fator) {
+  if (item.u === "ml") return { q: Math.max(1, Math.round(item.q * fator)) + " ml" };
   const g = item.q * fator;
   if (item.loja) {
     const n = Math.max(0.5, Math.round((g / item.loja.por) * 2) / 2);

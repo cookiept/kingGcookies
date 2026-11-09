@@ -42,7 +42,7 @@
     const q = item.q * f;
     switch (item.u) {
       case "g":  return (q < 100 ? Math.max(1, Math.round(q)) : Math.round(q / 5) * 5) + " g";
-      case "ml": return Math.max(5, Math.round(q / 5) * 5) + " ml";
+      case "ml": return (q < 100 ? Math.max(1, Math.round(q)) : Math.round(q / 5) * 5) + " ml";
       case "cc": return fracao(q) + " c. chá";
       case "cs": return fracao(q) + " c. sopa";
       case "un": return fracao(Math.max(0.5, Math.round(q * 2) / 2));
@@ -249,7 +249,7 @@
       const f = fator(r);
       r.grupos.forEach(g => g.itens.forEach(it => {
         const k = chave(it);
-        const a = mapa.get(k) || { q: 0, n: curto(it.n), loja: it.loja };
+        const a = mapa.get(k) || { q: 0, n: curto(it.n), loja: it.loja, u: it.u };
         a.q += it.q * f; mapa.set(k, a);
       }));
     });
@@ -258,7 +258,7 @@
         const n = Math.max(1, Math.ceil(it.q / it.loja.por - 0.001));
         return [k, { qtd: String(n), nome: n > 1 ? it.loja.plural : it.loja.n, peso: it.q }];
       }
-      return [k, { qtd: quantidade({ q: it.q, u: "g" }, 1), nome: it.n, peso: it.q }];
+      return [k, { qtd: quantidade({ q: it.q, u: it.u }, 1), nome: it.n, peso: it.q }];
     }).sort((a, b) => b[1].peso - a[1].peso);
   }
   const codigoBarras = (() => {
@@ -423,7 +423,6 @@
               <button data-medida="g" aria-pressed="${estado.medida === "g"}">Gramas</button>
               <button data-medida="vol" aria-pressed="${estado.medida === "vol"}">Chávenas e colheres</button>
             </div>
-            ${estado.medida === "vol" ? `<p class="medida__nota">Medidas rasas: 1 chávena = 240 ml · 1 c. sopa = 15 ml · 1 c. chá = 5 ml. A balança dá resultados mais certos.</p>` : ""}
             ${r.grupos.map(g => `
               <h3 class="grupo__titulo">${g.titulo}</h3>
               <ul class="lista-ing ${estado.medida === "vol" ? "lista-ing--vol" : ""}">${g.itens.map(it => {
