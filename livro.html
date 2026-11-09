@@ -73,7 +73,7 @@
     .rec .blob { width: 120mm; right: -36mm; top: -34mm; fill: var(--papel); opacity: .6; }
     .rec__cabeca { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 60mm; gap: 6mm; align-items: center; }
     .rec__cabeca img { width: 60mm; filter: drop-shadow(0 4mm 4mm rgba(59, 29, 16, .3)); }
-    .rec__nome { font: 400 48pt/.9 "Bebas Neue"; letter-spacing: .03em; text-transform: uppercase; color: var(--cor); margin: 1.5mm 0 1.5mm; }
+    .rec__nome { font: 400 34pt/.95 "Bebas Neue"; letter-spacing: .03em; text-transform: uppercase; color: var(--cor); margin: 1.5mm 0 1.5mm; }
     .rec__subt { margin: 0 0 4mm; font-size: 11.5pt; }
     .factos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2mm; margin: 0; }
     .factos div { background: var(--papel); border-radius: 2.5mm; padding: 2mm 2.6mm; }
@@ -170,7 +170,7 @@
     html += `
       <section class="pagina indice">
         <p class="rotulo">Índice</p>
-        <h2 class="titulo">As três joias da coroa</h2>
+        <h2 class="titulo">As receitas</h2>
         <div class="indice__lista">
           ${RECEITAS.map((r, i) => `
             <article class="indice__item" style="--cor:${r.cor}">
@@ -178,7 +178,7 @@
               <div>
                 <p class="rotulo" style="color:${r.cor}">Páginas ${3 + i * 2}–${4 + i * 2}</p>
                 <h3>${r.nome}</h3>
-                <p>${r.subtitulo}</p>
+                <p>${r.descricao}</p>
                 <div class="chips"><span class="chip">${r.tempoTotal}</span><span class="chip">${r.forno}</span><span class="chip">${nivel(r.nivel)}</span></div>
               </div>
             </article>`).join("")}

@@ -200,21 +200,16 @@ html.cortina-pre::after { content: ""; position: fixed; inset: 0; z-index: 99; b
 @media (max-width: 480px) { .hero__botoes .btn { flex: 1 1 100%; } }
 
 .hero__rei { position: relative; z-index: 1; display: grid; place-items: center; min-height: 280px; }
-.rei { background: none; border: 0; padding: 0; position: relative; width: min(560px, 100%); }
+.rei { position: relative; width: min(520px, 88%); }
 .rei img { width: 100%; height: auto; filter: drop-shadow(0 28px 22px rgba(59, 29, 16, .25)); animation: balanca 5s ease-in-out infinite; }
 @keyframes balanca { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-.rei__balao {
-  position: absolute; top: 2%; left: 0; z-index: 2;
-  background: var(--papel); color: var(--chocolate);
-  font: 700 21px/1.1 var(--f-script);
-  padding: 10px 18px; border-radius: 22px; box-shadow: var(--sombra-leve);
-  transform: rotate(-6deg); max-width: 210px; text-align: left;
-}
-.rei__balao::after { content: ""; position: absolute; bottom: -10px; right: 28px; border: 10px solid transparent; border-top-color: var(--papel); border-bottom: 0; }
-.flutua { position: absolute; width: clamp(58px, 9vw, 104px); filter: drop-shadow(0 10px 10px rgba(59, 29, 16, .18)); pointer-events: none; }
-.flutua--a { left: -2%; bottom: 8%; }
-.flutua--b { right: 0; top: 2%; }
-.flutua--c { right: 4%; bottom: 0; }
+.flutua { position: absolute; z-index: 2; width: clamp(54px, 8vw, 96px); filter: drop-shadow(0 10px 10px rgba(59, 29, 16, .18)); pointer-events: none; animation: flutua 6s ease-in-out infinite; }
+.flutua--a { left: 0; bottom: 10%; rotate: -14deg; }
+.flutua--b { right: 2%; top: 4%; animation-delay: -1.2s; animation-duration: 7s; }
+.flutua--c { right: 0; bottom: 4%; animation-delay: -2.5s; }
+.flutua--d { left: 4%; top: 6%; animation-delay: -3.6s; animation-duration: 7.5s; width: clamp(48px, 7vw, 84px); }
+.flutua--e { left: 40%; bottom: -4%; animation-delay: -4.4s; animation-duration: 6.5s; width: clamp(48px, 7vw, 84px); }
+@keyframes flutua { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
 /* ondas */
 .onda { display: block; width: 100%; height: clamp(44px, 8vw, 110px); }
@@ -242,7 +237,7 @@ html.cortina-pre::after { content: ""; position: fixed; inset: 0; z-index: 99; b
 }
 .cartao__nome { font: 400 34px/1 var(--f-titulo); letter-spacing: .04em; text-transform: uppercase; margin: 10px 0 6px; color: var(--cor); }
 .cartao__sub { margin: 0 0 12px; color: var(--tinta-suave); }
-.cartao__piada { font: 700 21px/1.15 var(--f-script); color: var(--chocolate-2); margin: 0 0 18px; flex: 1; }
+.cartao__desc { margin: 0 0 18px; color: var(--tinta-suave); flex: 1; }
 .cartao__btn { align-self: stretch; }
 @media (min-width: 760px) { .cartao__btn { align-self: flex-start; } }
 
@@ -493,3 +488,16 @@ body.em-cozinha { overflow: hidden; }
   -webkit-text-stroke: 0; pointer-events: none;
 }
 .hero__titulo .rei-linha { margin-top: .2em; }
+
+/* ícones nas etiquetas e na ficha da receita */
+.etiqueta__ic { width: 16px; height: 16px; object-fit: contain; }
+.etiqueta__svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.rc-hero__desc { margin: 0 0 20px; max-width: 46ch; color: var(--tinta-suave); }
+.facto { position: relative; padding-left: 48px !important; min-height: 52px; }
+.facto::before { content: ""; position: absolute; left: 10px; top: 50%; translate: 0 -50%; width: 28px; height: 28px; background: no-repeat center / contain; }
+.facto--cookie::before { background-image: url("../assets/img/mini/cookie.png"); }
+.facto--forno::before { background-image: url("../assets/img/icons/forno.png"); }
+.facto--balanca::before { background-image: url("../assets/img/icons/balanca.png"); }
+.facto--relogio::before { width: 24px; height: 24px; left: 12px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b1d10' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='13' r='8'/%3E%3Cpath d='M12 9v4l2.5 2M9 2h6'/%3E%3C/svg%3E"); }
+.facto--nivel { padding-left: 14px !important; }
+.facto--nivel::before { display: none; }

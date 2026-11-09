@@ -8,14 +8,14 @@ Site com as três receitas de cookies do King G, cada uma para 6 cookies:
 
 | Cookie | O que é |
 |---|---|
-| **O Rei Recheado** | Massa de chocolate com coração de mousse de chocolate |
-| **O Bueno Real** | Kinder Bueno na massa, por cima e com coração de Nutella |
-| **A Capa Vermelha** | Red velvet com chocolate branco e de leite |
+| **Cookie de Chocolate Recheada** | Massa de chocolate com recheio de mousse de chocolate |
+| **Cookie Kinder Bueno** | Com pedaços de Kinder Bueno e recheio de Nutella |
+| **Cookie Red Velvet** | Red velvet com chocolate branco e de leite |
 
 ## O que o site faz
 
 - **Página inicial** com as três cookies. Carregar numa abre a página dela, com uma chuva de cookies pelo meio.
-- **Uma página por cookie** (`rei-recheado.html`, `bueno-real.html`, `capa-vermelha.html`) com:
+- **Uma página por cookie** (`cookie-chocolate-recheada.html`, `cookie-kinder-bueno.html`, `cookie-red-velvet.html`) com:
   - tempos, forno, peso de cada cookie e nível de dificuldade;
   - "Antes de começar" e o equipamento necessário;
   - ingredientes com visto e **doses ajustáveis** (as quantidades recalculam-se);
@@ -30,9 +30,9 @@ Site com as três receitas de cookies do King G, cada uma para 6 cookies:
 ```
 kingGcookies/
 ├── index.html            ← página inicial
-├── rei-recheado.html     ← páginas das receitas (geradas, ver abaixo)
-├── bueno-real.html
-├── capa-vermelha.html
+├── cookie-chocolate-recheada.html  ← páginas das receitas (geradas, ver abaixo)
+├── cookie-kinder-bueno.html
+├── cookie-red-velvet.html
 ├── livro.html            ← livro de receitas para imprimir (A4)
 ├── css/
 │   ├── estilo.css        ← cores, letras e layout da marca

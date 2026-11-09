@@ -196,13 +196,12 @@
       <a class="cartao" href="${r.pagina}" data-ir="${r.imagem}" style="--cor:${r.cor}">
         <img class="cartao__foto" src="${r.imagem}" alt="">
         <div class="etiquetas">
-          <span class="etiqueta">${BASE_COOKIES} cookies</span>
-          <span class="etiqueta">${r.tempoTotal}</span>
+          <span class="etiqueta"><img class="etiqueta__ic" src="assets/img/mini/cookie.png" alt="">${BASE_COOKIES} cookies</span>
+          <span class="etiqueta">${SVG_RELOGIO.replace("<svg", '<svg class="etiqueta__svg"')}${r.tempoTotal}</span>
           <span class="etiqueta">${nivel(r.nivel)}</span>
         </div>
         <h3 class="cartao__nome">${r.nome}</h3>
-        <p class="cartao__sub">${r.subtitulo}</p>
-        <p class="cartao__piada">“${r.piada}”</p>
+        <p class="cartao__desc">${r.descricao}</p>
         <span class="btn btn--real cartao__btn">Ver receita ${SVG_SETA}</span>
       </a>`).join("");
 
@@ -213,14 +212,6 @@
         <h3>${g.t}</h3>
         <p>${g.d}</p>
       </article>`).join("");
-
-    const FRASES = [
-      "Mais manteiga!", "Quem comeu a massa crua? Eu vi.", "Por decreto real: só uma… OK, duas.",
-      "190 graus. Nem mais um.", "Pesa a farinha, súbdito!", "Isto não é dieta. É monarquia.",
-      "Cookie mole é cookie feliz.", "Ninguém toca no tabuleiro quente!", "Viva o Rei! E as cookies."
-    ];
-    let fraseI = 0;
-    $("#rei").addEventListener("click", () => { $("#rei-balao").textContent = FRASES[fraseI++ % FRASES.length]; chuva(); });
 
     desenharCompras();
     document.addEventListener("click", (e) => {
@@ -334,13 +325,14 @@
               </a>
               <h1 class="rc-hero__nome">${r.nome}</h1>
               <p class="rc-hero__sub">${r.subtitulo}</p>
+              <p class="rc-hero__desc">${r.descricao}</p>
               <dl class="factos">
-                <div><dt>Rende</dt><dd>${BASE_COOKIES} cookies</dd></div>
-                <div><dt>Mãos na massa</dt><dd>${r.tempoAtivo}</dd></div>
-                <div><dt>Tempo total</dt><dd>${r.tempoTotal}</dd></div>
-                <div><dt>Forno</dt><dd>${r.forno}</dd></div>
-                <div><dt>Cada cookie</dt><dd>${r.pesoBola}</dd></div>
-                <div><dt>Nível</dt><dd>${nivel(r.nivel)}</dd></div>
+                <div class="facto facto--cookie"><dt>Rende</dt><dd>${BASE_COOKIES} cookies</dd></div>
+                <div class="facto facto--relogio"><dt>Mãos na massa</dt><dd>${r.tempoAtivo}</dd></div>
+                <div class="facto facto--relogio"><dt>Tempo total</dt><dd>${r.tempoTotal}</dd></div>
+                <div class="facto facto--forno"><dt>Forno</dt><dd>${r.forno}</dd></div>
+                <div class="facto facto--balanca"><dt>Cada cookie</dt><dd>${r.pesoBola}</dd></div>
+                <div class="facto facto--nivel"><dt>Nível</dt><dd>${nivel(r.nivel)}</dd></div>
               </dl>
               <button class="btn btn--real" data-acao="cozinhar">Começar em modo cozinha ${SVG_SETA}</button>
             </div>
@@ -414,7 +406,7 @@
 
         <section class="outras">
           <div class="contentor">
-            <h2 class="sub-titulo">As outras joias</h2>
+            <h2 class="sub-titulo">Outras receitas</h2>
             <div class="outras__grelha">${outras.map(o => `
               <a class="outra" href="${o.pagina}" data-ir="${o.imagem}" style="--cor:${o.cor};--suave:${o.corSuave}">
                 <img src="${o.imagem}" alt="">

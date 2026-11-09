@@ -14,10 +14,10 @@ const NIVEIS = { 1: "Fácil", 2: "Médio", 3: "Exigente" };
 const RECEITAS = [
   {
     id: "recheada",
-    pagina: "rei-recheado.html",
-    nome: "O Rei Recheado",
-    subtitulo: "Massa de chocolate com coração de mousse de chocolate",
-    piada: "Parte-a ao meio e vê a mousse a escorrer.",
+    pagina: "cookie-chocolate-recheada.html",
+    nome: "Cookie de Chocolate Recheada",
+    subtitulo: "Massa de chocolate com recheio de mousse de chocolate",
+    descricao: "Cookie grossa de massa de chocolate, com pedaços de chocolate de leite e um recheio de ganache batida que fica cremoso depois de cozer. Serve-se morna.",
     cor: "#5a2d1a",
     corSuave: "#f3e3d6",
     imagem: "assets/img/cookies/recheada.png",
@@ -98,10 +98,10 @@ const RECEITAS = [
 
   {
     id: "bueno",
-    pagina: "bueno-real.html",
-    nome: "O Bueno Real",
-    subtitulo: "Kinder Bueno na massa e por cima, com coração de Nutella",
-    piada: "Três Kinder Bueno morreram para que esta cookie pudesse viver.",
+    pagina: "cookie-kinder-bueno.html",
+    nome: "Cookie Kinder Bueno",
+    subtitulo: "Com pedaços de Kinder Bueno e recheio de Nutella",
+    descricao: "Cookie de baunilha com pedaços de Kinder Bueno e chocolate de leite, recheada com Nutella e decorada com fios de chocolate de leite e branco.",
     cor: "#c75b12",
     corSuave: "#fde7d2",
     imagem: "assets/img/cookies/bueno.png",
@@ -185,10 +185,10 @@ const RECEITAS = [
 
   {
     id: "redvelvet",
-    pagina: "capa-vermelha.html",
-    nome: "A Capa Vermelha",
+    pagina: "cookie-red-velvet.html",
+    nome: "Cookie Red Velvet",
     subtitulo: "Red velvet com chocolate branco e de leite",
-    piada: "Da mesma cor da capa do Rei.",
+    descricao: "Cookie red velvet com um toque de cacau e pedaços de chocolate branco e de leite. Borda firme e centro macio.",
     cor: "#b3122a",
     corSuave: "#fbe0e3",
     imagem: "assets/img/cookies/redvelvet.png",
