@@ -584,3 +584,6 @@ html { scroll-padding-top: calc(var(--nav-h) + 72px); }
 }
 @media (max-width: 380px) { .r-etapas a { font-size: 12px; } }
 .nw { white-space: nowrap; }
+/* fotos novas (mais largas que altas) */
+.i-cookie__img img { width: 94%; }
+.r-hero__foto img { width: 92%; }
