@@ -248,11 +248,11 @@ html.cortina-pre::after { content: ""; position: fixed; inset: 0; z-index: 99; b
 .cartao:hover .cartao__foto, .cartao:focus-visible .cartao__foto { rotate: 4deg; translate: 0 -6px; }
 .cartao__info { margin-top: 18px; }
 .cartao__topo { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
-.cartao__nome { font: 400 34px/.95 var(--f-titulo); letter-spacing: .03em; text-transform: uppercase; margin: 0; }
+.cartao__nome { font: 400 34px/.95 var(--f-titulo); letter-spacing: .03em; text-transform: uppercase; margin: 0; min-height: 1.9em; display: flex; align-items: flex-end; }
 .cartao__seta { flex: none; width: 46px; height: 46px; border-radius: 50%; background: #fff; color: var(--cor); display: grid; place-items: center; transition: translate .25s ease; }
 .cartao__seta svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
 .cartao:hover .cartao__seta { translate: 4px 0; }
-.cartao__desc { margin: 10px 0 14px; font-size: 14.5px; line-height: 1.5; color: rgba(255, 255, 255, .9); }
+.cartao__desc { margin: 10px 0 14px; font-size: 14.5px; line-height: 1.5; color: rgba(255, 255, 255, .9); display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; min-height: calc(1.5em * 4); }
 .cartao__meta { display: flex; flex-wrap: wrap; gap: 6px; }
 .cartao__meta > span {
   display: inline-flex; align-items: center; gap: 6px;
@@ -264,7 +264,7 @@ html.cortina-pre::after { content: ""; position: fixed; inset: 0; z-index: 99; b
 .cartao__meta svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
 .cartao .nivel__barras i { background: rgba(255, 255, 255, .35); }
 .cartao .nivel__barras i.on { background: #fff; }
-@media (max-width: 759px) { .cartao { min-height: 480px; } .cartao__foto { width: 66%; } }
+@media (max-width: 759px) { .cartao { min-height: 0; height: 530px; } .cartao__foto { width: 60%; } .cartao__desc { -webkit-line-clamp: 5; min-height: calc(1.5em * 5); } }
 
 .etiquetas { display: flex; flex-wrap: wrap; gap: 8px; }
 .etiqueta {
@@ -462,12 +462,12 @@ html.cortina-pre::after { content: ""; position: fixed; inset: 0; z-index: 99; b
 .outras { margin-top: 48px; }
 .outras__grelha { display: grid; gap: 14px; }
 @media (min-width: 700px) { .outras__grelha { grid-template-columns: 1fr 1fr; } }
-.outra { display: flex; align-items: center; gap: 16px; background: var(--suave); border-radius: var(--r-cartao); padding: 14px 20px 14px 14px; text-decoration: none; color: var(--chocolate); transition: transform .2s; }
+.outra { display: flex; align-items: center; gap: 16px; height: 124px; overflow: hidden; background: var(--suave); border-radius: var(--r-cartao); padding: 14px 20px 14px 14px; text-decoration: none; color: var(--chocolate); transition: transform .2s; }
 .outra:hover { transform: translateY(-3px); }
-.outra img { width: 84px; flex: none; filter: drop-shadow(0 8px 8px rgba(59, 29, 16, .25)); }
-.outra span { flex: 1; display: flex; flex-direction: column; }
-.outra strong { font: 400 26px/1 var(--f-titulo); letter-spacing: .05em; text-transform: uppercase; color: var(--cor); }
-.outra small { color: var(--tinta-suave); font-size: 14px; }
+.outra img { width: 84px; height: 84px; object-fit: contain; flex: none; filter: drop-shadow(0 8px 8px rgba(59, 29, 16, .25)); }
+.outra span { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.outra strong { font: 400 24px/1 var(--f-titulo); letter-spacing: .04em; text-transform: uppercase; color: var(--cor); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.outra small { color: var(--tinta-suave); font-size: 14px; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .outra > svg { width: 22px; height: 22px; flex: none; fill: none; stroke: var(--cor); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 
 /* barra fixa no telemóvel */
@@ -576,3 +576,7 @@ body.em-cozinha { overflow: hidden; }
 .medida button[aria-pressed="true"] { background: var(--papel); color: var(--chocolate); box-shadow: 0 2px 6px rgba(59, 29, 16, .12); }
 .lista-ing--vol .check__q { min-width: 104px; }
 .check__nota { font-style: normal; color: var(--tinta-suave); font-size: 13px; }
+
+/* todas as "outras receitas" com a mesma altura */
+.outras__grelha { grid-auto-rows: 1fr; }
+@media (max-width: 699px) { .outra { height: 156px; } .outra img { width: 72px; height: 72px; } .outra strong { font-size: 22px; } .outra small { -webkit-line-clamp: 3; } }
