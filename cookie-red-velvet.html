@@ -18,7 +18,7 @@
 </head>
 <body data-pagina="receita" data-receita="redvelvet" style="--cor:#b3122a;--suave:#fbe0e3">
 
-  <a class="saltar" href="#passos">Saltar para o passo a passo</a>
+  <a class="saltar" href="#precisas">Saltar para a receita</a>
 
   <header class="nav">
     <a class="nav__marca" href="index.html" aria-label="Cookie's do King G, início">
@@ -29,35 +29,42 @@
       <span></span><span></span><span></span>
     </button>
     <nav class="nav__links" id="nav-links" aria-label="Principal">
-      <a href="index.html#joias" data-voltar>Todas as cookies</a>
-      <a href="#ingredientes">Ingredientes</a>
-      <a href="#passos">Passo a passo</a>
+      <a href="index.html#cookies">As cookies</a>
+      <a href="lista.html">Lista de compras</a>
       <a href="livro.html">Livro PDF</a>
     </nav>
-    <button class="btn btn--real btn--peq nav__cozinha" data-acao="cozinhar">Modo cozinha</button>
+    <button class="pilula pilula--peq nav__cozinha" data-acao="cozinhar">Modo cozinha</button>
   </header>
 
   <main id="receita" class="pagina-receita"></main>
 
   <footer class="rodape">
-    <svg class="onda onda--rodape" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 70c180-60 360-60 540-10s360 70 540 20 270-70 360-40V120H0Z"/></svg>
-    <div class="rodape__dentro">
-      <div class="contentor rodape__grelha">
+    <div class="contentor rodape__grelha">
+      <div class="rodape__col">
+        <h2>Receitas</h2>
+        <a href="cookie-chocolate-recheada.html">Cookie de Chocolate Recheada</a>
+        <a href="cookie-kinder-bueno.html">Cookie Kinder Bueno</a>
+        <a href="cookie-red-velvet.html">Cookie Red Velvet</a>
+      </div>
+      <div class="rodape__col">
+        <h2>Mais</h2>
+        <a href="lista.html">Lista de compras</a>
+        <a href="livro.html">Livro de receitas (PDF)</a>
+        <a href="index.html#como">Como funciona</a>
+      </div>
+      <div class="rodape__marca">
         <img src="assets/img/king-g.png" alt="" width="125" height="96">
-        <div>
-          <p class="rodape__marca">Cookie's do King <em class="g">G</em></p>
-          <p class="script script--claro">Feito com manteiga a mais e zero vergonha.</p>
-        </div>
-        <a class="btn btn--claro" href="index.html#joias" data-voltar>Ver todas as cookies</a>
+        <p class="rodape__nome">Cookie's do King <em class="g">G</em></p>
+        <p class="rodape__lema">Feito com manteiga a mais e zero vergonha.</p>
       </div>
     </div>
   </footer>
 
   <!-- barra fixa no telemóvel -->
   <div class="barra-movel">
-    <a class="barra-movel__link" href="#ingredientes">Ingredientes</a>
-    <a class="barra-movel__link" href="#passos">Passos</a>
-    <button class="btn btn--real" data-acao="cozinhar">Modo cozinha</button>
+    <a class="barra-movel__link" href="#precisas">Precisas</a>
+    <a class="barra-movel__link" href="#preparacao">Preparação</a>
+    <button class="pilula" data-acao="cozinhar">Modo cozinha</button>
   </div>
 
   <!-- modo cozinha -->

@@ -193,28 +193,15 @@
      ========================================================= */
   function iniciarInicio() {
     $("#cartoes").innerHTML = RECEITAS.map(r => `
-      <a class="l-cartao" href="${r.pagina}" data-ir="${r.imagem}" style="--cor:${r.cor};--suave:${r.corSuave}">
-        <div class="l-cartao__foto">
-          <span class="l-cartao__selo">${NIVEIS[r.nivel]}</span>
-          <img src="${r.imagem}" alt="">
-        </div>
-        <div class="l-cartao__corpo">
-          <h3>${r.nome}</h3>
-          <p>${r.subtitulo}</p>
-          <div class="l-cartao__base">
-            <span class="l-cartao__tempo">${SVG_RELOGIO}${r.tempoTotal}</span>
-            <span class="l-cartao__btn">Ver receita ${SVG_SETA}</span>
-          </div>
-        </div>
+      <a class="i-cookie" href="${r.pagina}" data-ir="${r.imagem}" style="--cor:${r.cor};--suave:${r.corSuave}">
+        <span class="i-cookie__img"><img src="${r.imagem}" alt=""></span>
+        <h3>${r.nome}</h3>
+        <p>${r.subtitulo}</p>
+        <span class="i-cookie__meta">${SVG_RELOGIO}${r.tempoTotal}<i aria-hidden="true">·</i>${nivel(r.nivel)}</span>
       </a>`).join("");
+  }
 
-    $("#regras-grelha").innerHTML = REGRAS_DO_REINO.map(g => `
-      <article class="l-regra">
-        <img src="${ICON(g.icone)}" alt="">
-        <h3>${g.t}</h3>
-        <p>${g.d}</p>
-      </article>`).join("");
-
+  function iniciarLista() {
     desenharCompras();
     document.addEventListener("click", (e) => {
       const chip = e.target.closest("[data-compra]");
@@ -362,122 +349,182 @@
     const r = receita(document.body.dataset.receita);
     const main = $("#receita");
 
+    const SVG_COOKIE_IC = '<img src="assets/img/mini/cookie.png" alt="">';
+    let observador;
+
     function desenhar() {
       const f = fator(r), feitos = estado.feitos[r.id] || {}, pf = estado.passosFeitos[r.id] || {};
       let idx = 0;
       const outras = RECEITAS.filter(x => x.id !== r.id);
-      main.innerHTML = `
-        <section class="rc-hero">
-          <svg class="rc-hero__blob" viewBox="0 0 600 600" aria-hidden="true"><path d="M421 72c62 38 118 102 128 176 10 75-26 160-86 218-60 57-145 87-226 72-82-15-160-75-185-153C27 307 55 212 116 146 177 80 272 43 339 44c30 1 57 11 82 28Z"/></svg>
-          <div class="contentor rc-hero__grelha">
-            <div class="rc-hero__texto">
-              <a class="voltar" href="index.html#joias" data-voltar>
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Todas as cookies
-              </a>
-              <h1 class="rc-hero__nome">${r.nome}</h1>
-              <p class="rc-hero__sub">${r.subtitulo}</p>
-              <p class="rc-hero__desc">${r.descricao}</p>
-              <dl class="factos">
-                <div class="facto facto--cookie"><dt>Rende</dt><dd>${BASE_COOKIES} cookies</dd></div>
-                <div class="facto facto--relogio"><dt>Mãos na massa</dt><dd>${r.tempoAtivo}</dd></div>
-                <div class="facto facto--relogio"><dt>Tempo total</dt><dd>${r.tempoTotal}</dd></div>
-                <div class="facto facto--forno"><dt>Forno</dt><dd>${r.forno}</dd></div>
-                <div class="facto facto--balanca"><dt>Cada cookie</dt><dd>${r.pesoBola}</dd></div>
-                <div class="facto facto--nivel"><dt>Nível</dt><dd>${nivel(r.nivel)}</dd></div>
-              </dl>
-              <button class="btn btn--real" data-acao="cozinhar">Começar em modo cozinha ${SVG_SETA}</button>
-            </div>
-            <button class="rc-hero__foto" id="foto-chuva" aria-label="Fazer chover cookies">
-              <img src="${r.imagem}" alt="Cookie ${r.nome}">
-            </button>
-          </div>
-        </section>
+      const nIng = r.grupos.reduce((n, g) => n + g.itens.length, 0);
+      const fases = [...new Set(r.passos.map(p => p.fase))];
 
-        <section class="contentor antes">
-          <div class="antes__bloco">
-            <h2 class="sub-titulo">Antes de começar</h2>
-            <ul class="antes__lista">${r.preparacao.map(p => `<li>${p}</li>`).join("")}</ul>
-          </div>
-          <div class="antes__bloco">
-            <h2 class="sub-titulo">Vais precisar de</h2>
-            <ul class="equip">${r.equipamento.map(e => `<li><img src="${ICON(e)}" alt=""><span>${EQUIPAMENTO[e]}</span></li>`).join("")}</ul>
-          </div>
-        </section>
-
-        <section class="contentor rc-corpo">
-          <aside class="ingredientes" id="ingredientes">
-            <h2 class="sub-titulo">Ingredientes</h2>
-            <div class="dose">
-              <span class="dose__texto">Quantas<br>cookies?</span>
-              <div class="dose__ctrl">
-                <button data-dose="-1" aria-label="Menos cookies">−</button>
-                <span class="dose__num" aria-live="polite">${estado.doses[r.id]}<small>cookies</small></span>
-                <button data-dose="1" aria-label="Mais cookies">+</button>
+      /* cronologia: passos agrupados por fase, numeração contínua */
+      let linha = "";
+      fases.forEach((fase, fi) => {
+        const passos = r.passos.map((p, i) => ({ p, i })).filter(x => x.p.fase === fase);
+        linha += `<li class="r-fase"><span class="r-fase__n">Fase ${fi + 1}</span><h3>${fase}</h3><span class="r-fase__conta">${passos.length} ${passos.length > 1 ? "passos" : "passo"}</span></li>`;
+        linha += passos.map(({ p, i }) => `
+          <li class="r-passo ${pf[i] ? "feito" : ""}" data-passo="${i}">
+            <span class="r-passo__num" aria-hidden="true">${i + 1}</span>
+            <div class="r-passo__cartao">
+              <img class="r-passo__ic" src="${ICON(p.icone)}" alt="">
+              <div class="r-passo__corpo">
+                <h4><span class="vh">Passo ${i + 1}: </span>${p.t}</h4>
+                <p>${texto(p.d, r)}</p>
+                <div class="r-passo__acoes">
+                  ${p.min ? `<button class="mini" data-temp="${i}">${SVG_RELOGIO} ${p.min} min</button>` : ""}
+                  <button class="mini mini--feito" data-feito="${i}" aria-pressed="${!!pf[i]}">${SVG_CHECK} ${pf[i] ? "Feito" : "Marcar como feito"}</button>
+                </div>
               </div>
             </div>
-            ${estado.doses[r.id] !== BASE_COOKIES ? `<p class="dose__nota">Quantidades ajustadas de ${BASE_COOKIES} para ${estado.doses[r.id]} cookies. <button class="link" data-repor>Repor</button></p>` : ""}
-            ${r.grupos.map(g => `
-              <h3 class="grupo__titulo">${g.titulo}</h3>
-              <ul class="lista-ing">${g.itens.map(it => {
-                const k = idx++;
-                const v = it.u === "ml" ? null : emVolume(it, f);
-                const nota = v && v.nota ? ` <em class="check__nota">${v.nota}</em>` : "";
-                return `
-                <li><label class="check">
-                  <input type="checkbox" data-ing="${k}" ${feitos[k] ? "checked" : ""}>
-                  <span class="check__caixa">${SVG_CHECK}</span>
-                  <span class="check__q">${quantidade(it, f)}${v ? `<small>${v.q}</small>` : ""}</span>
-                  <span class="check__txt">${it.n}${nota}</span>
-                </label></li>`; }).join("")}
-              </ul>`).join("")}
-            <button class="mini" data-limpar-ing>Desmarcar ingredientes</button>
-          </aside>
+          </li>`).join("");
+      });
 
-          <section class="passos" id="passos">
-            <div class="passos__cabeca">
-              <h2 class="sub-titulo">Passo a passo</h2>
-              <span class="passos__conta" id="passos-conta"></span>
+      main.innerHTML = `
+        <section class="r-hero">
+          <div class="contentor r-hero__grelha">
+            <div class="r-hero__foto"><img src="${r.imagem}" alt="Cookie ${r.nome}"></div>
+            <div class="r-hero__texto">
+              <a class="voltar" href="index.html#cookies" data-voltar>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Todas as cookies
+              </a>
+              <h1 class="r-hero__nome">${r.nome}</h1>
+              <p class="r-hero__desc">${r.descricao}</p>
+              <dl class="r-factos">
+                <div><dt>Rende</dt><dd>${SVG_COOKIE_IC}${BASE_COOKIES} cookies</dd></div>
+                <div><dt>Tempo total</dt><dd>${SVG_RELOGIO}${r.tempoTotal}</dd></div>
+                <div><dt>Mãos na massa</dt><dd>${SVG_RELOGIO}${r.tempoAtivo}</dd></div>
+                <div><dt>Forno</dt><dd><img src="${ICON("forno")}" alt="">${r.forno}</dd></div>
+                <div><dt>Cada cookie</dt><dd><img src="${ICON("balanca")}" alt="">${r.pesoBola}</dd></div>
+                <div><dt>Nível</dt><dd>${nivel(r.nivel)}</dd></div>
+              </dl>
+              <div class="r-hero__botoes">
+                <button class="pilula" data-acao="cozinhar">Começar a cozinhar ${SVG_SETA}</button>
+                <a class="pilula pilula--claro" href="#precisas">Ver o que precisas</a>
+              </div>
             </div>
-            <ol class="lista-passos">${r.passos.map((p, i) => `
-              <li class="passo ${pf[i] ? "feito" : ""}" data-passo="${i}">
-                <div class="passo__icone"><img src="${ICON(p.icone)}" alt=""><span class="passo__num">${i + 1}</span></div>
-                <div class="passo__corpo">
-                  <h3>${p.t}</h3>
-                  <p>${texto(p.d, r)}</p>
-                  <div class="passo__acoes">
-                    ${p.min ? `<button class="mini" data-temp="${i}">${SVG_RELOGIO} Temporizador ${p.min} min</button>` : ""}
-                    <button class="mini mini--feito" data-feito="${i}" aria-pressed="${!!pf[i]}">${SVG_CHECK} ${pf[i] ? "Feito" : "Marcar como feito"}</button>
-                  </div>
-                </div>
-              </li>`).join("")}
-            </ol>
-            <div class="dicas">
-              <h3>Notas</h3>
-              <ul>${r.dicas.map(d => `<li>${d}</li>`).join("")}</ul>
-            </div>
-            <button class="mini" data-limpar-passos>Recomeçar passos</button>
-          </section>
+          </div>
         </section>
 
-        <section class="outras">
-          <div class="contentor">
-            <h2 class="sub-titulo">Outras receitas</h2>
-            <div class="outras__grelha">${outras.map(o => `
-              <a class="outra" href="${o.pagina}" data-ir="${o.imagem}" style="--cor:${o.cor};--suave:${o.corSuave}">
-                <img src="${o.imagem}" alt="">
-                <span><strong>${o.nome}</strong><small>${o.subtitulo}</small></span>
-                ${SVG_SETA}
-              </a>`).join("")}
+        <nav class="r-etapas" aria-label="Etapas da receita">
+          <div class="contentor r-etapas__lista">
+            <a href="#precisas" data-etapa="precisas"><span>1</span>O que precisas</a>
+            <a href="#preparacao" data-etapa="preparacao"><span>2</span>Preparação</a>
+            <a href="#servir" data-etapa="servir"><span>3</span>Servir</a>
+          </div>
+        </nav>
+
+        <section class="r-etapa contentor" id="precisas">
+          <header class="r-etapa__cab">
+            <span class="r-etapa__num">1</span>
+            <div>
+              <p class="r-etapa__olho">Etapa 1 de 3</p>
+              <h2>O que precisas</h2>
+              <p class="r-etapa__resumo">${r.equipamento.length} utensílios · ${nIng} ingredientes</p>
             </div>
+          </header>
+          <div class="r-precisas">
+            <div class="r-precisas__col">
+              <div class="r-bloco">
+                <h3 class="r-bloco__titulo">Equipamento</h3>
+                <ul class="r-equip">${r.equipamento.map(e => `<li><img src="${ICON(e)}" alt=""><span>${EQUIPAMENTO[e]}</span></li>`).join("")}</ul>
+              </div>
+              <div class="r-bloco">
+                <h3 class="r-bloco__titulo">Antes de começar</h3>
+                <ul class="r-antes">${r.preparacao.map(p => `<li>${p}</li>`).join("")}</ul>
+              </div>
+            </div>
+            <div class="r-bloco r-bloco--ing" id="ingredientes">
+              <div class="r-bloco__cab">
+                <h3 class="r-bloco__titulo">Ingredientes</h3>
+                <div class="dose">
+                  <span class="dose__texto">Cookies</span>
+                  <div class="dose__ctrl">
+                    <button data-dose="-1" aria-label="Menos cookies">−</button>
+                    <span class="dose__num" aria-live="polite">${estado.doses[r.id]}</span>
+                    <button data-dose="1" aria-label="Mais cookies">+</button>
+                  </div>
+                </div>
+              </div>
+              ${estado.doses[r.id] !== BASE_COOKIES ? `<p class="dose__nota">Quantidades para ${estado.doses[r.id]} cookies (a receita base é para ${BASE_COOKIES}). <button class="link" data-repor>Repor</button></p>` : ""}
+              <div class="r-ing__grupos">
+              ${r.grupos.map(g => `
+                <div class="r-ing__grupo">
+                  <h4 class="grupo__titulo">${g.titulo}</h4>
+                  <ul class="lista-ing">${g.itens.map(it => {
+                    const k = idx++;
+                    const v = it.u === "ml" ? null : emVolume(it, f);
+                    const nota = v && v.nota ? ` <em class="check__nota">${v.nota}</em>` : "";
+                    return `
+                    <li><label class="check">
+                      <input type="checkbox" data-ing="${k}" ${feitos[k] ? "checked" : ""}>
+                      <span class="check__caixa">${SVG_CHECK}</span>
+                      <span class="check__q">${quantidade(it, f)}${v ? `<small>${v.q}</small>` : ""}</span>
+                      <span class="check__txt">${it.n}${nota}</span>
+                    </label></li>`; }).join("")}
+                  </ul>
+                </div>`).join("")}
+              </div>
+              <button class="mini" data-limpar-ing>Desmarcar ingredientes</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="r-etapa contentor" id="preparacao">
+          <header class="r-etapa__cab">
+            <span class="r-etapa__num">2</span>
+            <div>
+              <p class="r-etapa__olho">Etapa 2 de 3</p>
+              <h2>Preparação</h2>
+              <p class="r-etapa__resumo">${r.passos.length} passos em ${fases.length} fases · <span id="passos-conta"></span></p>
+            </div>
+          </header>
+          <ol class="r-linha">${linha}</ol>
+          <button class="mini r-recomecar" data-limpar-passos>Recomeçar passos</button>
+        </section>
+
+        <section class="r-etapa contentor" id="servir">
+          <header class="r-etapa__cab">
+            <span class="r-etapa__num">3</span>
+            <div>
+              <p class="r-etapa__olho">Etapa 3 de 3</p>
+              <h2>Servir e guardar</h2>
+            </div>
+          </header>
+          <ul class="r-notas">${r.dicas.map(d => `<li><img src="${ICON("grade")}" alt="">${d}</li>`).join("")}</ul>
+        </section>
+
+        <section class="r-outras contentor">
+          <h2 class="i-titulo">Outras receitas</h2>
+          <div class="i-grelha i-grelha--2">${outras.map(o => `
+            <a class="i-cookie" href="${o.pagina}" data-ir="${o.imagem}" style="--cor:${o.cor};--suave:${o.corSuave}">
+              <span class="i-cookie__img"><img src="${o.imagem}" alt=""></span>
+              <h3>${o.nome}</h3>
+              <p>${o.subtitulo}</p>
+              <span class="i-cookie__meta">${SVG_RELOGIO}${o.tempoTotal}<i aria-hidden="true">·</i>${nivel(o.nivel)}</span>
+            </a>`).join("")}
           </div>
         </section>`;
       contarPassos();
+
+      /* destaca a etapa visível na barra */
+      if (observador) observador.disconnect();
+      if ("IntersectionObserver" in window) {
+        observador = new IntersectionObserver((ents) => {
+          ents.forEach(en => {
+            if (!en.isIntersecting) return;
+            document.querySelectorAll(".r-etapas a").forEach(a => a.classList.toggle("ativa", a.dataset.etapa === en.target.id));
+          });
+        }, { rootMargin: "-45% 0px -50% 0px" });
+        ["precisas", "preparacao", "servir"].forEach(id => observador.observe(document.getElementById(id)));
+      }
     }
 
     function contarPassos() {
       const pf = estado.passosFeitos[r.id] || {};
       const n = Object.values(pf).filter(Boolean).length;
-      const el = $("#passos-conta"); if (el) el.textContent = `${n} de ${r.passos.length} feitos`;
+      const el = $("#passos-conta"); if (el) el.textContent = `${n} feitos`;
     }
 
     desenhar();
@@ -499,12 +546,11 @@
       if (feito) {
         const i = feito.dataset.feito, pf = estado.passosFeitos[r.id] = estado.passosFeitos[r.id] || {};
         pf[i] = !pf[i]; guardar("passosFeitos", estado.passosFeitos);
-        const li = feito.closest(".passo"); li.classList.toggle("feito", pf[i]);
+        const li = feito.closest(".r-passo"); li.classList.toggle("feito", pf[i]);
         feito.setAttribute("aria-pressed", String(pf[i]));
         feito.innerHTML = `${SVG_CHECK} ${pf[i] ? "Feito" : "Marcar como feito"}`;
         contarPassos(); return;
       }
-      if (e.target.closest("#foto-chuva")) { chuva(18); return; }
     });
     main.addEventListener("change", (e) => {
       const ing = e.target.closest("[data-ing]");
@@ -567,7 +613,7 @@
         const p = r.passos[coz.passo];
         palco.innerHTML = `
           <img class="cozinha__icone" src="${ICON(p.icone)}" alt="" aria-hidden="true">
-          <p class="sobrancelha">Passo ${coz.passo + 1} de ${total}</p>
+          <p class="sobrancelha">Passo ${coz.passo + 1} de ${total} · ${p.fase}</p>
           <h2 class="cozinha__titulo" id="cozinha-titulo">${p.t}</h2>
           <p class="cozinha__texto">${texto(p.d, r)}</p>
           <div class="cozinha__temporizador" id="cozinha-temp"></div>`;
@@ -626,5 +672,6 @@
   }
 
   if (pagina === "inicio") iniciarInicio();
+  if (pagina === "lista") iniciarLista();
   if (pagina === "receita") iniciarReceita();
 })();

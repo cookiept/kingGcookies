@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Lista de compras · Cookie's do King G</title>
+  <meta name="description" content="As três receitas de cookies do King G: recheada de mousse, Kinder Bueno e Red Velvet. Passo a passo, com temporizadores e modo cozinha.">
+  <meta property="og:title" content="Cookie's do King G">
+  <meta property="og:description" content="Sua Majestade decretou: cookies para todos.">
+  <meta property="og:image" content="assets/img/king-g.png">
+  <meta name="theme-color" content="#fbf6ee">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="assets/img/king-head.png">
+  <link rel="preload" href="assets/fonts/luckiest-guy-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/fontes.css">
+  <link rel="stylesheet" href="css/estilo.css">
+  <script>try{if(sessionStorage.getItem("kingg:cortina"))document.documentElement.classList.add("cortina-pre")}catch(e){}</script>
+</head>
+<body data-pagina="lista">
+
+  <header class="nav">
+    <a class="nav__marca" href="index.html" aria-label="Cookie's do King G, início">
+      <img src="assets/img/king-g.png" alt="" width="58" height="44">
+      <span>Cookie's do King <em class="g">G</em></span>
+    </a>
+    <button class="nav__menu" aria-expanded="false" aria-controls="nav-links" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav__links" id="nav-links" aria-label="Principal">
+      <a href="index.html#cookies">As cookies</a>
+      <a href="lista.html">Lista de compras</a>
+      <a href="livro.html">Livro PDF</a>
+    </nav>
+  </header>
+
+  <main class="pagina-lista">
+    <section class="compras contentor" id="compras">
+      <div class="compras__lado">
+        <p class="etiqueta-rosa">Missão supermercado</p>
+        <h1 class="i-titulo i-titulo--esq">Lista de compras</h1>
+        <p class="compras__intro">Escolhe as receitas que vais fazer. O talão junta os ingredientes e soma as quantidades, com as doses que escolheste em cada receita. Vai riscando o que já tens no cesto.</p>
+        <div class="compras__escolha" id="compras-escolha"></div>
+        <div class="compras__acoes">
+          <button class="pilula" id="copiar-lista">Copiar lista</button>
+          <button class="pilula pilula--claro" id="limpar-lista">Desmarcar tudo</button>
+        </div>
+      </div>
+      <div class="talao-wrap">
+        <div class="talao" id="talao"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="contentor rodape__grelha">
+      <div class="rodape__col">
+        <h2>Receitas</h2>
+        <a href="cookie-chocolate-recheada.html">Cookie de Chocolate Recheada</a>
+        <a href="cookie-kinder-bueno.html">Cookie Kinder Bueno</a>
+        <a href="cookie-red-velvet.html">Cookie Red Velvet</a>
+      </div>
+      <div class="rodape__col">
+        <h2>Mais</h2>
+        <a href="lista.html">Lista de compras</a>
+        <a href="livro.html">Livro de receitas (PDF)</a>
+        <a href="index.html#como">Como funciona</a>
+      </div>
+      <div class="rodape__marca">
+        <img src="assets/img/king-g.png" alt="" width="125" height="96">
+        <p class="rodape__nome">Cookie's do King <em class="g">G</em></p>
+        <p class="rodape__lema">Feito com manteiga a mais e zero vergonha.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="aviso" id="aviso" role="status" aria-live="polite"></div>
+
+  <script src="js/receitas.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

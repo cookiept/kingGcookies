@@ -14,22 +14,21 @@ Site com as três receitas de cookies do King G, cada uma para 6 cookies:
 
 ## O que o site faz
 
-- **Página inicial** com as três cookies. Carregar numa abre a página dela, com uma chuva de cookies pelo meio.
-- **Uma página por cookie** (`cookie-chocolate-recheada.html`, `cookie-kinder-bueno.html`, `cookie-red-velvet.html`) com:
-  - tempos, forno, peso de cada cookie e nível de dificuldade;
-  - "Antes de começar" e o equipamento necessário;
-  - ingredientes com visto e **doses ajustáveis** (as quantidades recalculam-se);
-  - passo a passo com **temporizadores** e "marcar como feito";
-  - **modo cozinha**: um passo de cada vez, em letra grande; desliza para mudar de passo e o ecrã não se apaga.
-- **Lista de compras** que junta as receitas escolhidas e soma as quantidades.
+- **Página inicial**: o conceito e as três cookies (foto, nome, tempo e nível). Carregar numa abre a receita, com uma cortina dessa cookie pelo meio.
+- **Página de cada cookie**, organizada em três etapas, com uma barra fixa para saltar entre elas:
+  1. **O que precisas**: equipamento, "antes de começar" e ingredientes em gramas e chávenas/colheres (líquidos em ml), com doses ajustáveis e vistos.
+  2. **Preparação**: cronologia com os passos numerados e agrupados por fase (por exemplo, Recheio → Massa → Moldar → Forno → Decorar), com temporizadores, "marcar como feito" e modo cozinha.
+  3. **Servir e guardar**: como servir, conservar e congelar.
+  No fim aparecem as outras receitas.
+- **Lista de compras** (`lista.html`): um talão que junta e soma os ingredientes das receitas escolhidas.
 - **Livro de receitas**: [`livro.html`](livro.html) para imprimir, ou o PDF em [`docs/`](docs/Livro-Cookies-do-King-G.pdf).
-- Pensado primeiro para telemóvel: menu próprio e barra fixa em baixo nas receitas.
 
 ## Estrutura
 
 ```
 kingGcookies/
 ├── index.html            ← página inicial
+├── lista.html            ← lista de compras (talão)
 ├── cookie-chocolate-recheada.html  ← páginas das receitas (geradas, ver abaixo)
 ├── cookie-kinder-bueno.html
 ├── cookie-red-velvet.html
@@ -52,7 +51,7 @@ kingGcookies/
 
 ## Mudar uma receita
 
-Abre `js/receitas.js`. Cada receita tem `grupos` (ingredientes) e `passos`.
+Abre `js/receitas.js`. Cada receita tem `grupos` (ingredientes) e `passos`; cada passo tem uma `fase`, que define o agrupamento na cronologia.
 As quantidades são para 6 cookies; o site faz as contas para outras doses.
 Nos passos, `{N}` é trocado pelo número de cookies escolhido.
 
