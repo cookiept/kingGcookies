@@ -91,10 +91,11 @@
     .ing__grupo { break-inside: avoid; margin-bottom: 2mm; }
     .ing__grupo h4 { font: 700 13pt/1 "Caveat"; color: var(--cor); margin: 1mm 0 .8mm; }
     .ing__grupo ul { list-style: none; margin: 0; padding: 0; }
-    .ing__grupo li { display: grid; grid-template-columns: 3.4mm 15mm 1fr; gap: 1.5mm; padding: 1.2mm 0; border-bottom: .3mm dashed var(--areia); font-size: 8.4pt; line-height: 1.28; break-inside: avoid; }
+    .ing__grupo li { display: grid; grid-template-columns: 3.4mm 11mm 1fr 19mm; gap: 1.5mm; padding: 1.2mm 0; border-bottom: .3mm dashed var(--areia); font-size: 8.4pt; line-height: 1.28; break-inside: avoid; }
     .ing__grupo li:last-child { border: 0; }
     .ing__grupo li::before { content: ""; width: 3mm; height: 3mm; border: .4mm solid var(--areia); border-radius: 1mm; margin-top: .2mm; }
     .ing__grupo b { color: var(--chocolate); }
+    .ing__grupo i { font-style: normal; color: var(--tinta-suave); font-size: 7.6pt; text-align: right; }
     .notas { position: relative; z-index: 1; margin-top: 4mm; background: var(--chocolate); color: #f7e8d6; border-radius: 4mm; padding: 3.5mm 5mm; font-size: 8.4pt; }
     .notas strong { font: 700 13pt/1 "Caveat"; color: var(--mel); display: block; margin-bottom: 1mm; }
     .notas ul { margin: 0; padding-left: 4mm; display: grid; gap: .8mm; }
@@ -225,9 +226,9 @@
           </div>
         </div>
         <div class="ing">
-          <p class="sub">Ingredientes</p>
+          <p class="sub">Ingredientes <span style="font:600 6.5pt Jost;letter-spacing:.12em;color:var(--tinta-suave);margin-left:2mm">GRAMAS · CHÁVENAS E COLHERES (240 / 15 / 5 ML)</span></p>
           <div class="ing__cols">
-            ${r.grupos.map(g => `<div class="ing__grupo"><h4>${g.titulo}</h4><ul>${g.itens.map(it => `<li><b>${qt(it)}</b><span>${nome(it)}</span></li>`).join("")}</ul></div>`).join("")}
+            ${r.grupos.map(g => `<div class="ing__grupo"><h4>${g.titulo}</h4><ul>${g.itens.map(it => { const v = emVolume(it, 1); return `<li><b>${qt(it)}</b><span>${nome(it)}</span><i>${v ? v.q : ""}</i></li>`; }).join("")}</ul></div>`).join("")}
           </div>
         </div>
         <div class="notas"><strong>Notas</strong><ul>${r.dicas.map(d => `<li>${d}</li>`).join("")}</ul></div>

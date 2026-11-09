@@ -26,7 +26,8 @@
     feitos: ler("feitos", {}),
     passosFeitos: ler("passosFeitos", {}),
     compras: ler("compras", RECEITAS.map(r => r.id)),
-    comprado: ler("comprado", {})
+    comprado: ler("comprado", {}),
+    medida: ler("medida", "g")
   };
   const receita = (id) => RECEITAS.find(r => r.id === id);
 
@@ -194,15 +195,20 @@
   function iniciarInicio() {
     $("#cartoes").innerHTML = RECEITAS.map(r => `
       <a class="cartao" href="${r.pagina}" data-ir="${r.imagem}" style="--cor:${r.cor}">
+        <span class="cartao__fundo" aria-hidden="true">${r.palavra}</span>
         <img class="cartao__foto" src="${r.imagem}" alt="">
-        <div class="etiquetas">
-          <span class="etiqueta"><img class="etiqueta__ic" src="assets/img/mini/cookie.png" alt="">${BASE_COOKIES} cookies</span>
-          <span class="etiqueta">${SVG_RELOGIO.replace("<svg", '<svg class="etiqueta__svg"')}${r.tempoTotal}</span>
-          <span class="etiqueta">${nivel(r.nivel)}</span>
+        <div class="cartao__info">
+          <div class="cartao__topo">
+            <h3 class="cartao__nome">${r.nome}</h3>
+            <span class="cartao__seta" aria-hidden="true">${SVG_SETA}</span>
+          </div>
+          <p class="cartao__desc">${r.descricao}</p>
+          <div class="cartao__meta">
+            <span><img src="assets/img/mini/cookie.png" alt="">${BASE_COOKIES} cookies</span>
+            <span>${SVG_RELOGIO}${r.tempoTotal}</span>
+            <span>${nivel(r.nivel)}</span>
+          </div>
         </div>
-        <h3 class="cartao__nome">${r.nome}</h3>
-        <p class="cartao__desc">${r.descricao}</p>
-        <span class="btn btn--real cartao__btn">Ver receita ${SVG_SETA}</span>
       </a>`).join("");
 
     $("#regras-grelha").innerHTML = REGRAS_DO_REINO.map((g, i) => `
@@ -413,14 +419,25 @@
               </div>
             </div>
             ${estado.doses[r.id] !== BASE_COOKIES ? `<p class="dose__nota">Quantidades ajustadas de ${BASE_COOKIES} para ${estado.doses[r.id]} cookies. <button class="link" data-repor>Repor</button></p>` : ""}
+            <div class="medida" role="group" aria-label="Unidades de medida">
+              <button data-medida="g" aria-pressed="${estado.medida === "g"}">Gramas</button>
+              <button data-medida="vol" aria-pressed="${estado.medida === "vol"}">Chávenas e colheres</button>
+            </div>
+            ${estado.medida === "vol" ? `<p class="medida__nota">Medidas rasas: 1 chávena = 240 ml · 1 c. sopa = 15 ml · 1 c. chá = 5 ml. A balança dá resultados mais certos.</p>` : ""}
             ${r.grupos.map(g => `
               <h3 class="grupo__titulo">${g.titulo}</h3>
-              <ul class="lista-ing">${g.itens.map(it => { const k = idx++; return `
+              <ul class="lista-ing ${estado.medida === "vol" ? "lista-ing--vol" : ""}">${g.itens.map(it => {
+                const k = idx++;
+                const v = estado.medida === "vol" ? emVolume(it, f) : null;
+                const q = v ? v.q : quantidade(it, f);
+                const n = v && v.nome ? v.nome : it.n;
+                const nota = v && v.nota ? ` <em class="check__nota">${v.nota}</em>` : "";
+                return `
                 <li><label class="check">
                   <input type="checkbox" data-ing="${k}" ${feitos[k] ? "checked" : ""}>
                   <span class="check__caixa">${SVG_CHECK}</span>
-                  <span class="check__q">${quantidade(it, f)}</span>
-                  <span class="check__txt">${nomeItem(it, f)}</span>
+                  <span class="check__q">${q}</span>
+                  <span class="check__txt">${n}${nota}</span>
                 </label></li>`; }).join("")}
               </ul>`).join("")}
             <button class="mini" data-limpar-ing>Desmarcar ingredientes</button>
@@ -483,6 +500,8 @@
         $(`[data-dose="${dose.dataset.dose}"]`).focus();
         return;
       }
+      const med = e.target.closest("[data-medida]");
+      if (med) { estado.medida = med.dataset.medida; guardar("medida", estado.medida); desenhar(); $(`[data-medida="${estado.medida}"]`).focus(); return; }
       if (e.target.closest("[data-repor]")) { estado.doses[r.id] = BASE_COOKIES; guardar("doses", estado.doses); desenhar(); return; }
       if (e.target.closest("[data-limpar-ing]")) { estado.feitos[r.id] = {}; guardar("feitos", estado.feitos); desenhar(); return; }
       if (e.target.closest("[data-limpar-passos]")) { estado.passosFeitos[r.id] = {}; guardar("passosFeitos", estado.passosFeitos); desenhar(); return; }

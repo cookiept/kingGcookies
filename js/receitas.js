@@ -17,6 +17,7 @@ const RECEITAS = [
     id: "recheada",
     pagina: "cookie-chocolate-recheada.html",
     nome: "Cookie de Chocolate Recheada",
+    palavra: "Choco",
     subtitulo: "Massa de chocolate com recheio de mousse de chocolate",
     descricao: "Cookie grossa de massa de chocolate, com pedaços de chocolate de leite e um recheio de ganache batida que fica cremoso depois de cozer. Serve-se morna.",
     cor: "#5a2d1a",
@@ -47,7 +48,7 @@ const RECEITAS = [
           { q: 115, u: "g", n: "manteiga com sal, a 18–20 °C" },
           { q: 130, u: "g", n: "açúcar mascavado claro" },
           { q: 50, u: "g", n: "açúcar branco" },
-          { q: 50, u: "g", n: "ovo batido (1 ovo grande ≈ 50 g), à temperatura ambiente", loja: { por: 50, n: "ovo grande", plural: "ovos grandes" } },
+          { q: 50, u: "g", n: "ovo batido (1 ovo grande ≈ 50 g), à temperatura ambiente", loja: { por: 50, n: "ovo grande", plural: "ovos grandes", un: "ovo", unPl: "ovos", nomeVol: "grande, à temperatura ambiente", nomeVolPl: "grandes, à temperatura ambiente" } },
           { q: 5, u: "g", n: "extrato de baunilha" },
           { q: 175, u: "g", n: "farinha sem fermento" },
           { q: 30, u: "g", n: "cacau em pó sem açúcar" },
@@ -101,9 +102,10 @@ const RECEITAS = [
     id: "bueno",
     pagina: "cookie-kinder-bueno.html",
     nome: "Cookie Kinder Bueno",
+    palavra: "Bueno",
     subtitulo: "Com pedaços de Kinder Bueno e recheio de Nutella",
     descricao: "Cookie de baunilha com pedaços de Kinder Bueno e chocolate de leite, recheada com Nutella e decorada com fios de chocolate de leite e branco.",
-    cor: "#c75b12",
+    cor: "#b9520e",
     corSuave: "#fde7d2",
     imagem: "assets/img/cookies/bueno.png",
     pesoBola: "≈114 g de massa + 15 g de Nutella",
@@ -129,20 +131,20 @@ const RECEITAS = [
           { q: 115, u: "g", n: "manteiga com sal, a 18–20 °C" },
           { q: 120, u: "g", n: "açúcar mascavado claro" },
           { q: 50, u: "g", n: "açúcar branco" },
-          { q: 50, u: "g", n: "ovo batido (1 ovo grande ≈ 50 g), à temperatura ambiente", loja: { por: 50, n: "ovo grande", plural: "ovos grandes" } },
+          { q: 50, u: "g", n: "ovo batido (1 ovo grande ≈ 50 g), à temperatura ambiente", loja: { por: 50, n: "ovo grande", plural: "ovos grandes", un: "ovo", unPl: "ovos", nomeVol: "grande, à temperatura ambiente", nomeVolPl: "grandes, à temperatura ambiente" } },
           { q: 5, u: "g", n: "extrato de baunilha" },
           { q: 200, u: "g", n: "farinha sem fermento" },
           { q: 4, u: "g", n: "amido de milho (Maizena)" },
           { q: 3, u: "g", n: "bicarbonato de sódio" },
           { q: 2, u: "g", n: "sal fino" },
           { q: 60, u: "g", n: "chocolate de leite, em pedaços de 1 cm" },
-          { q: 86, u: "g", n: "Kinder Bueno (2 embalagens de 43 g), em pedaços de 1 cm", loja: { por: 43, n: "Kinder Bueno (emb. 43 g)", plural: "Kinder Bueno (emb. 43 g)" } }
+          { q: 86, u: "g", n: "Kinder Bueno (2 embalagens de 43 g), em pedaços de 1 cm", loja: { por: 43, n: "Kinder Bueno (emb. 43 g)", plural: "Kinder Bueno (emb. 43 g)", un: "emb.", unPl: "emb.", nomeVol: "Kinder Bueno (43 g cada), em pedaços de 1 cm" } }
         ]
       },
       {
         titulo: "Cobertura",
         itens: [
-          { q: 43, u: "g", n: "Kinder Bueno (1 embalagem de 43 g)", loja: { por: 43, n: "Kinder Bueno (emb. 43 g)", plural: "Kinder Bueno (emb. 43 g)" } },
+          { q: 43, u: "g", n: "Kinder Bueno (1 embalagem de 43 g)", loja: { por: 43, n: "Kinder Bueno (emb. 43 g)", plural: "Kinder Bueno (emb. 43 g)", un: "emb.", unPl: "emb.", nomeVol: "Kinder Bueno (43 g cada)" } },
           { q: 40, u: "g", n: "chocolate de leite" },
           { q: 25, u: "g", n: "chocolate branco" }
         ]
@@ -188,6 +190,7 @@ const RECEITAS = [
     id: "redvelvet",
     pagina: "cookie-red-velvet.html",
     nome: "Cookie Red Velvet",
+    palavra: "Velvet",
     subtitulo: "Red velvet com chocolate branco e de leite",
     descricao: "Cookie red velvet com um toque de cacau e pedaços de chocolate branco e de leite. Borda firme e centro macio.",
     cor: "#b3122a",
@@ -211,7 +214,7 @@ const RECEITAS = [
           { q: 115, u: "g", n: "manteiga com sal, a 18–20 °C" },
           { q: 100, u: "g", n: "açúcar mascavado claro" },
           { q: 80, u: "g", n: "açúcar branco" },
-          { q: 50, u: "g", n: "ovo batido (1 ovo grande ≈ 50 g), à temperatura ambiente", loja: { por: 50, n: "ovo grande", plural: "ovos grandes" } },
+          { q: 50, u: "g", n: "ovo batido (1 ovo grande ≈ 50 g), à temperatura ambiente", loja: { por: 50, n: "ovo grande", plural: "ovos grandes", un: "ovo", unPl: "ovos", nomeVol: "grande, à temperatura ambiente", nomeVolPl: "grandes, à temperatura ambiente" } },
           { q: 5, u: "g", n: "extrato de baunilha" },
           { q: 15, u: "g", n: "leite" },
           { q: 6, u: "g", n: "corante alimentar vermelho em gel" },
@@ -280,3 +283,61 @@ const EQUIPAMENTO = {
 };
 
 if (typeof module !== "undefined") module.exports = { RECEITAS, REGRAS_DO_REINO, BASE_COOKIES, NIVEIS, EQUIPAMENTO };
+
+/* =========================================================
+   MEDIDAS EM CHÁVENAS E COLHERES
+   Densidade de cada ingrediente (gramas por ml) para converter
+   gramas em medidas de volume rasas:
+   1 chávena = 240 ml · 1 c. sopa = 15 ml · 1 c. chá = 5 ml.
+   "chav: true" prefere chávena a partir de ¼ (ingredientes volumosos).
+   Ingredientes com "loja" (ovos, Kinder Bueno) aparecem à unidade.
+   ========================================================= */
+const MEDIDAS = [
+  { re: /^farinha/i,           d: 0.52, chav: true, nota: "nivelada, sem calcar" },
+  { re: /^açúcar mascavado/i,  d: 0.90, chav: true, nota: "bem calcado" },
+  { re: /^açúcar branco/i,     d: 0.83, chav: true },
+  { re: /^manteiga/i,          d: 0.95, chav: true },
+  { re: /^natas/i,             d: 1.00 },
+  { re: /^leite/i,             d: 1.00 },
+  { re: /^extrato de baunilha/i, d: 1.00 },
+  { re: /^cacau/i,             d: 0.35, chav: true },
+  { re: /^amido de milho/i,    d: 0.53 },
+  { re: /^bicarbonato/i,       d: 1.10 },
+  { re: /^sal/i,               d: 1.20 },
+  { re: /^corante/i,           d: 1.20 },
+  { re: /^nutella/i,           d: 1.25 },
+  { re: /^chocolate/i,         d: 0.71, chav: true }
+];
+
+/* devolve { q: "1⅓ chávenas", nota } ou null se não houver conversão */
+function emVolume(item, fator) {
+  const g = item.q * fator;
+  if (item.loja) {
+    const n = Math.max(0.5, Math.round((g / item.loja.por) * 2) / 2);
+    const fr = n === 0.5 ? "½" : (Math.floor(n) + (n % 1 ? "½" : ""));
+    return { q: fr + " " + (n > 1 ? item.loja.unPl : item.loja.un), nome: (n > 1 && item.loja.nomeVolPl) || item.loja.nomeVol };
+  }
+  const m = MEDIDAS.find(x => x.re.test(item.n));
+  if (!m) return null;
+  const ml = g / m.d, chav = ml / 240, sopa = ml / 15, cha = ml / 5;
+  const FR = [[0, ""], [1 / 8, "⅛"], [1 / 4, "¼"], [1 / 3, "⅓"], [1 / 2, "½"], [2 / 3, "⅔"], [3 / 4, "¾"], [1, ""]];
+  const fmt = (x, permitidos) => {
+    const int = Math.floor(x), resto = x - int;
+    let melhor = FR[0], erro = Infinity;
+    for (const f of FR) {
+      if (!permitidos.includes(f[1]) && f[0] !== 0 && f[0] !== 1) continue;
+      const e = Math.abs(resto - f[0]);
+      if (e < erro) { erro = e; melhor = f; }
+    }
+    const inteiro = int + (melhor[0] === 1 ? 1 : 0);
+    const v = inteiro + (melhor[0] === 1 ? 0 : melhor[0]);
+    return { txt: (inteiro ? inteiro : "") + (melhor[0] === 1 ? "" : melhor[1]) || "0", v };
+  };
+  let r;
+  if (chav >= (m.chav ? 0.25 : 0.5)) { const f = fmt(chav, ["¼", "⅓", "½", "⅔", "¾"]); r = f.txt + (f.v > 1 ? " chávenas" : " chávena"); }
+  else if (sopa >= 1) { const f = fmt(sopa, ["½"]); r = f.txt + " c. sopa"; }
+  else { const f = fmt(cha, cha >= 1 ? ["¼", "½", "¾"] : ["⅛", "¼", "⅓", "½", "⅔", "¾"]); r = (f.txt === "0" ? "⅛" : f.txt) + " c. chá"; }
+  return { q: r, nota: m.nota };
+}
+
+if (typeof module !== "undefined") Object.assign(module.exports, { MEDIDAS, emVolume });
