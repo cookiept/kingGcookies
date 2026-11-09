@@ -32,9 +32,10 @@
     /* coroa por cima do G */
     .g { position: relative; }
     .g::before {
-      content: ""; position: absolute; left: 50%; top: -.36em;
-      width: .7em; height: .5em; translate: -46% 0; rotate: 10deg;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 46'%3E%3Cpath d='M9 40 6 15l13 11L32 8l13 18 13-11-3 25Z' fill='%23ffc400' stroke='%233b1d10' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M9 34h46' stroke='%233b1d10' stroke-width='3'/%3E%3Ccircle cx='6' cy='12' r='4.5' fill='%23ffc400' stroke='%233b1d10' stroke-width='3'/%3E%3Ccircle cx='32' cy='6' r='4.5' fill='%23ffc400' stroke='%233b1d10' stroke-width='3'/%3E%3Ccircle cx='58' cy='12' r='4.5' fill='%23ffc400' stroke='%233b1d10' stroke-width='3'/%3E%3Ccircle cx='32' cy='27' r='3.2' fill='%23c8102e' stroke='%233b1d10' stroke-width='2'/%3E%3C/svg%3E") no-repeat center / contain;
+      content: ""; position: absolute; left: 50%; top: -.6em;
+      width: .74em; height: .64em; translate: -46% 0; rotate: 6deg;
+  background: url("assets/img/coroa.png") no-repeat center / contain;
+  filter: drop-shadow(0 .03em .03em rgba(59, 29, 16, .35));
       -webkit-text-stroke: 0; pointer-events: none;
     }
     .chip { display: inline-block; background: var(--papel); border-radius: 4mm; padding: 1.4mm 3mm; font: 600 6.8pt/1 "Jost"; letter-spacing: .12em; text-transform: uppercase; color: var(--chocolate); }
