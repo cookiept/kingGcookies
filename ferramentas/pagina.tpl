@@ -14,6 +14,7 @@
   <link rel="preload" href="assets/fonts/bebas-neue-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/fontes.css">
   <link rel="stylesheet" href="css/estilo.css">
+  <script>try{if(sessionStorage.getItem("kingg:cortina"))document.documentElement.classList.add("cortina-pre")}catch(e){}</script>
 </head>
 <body data-pagina="receita" data-receita="{ID}" style="--cor:{COR};--suave:{SUAVE}">
 

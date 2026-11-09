@@ -108,28 +108,75 @@
     for (let i = 0; i < n; i++) gota({ dur: 1.8 + Math.random() * 2, atraso: Math.random() * .8 });
   }
 
-  /* sai da página com uma chuvada densa e muda de página */
+  /* =========================================================
+     CORTINA DE BOLACHAS (transição entre páginas)
+     As bolachas caem e empilham-se até taparem o ecrã todo;
+     a página muda por trás; na página nova, caem para fora.
+     ========================================================= */
+  const MINI = (src) => "assets/img/mini/" + src.split("/").pop();
+  const IMGS_CORTINA = IMGS_CHUVA.map(MINI);
+  IMGS_CORTINA.forEach(src => { const i = new Image(); i.src = src; });
+
+  function gerarCortina(img) {
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const cols = Math.max(4, Math.ceil(vw / 170));
+    const cel = vw / cols, linhas = Math.ceil(vh / cel) + 1, tam = cel * 1.32;
+    const bolachas = [];
+    for (let l = 0; l <= linhas; l++) {
+      for (let c = 0; c <= cols; c++) {
+        for (const desvio of [0, 0.5]) {
+          const x = (c + desvio) * cel - tam / 2 + (Math.random() - .5) * cel * .15;
+          const y = (l + desvio) * cel - tam / 2 + (Math.random() - .5) * cel * .15;
+          bolachas.push({
+            x: Math.round(x), y: Math.round(y), s: Math.round(tam * (.92 + Math.random() * .16)),
+            r: Math.round(Math.random() * 360),
+            l, i: Math.random() < .55 && img ? MINI(img) : IMGS_CORTINA[Math.floor(Math.random() * IMGS_CORTINA.length)]
+          });
+        }
+      }
+    }
+    return { linhas, bolachas };
+  }
+  function desenharCortina(cortina, fase) {
+    const el = document.createElement("div");
+    el.className = "cortina " + fase;
+    el.setAttribute("aria-hidden", "true");
+    const ultima = cortina.linhas;
+    el.innerHTML = cortina.bolachas.map(b => {
+      const entra = (ultima - b.l) * 55 + Math.random() * 90;   // de baixo para cima: empilham
+      const sai = (ultima - b.l) * 40 + Math.random() * 70;     // as de baixo caem primeiro
+      return `<img src="${b.i}" alt="" style="left:${b.x}px;top:${b.y}px;width:${b.s}px;--rot:${b.r}deg;--entra:${entra}ms;--sai:${sai}ms">`;
+    }).join("");
+    document.body.appendChild(el);
+    return el;
+  }
+
   function irPara(url, img) {
     if (reduzido) { location.href = url; return; }
-    document.body.classList.add("a-sair");
-    const n = window.innerWidth < 700 ? 34 : 60;
-    for (let i = 0; i < n; i++) {
-      gota({ dur: 1.1 + Math.random() * .7, atraso: Math.random() * .45, img: Math.random() < .6 ? img : undefined });
-    }
-    try { sessionStorage.setItem("kingg:chuva", img || ""); } catch (e) {}
-    setTimeout(() => { location.href = url; }, 820);
+    const cortina = gerarCortina(img);
+    const el = desenharCortina(cortina, "a-entrar");
+    const total = cortina.linhas * 55 + 90 + 520;
+    setTimeout(() => el.classList.add("cheia"), total * .55);
+    try { sessionStorage.setItem("kingg:cortina", JSON.stringify(cortina)); } catch (e) {}
+    setTimeout(() => { location.href = url; }, total + 60);
   }
-  /* chega à página com as cookies ainda a cair */
+
   (function chegada() {
-    let img = null;
-    try { img = sessionStorage.getItem("kingg:chuva"); sessionStorage.removeItem("kingg:chuva"); } catch (e) {}
-    if (img === null) return;
-    document.body.classList.add("a-chegar");
-    if (reduzido) return;
-    const n = window.innerWidth < 700 ? 22 : 40, h = window.innerHeight;
-    for (let i = 0; i < n; i++) {
-      gota({ inicioY: Math.random() * h * .9 - 120, dur: .7 + Math.random() * .7, img: Math.random() < .6 && img ? img : undefined });
-    }
+    let cortina = null;
+    try { cortina = JSON.parse(sessionStorage.getItem("kingg:cortina")); sessionStorage.removeItem("kingg:cortina"); } catch (e) {}
+    const raiz = document.documentElement;
+    if (!cortina) { raiz.classList.remove("cortina-pre"); return; }
+    const el = desenharCortina(cortina, "pousada cheia");
+    raiz.classList.remove("cortina-pre");
+    const imgs = [...el.querySelectorAll("img")];
+    const prontas = Promise.all(imgs.map(i => (i.decode ? i.decode().catch(() => {}) : Promise.resolve())));
+    Promise.race([prontas, new Promise(r => setTimeout(r, 400))]).then(() => {
+      requestAnimationFrame(() => {
+        el.classList.remove("pousada", "cheia");
+        el.classList.add("a-sair");
+        setTimeout(() => el.remove(), cortina.linhas * 40 + 70 + 700);
+      });
+    });
   })();
 
   document.addEventListener("click", (e) => {
@@ -138,7 +185,8 @@
     const voltar = e.target.closest("[data-voltar]");
     if (voltar && !e.metaKey && !e.ctrlKey) { e.preventDefault(); irPara(voltar.getAttribute("href"), "assets/img/cookie.png"); }
   });
-  window.addEventListener("pageshow", (e) => { if (e.persisted) document.body.classList.remove("a-sair"); });
+  /* ao voltar atrás no browser, a página vem da cache ainda tapada */
+  window.addEventListener("pageshow", (e) => { if (e.persisted) document.querySelectorAll(".cortina").forEach(c => c.remove()); });
 
   /* =========================================================
      PÁGINA INICIAL

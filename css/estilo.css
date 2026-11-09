@@ -153,9 +153,23 @@ a { color: inherit; }
 /* ---------- transições de página ---------- */
 .chuva { position: fixed; z-index: 90; pointer-events: none; animation: cai linear forwards; will-change: transform; }
 @keyframes cai { to { transform: translateY(calc(100vh + 260px)) rotate(var(--rot)); } }
-body.a-sair main, body.a-sair .rodape { opacity: 0; transform: translateY(12px) scale(.99); transition: opacity .45s ease .3s, transform .45s ease .3s; }
-body.a-chegar main { animation: chega .55s ease both; }
-@keyframes chega { from { opacity: 0; transform: translateY(16px); } }
+/* cortina de bolachas */
+html.cortina-pre::after { content: ""; position: fixed; inset: 0; z-index: 99; background: var(--chocolate); }
+.cortina { position: fixed; inset: 0; z-index: 100; overflow: hidden; pointer-events: all; }
+.cortina::before { content: ""; position: absolute; inset: 0; background: var(--chocolate); opacity: 0; transition: opacity .3s ease; }
+.cortina.cheia::before { opacity: 1; }
+.cortina img { position: absolute; max-width: none; height: auto; will-change: transform; backface-visibility: hidden; }
+.cortina.a-entrar img { transform: translateY(calc(-100vh - 110%)) rotate(var(--rot)); animation: cortina-cai .52s var(--entra) forwards; }
+.cortina.pousada img { transform: rotate(var(--rot)); }
+.cortina.a-sair img { transform: rotate(var(--rot)); animation: cortina-sai .62s cubic-bezier(.55, 0, .85, .35) var(--sai) forwards; }
+.cortina.a-sair::before { opacity: 0; transition-delay: .12s; transition-duration: .45s; }
+@keyframes cortina-cai {
+  0% { transform: translateY(calc(-100vh - 110%)) rotate(var(--rot)); animation-timing-function: cubic-bezier(.55, 0, .85, .35); }
+  78% { transform: translateY(0) rotate(var(--rot)); animation-timing-function: ease-out; }
+  89% { transform: translateY(-5%) rotate(var(--rot)); animation-timing-function: ease-in; }
+  100% { transform: translateY(0) rotate(var(--rot)); }
+}
+@keyframes cortina-sai { to { transform: translateY(calc(100vh + 120%)) rotate(calc(var(--rot) + 120deg)); } }
 
 /* =========================================================
    INÍCIO
