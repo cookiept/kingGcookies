@@ -14,29 +14,38 @@ Site com as três receitas de cookies do King G, cada uma para 6 cookies:
 
 ## O que o site faz
 
-- **Doses ajustáveis**: escolhe quantas cookies queres e as quantidades mudam sozinhas.
-- **Ingredientes com visto**: vai riscando o que já está na taça (fica guardado no teu browser).
-- **Temporizadores**: cada passo com tempo tem um botão; o alarme toca mesmo que estejas noutra parte do site.
-- **Modo cozinha**: um passo de cada vez, em letra grande, com setas do teclado e temporizador.
-- **Lista de compras**: junta as receitas que escolheres e soma as quantidades. Dá para copiar.
+- **Página inicial** com as três cookies. Carregar numa abre a página dela, com uma chuva de cookies pelo meio.
+- **Uma página por cookie** (`rei-recheado.html`, `bueno-real.html`, `capa-vermelha.html`) com:
+  - tempos, forno, peso de cada cookie e nível de dificuldade;
+  - "Antes de começar" e o equipamento necessário;
+  - ingredientes com visto e **doses ajustáveis** (as quantidades recalculam-se);
+  - passo a passo com **temporizadores** e "marcar como feito";
+  - **modo cozinha**: um passo de cada vez, em letra grande; desliza para mudar de passo e o ecrã não se apaga.
+- **Lista de compras** que junta as receitas escolhidas e soma as quantidades.
 - **Livro de receitas**: [`livro.html`](livro.html) para imprimir, ou o PDF em [`docs/`](docs/Livro-Cookies-do-King-G.pdf).
-- Carrega no Rei. 🍪
+- Pensado primeiro para telemóvel: menu próprio e barra fixa em baixo nas receitas.
 
 ## Estrutura
 
 ```
 kingGcookies/
-├── index.html          ← o site
-├── livro.html          ← livro de receitas para imprimir (A4)
+├── index.html            ← página inicial
+├── rei-recheado.html     ← páginas das receitas (geradas, ver abaixo)
+├── bueno-real.html
+├── capa-vermelha.html
+├── livro.html            ← livro de receitas para imprimir (A4)
 ├── css/
-│   ├── estilo.css      ← cores, letras e layout da marca
-│   └── fontes.css      ← fontes guardadas localmente
+│   ├── estilo.css        ← cores, letras e layout da marca
+│   └── fontes.css        ← fontes guardadas localmente
 ├── js/
-│   ├── receitas.js     ← AS RECEITAS (muda quantidades e passos aqui)
-│   └── app.js          ← a lógica (doses, temporizadores, modo cozinha…)
+│   ├── receitas.js       ← AS RECEITAS (muda quantidades e passos aqui)
+│   └── app.js            ← a lógica do site
+├── ferramentas/
+│   ├── pagina.tpl        ← modelo das páginas das receitas
+│   └── gerar.js          ← gera as páginas a partir do modelo
 ├── assets/
-│   ├── img/            ← logo, cookies, ícones
-│   └── fonts/          ← Luckiest Guy, Bebas Neue, Caveat, DM Sans, Jost
+│   ├── img/              ← logo, cookies, ícones
+│   └── fonts/
 └── docs/
     └── Livro-Cookies-do-King-G.pdf
 ```
@@ -46,6 +55,12 @@ kingGcookies/
 Abre `js/receitas.js`. Cada receita tem `grupos` (ingredientes) e `passos`.
 As quantidades são para 6 cookies; o site faz as contas para outras doses.
 Nos passos, `{N}` é trocado pelo número de cookies escolhido.
+
+Se adicionares uma receita nova (ou mudares o nome ou a cor de uma), volta a gerar as páginas:
+
+```bash
+node ferramentas/gerar.js .
+```
 
 ## Pôr o site online (GitHub Pages)
 

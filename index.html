@@ -2,7 +2,7 @@
 <html lang="pt-PT">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Cookie's do King G</title>
   <meta name="description" content="As três receitas de cookies do King G: recheada de mousse, Kinder Bueno e Red Velvet. Passo a passo, com temporizadores e modo cozinha.">
   <meta property="og:title" content="Cookie's do King G">
@@ -10,32 +10,32 @@
   <meta property="og:image" content="assets/img/king-g.png">
   <meta name="theme-color" content="#fbf6ee">
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="assets/img/king-head.png">
   <link rel="preload" href="assets/fonts/luckiest-guy-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/fontes.css">
   <link rel="stylesheet" href="css/estilo.css">
 </head>
-<body>
+<body data-pagina="inicio">
 
-  <a class="saltar" href="#receitas">Saltar para as receitas</a>
+  <a class="saltar" href="#joias">Saltar para as receitas</a>
 
-  <!-- ============ NAVEGAÇÃO ============ -->
   <header class="nav">
-    <a class="nav__marca" href="#topo" aria-label="Início">
+    <a class="nav__marca" href="index.html" aria-label="Cookie's do King G, início">
       <img src="assets/img/king-head.png" alt="" width="44" height="44">
-      <span>Cookie's do <b>King G</b></span>
+      <span>Cookie's do King <em class="g">G</em></span>
     </a>
-    <nav class="nav__links" aria-label="Principal">
-      <a href="#joias">As joias</a>
-      <a href="#receitas">Receitas</a>
+    <button class="nav__menu" aria-expanded="false" aria-controls="nav-links" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav__links" id="nav-links" aria-label="Principal">
+      <a href="#joias">As cookies</a>
       <a href="#regras">Regras do reino</a>
       <a href="#compras">Lista de compras</a>
+      <a href="livro.html">Livro PDF</a>
     </nav>
-    <button class="btn btn--real btn--peq" data-acao="cozinhar">Modo cozinha</button>
   </header>
 
-  <main id="topo">
-
-    <!-- ============ HERO ============ -->
+  <main>
     <section class="hero">
       <svg class="hero__blob" viewBox="0 0 600 600" aria-hidden="true"><path d="M421 72c62 38 118 102 128 176 10 75-26 160-86 218-60 57-145 87-226 72-82-15-160-75-185-153C27 307 55 212 116 146 177 80 272 43 339 44c30 1 57 11 82 28Z"/></svg>
       <svg class="hero__blob hero__blob--2" viewBox="0 0 600 600" aria-hidden="true"><path d="M455 120c49 55 60 140 33 214-27 75-92 139-171 160-80 20-173-3-224-62-52-59-62-154-25-226C105 133 189 84 270 70c81-13 136-5 185 50Z"/></svg>
@@ -45,22 +45,17 @@
         <h1 class="hero__titulo">
           <span>Cookie's</span>
           <span class="hero__do">do</span>
-          <span>King G</span>
+          <span class="rei-linha">King <em class="g">G</em></span>
         </h1>
         <p class="script hero__lema">Sua Majestade decretou: cookies para todos.</p>
-        <p class="hero__intro">Três receitas, seis cookies cada, zero arrependimentos. Escolhe a tua, carrega em “Modo cozinha” e o Rei guia-te passo a passo, com temporizadores e tudo.</p>
+        <p class="hero__intro">Três receitas, seis cookies cada. Escolhe a tua e segue o passo a passo, com temporizadores e modo cozinha.</p>
         <div class="hero__botoes">
-          <a class="btn btn--real" href="#joias">Ver as receitas</a>
-          <button class="btn btn--contorno" data-acao="cozinhar">
-            Começar já
+          <a class="btn btn--real" href="#joias">Escolher cookie</a>
+          <a class="btn btn--contorno" href="#compras">
+            Lista de compras
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </button>
+          </a>
         </div>
-        <ul class="hero__numeros" aria-label="Em números">
-          <li><b>3</b><span>receitas</span></li>
-          <li><b>18</b><span>cookies</span></li>
-          <li><b>190°</b><span>de amor</span></li>
-        </ul>
       </div>
 
       <div class="hero__rei">
@@ -74,46 +69,34 @@
       </div>
     </section>
 
-    <!-- faixa de cookies a rolar -->
-    <div class="faixa" aria-hidden="true"><div class="faixa__trilho"></div></div>
-
-    <!-- ============ AS JOIAS ============ -->
     <section class="joias" id="joias">
       <svg class="onda onda--cima" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 70c180-60 360-60 540-10s360 70 540 20 270-70 360-40V120H0Z"/></svg>
-      <div class="contentor">
-        <p class="sobrancelha sobrancelha--claro">A coleção real</p>
-        <h2 class="titulo titulo--claro">As três joias da coroa</h2>
-        <p class="script script--claro joias__lema">Escolhe com o coração. Ou com o estômago.</p>
-        <div class="cartoes" id="cartoes"></div>
+      <div class="joias__fundo">
+        <div class="contentor">
+          <p class="sobrancelha sobrancelha--claro">A coleção real</p>
+          <h2 class="titulo titulo--claro">As três joias da coroa</h2>
+          <p class="script script--claro joias__lema">Carrega numa cookie para abrir a receita.</p>
+          <div class="cartoes" id="cartoes"></div>
+        </div>
       </div>
       <svg class="onda onda--baixo" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 50c200 50 380 60 560 20s380-70 560-30 240 40 320 20V0H0Z"/></svg>
     </section>
 
-    <!-- ============ RECEITAS ============ -->
-    <section class="receitas contentor" id="receitas">
-      <p class="sobrancelha">O livro sagrado</p>
-      <h2 class="titulo">Mãos na massa</h2>
-      <div class="separadores" role="tablist" aria-label="Escolhe a receita" id="separadores"></div>
-      <div id="painel"></div>
-    </section>
-
-    <!-- ============ REGRAS ============ -->
     <section class="regras" id="regras">
       <div class="contentor">
         <p class="sobrancelha">Lei do reino</p>
         <h2 class="titulo">As quatro regras do Rei</h2>
-        <p class="script regras__lema">Quem as quebra, come cookies queimadas.</p>
+        <p class="script regras__lema">Valem para as três receitas.</p>
         <div class="regras__grelha" id="regras-grelha"></div>
       </div>
     </section>
 
-    <!-- ============ LISTA DE COMPRAS ============ -->
     <section class="compras contentor" id="compras">
       <div class="compras__cabeca">
         <div>
           <p class="sobrancelha">Missão supermercado</p>
           <h2 class="titulo">Lista de compras</h2>
-          <p class="compras__intro">Escolhe o que vais fazer. A lista junta tudo e soma as quantidades (com as doses que escolheste em cima).</p>
+          <p class="compras__intro">Escolhe o que vais fazer. A lista junta tudo e soma as quantidades, com as doses que escolheste em cada receita.</p>
         </div>
         <img src="assets/img/icons/medidor.png" alt="" aria-hidden="true" class="compras__icone">
       </div>
@@ -124,50 +107,22 @@
         <button class="btn btn--contorno" id="limpar-lista">Desmarcar tudo</button>
       </div>
     </section>
-
   </main>
 
-  <!-- ============ RODAPÉ ============ -->
   <footer class="rodape">
     <svg class="onda onda--rodape" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 70c180-60 360-60 540-10s360 70 540 20 270-70 360-40V120H0Z"/></svg>
-    <div class="contentor rodape__dentro">
-      <img src="assets/img/king-head.png" alt="" width="96" height="96">
-      <div>
-        <p class="rodape__marca">Cookie's do King G</p>
-        <p class="script script--claro">Feito com manteiga a mais e zero vergonha.</p>
+    <div class="rodape__dentro">
+      <div class="contentor rodape__grelha">
+        <img src="assets/img/king-head.png" alt="" width="96" height="96">
+        <div>
+          <p class="rodape__marca">Cookie's do King <em class="g">G</em></p>
+          <p class="script script--claro">Feito com manteiga a mais e zero vergonha.</p>
+        </div>
+        <a class="btn btn--claro" href="livro.html">Livro de receitas em PDF</a>
       </div>
-      <a class="btn btn--claro" href="livro.html">Livro de receitas para imprimir</a>
     </div>
   </footer>
 
-  <!-- ============ MODO COZINHA ============ -->
-  <div class="cozinha" id="cozinha" role="dialog" aria-modal="true" aria-labelledby="cozinha-titulo" hidden>
-    <div class="cozinha__topo">
-      <div class="cozinha__escolha" id="cozinha-escolha" role="tablist" aria-label="Receita"></div>
-      <button class="cozinha__fechar" id="cozinha-fechar" aria-label="Fechar modo cozinha">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
-      </button>
-    </div>
-    <div class="cozinha__barra"><span id="cozinha-progresso"></span></div>
-    <div class="cozinha__palco">
-      <img class="cozinha__icone" id="cozinha-icone" alt="" aria-hidden="true">
-      <p class="sobrancelha" id="cozinha-num"></p>
-      <h2 class="cozinha__titulo" id="cozinha-titulo"></h2>
-      <p class="cozinha__texto" id="cozinha-texto"></p>
-      <div class="cozinha__temporizador" id="cozinha-temp"></div>
-    </div>
-    <div class="cozinha__nav">
-      <button class="btn btn--contorno" id="cozinha-ant">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Anterior
-      </button>
-      <button class="btn btn--real" id="cozinha-seg">Próximo
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </button>
-    </div>
-  </div>
-
-  <!-- temporizadores ativos -->
-  <div class="doca" id="doca" aria-live="polite"></div>
   <div class="aviso" id="aviso" role="status" aria-live="polite"></div>
 
   <script src="js/receitas.js"></script>

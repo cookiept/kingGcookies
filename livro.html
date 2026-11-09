@@ -15,106 +15,127 @@
     @page { size: A4; margin: 0; }
     * { box-sizing: border-box; }
     html, body { margin: 0; background: #d9cbb6; }
-    body { font: 400 10.5pt/1.5 "DM Sans", system-ui, sans-serif; color: var(--tinta); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { font: 400 10pt/1.5 "DM Sans", system-ui, sans-serif; color: var(--tinta); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .pagina {
       width: 210mm; height: 297mm; margin: 10mm auto; background: var(--creme);
-      position: relative; overflow: hidden; padding: 16mm 16mm 14mm;
-      page-break-after: always; break-after: page;
-      box-shadow: 0 10px 40px rgba(59, 29, 16, .2);
+      position: relative; overflow: hidden; padding: 15mm 15mm 16mm;
+      break-after: page; box-shadow: 0 10px 40px rgba(59, 29, 16, .2);
     }
-
     .rotulo { font: 600 7.5pt/1.4 "Jost", sans-serif; letter-spacing: .22em; text-transform: uppercase; color: var(--capa); margin: 0; }
     .script { font: 700 17pt/1.15 "Caveat", cursive; color: var(--chocolate-2); margin: 0; }
-    .titulo { font: 400 40pt/.95 "Bebas Neue", sans-serif; letter-spacing: .04em; text-transform: uppercase; margin: 0; }
+    .titulo { font: 400 38pt/.95 "Bebas Neue", sans-serif; letter-spacing: .04em; text-transform: uppercase; margin: 0; color: var(--chocolate); }
+    .sub { font: 400 16pt/1 "Bebas Neue"; letter-spacing: .06em; text-transform: uppercase; color: var(--chocolate); margin: 0 0 2.5mm; }
     .blob { position: absolute; z-index: 0; }
-    .rodape-p { position: absolute; left: 16mm; right: 16mm; bottom: 9mm; display: flex; justify-content: space-between; font: 600 7pt/1 "Jost", sans-serif; letter-spacing: .2em; text-transform: uppercase; color: var(--tinta-suave); }
+    .rodape-p { position: absolute; left: 15mm; right: 15mm; bottom: 8mm; display: flex; justify-content: space-between; font: 600 6.8pt/1 "Jost", sans-serif; letter-spacing: .2em; text-transform: uppercase; color: var(--tinta-suave); }
+    .g { font-style: normal; display: inline-block; color: var(--mel); -webkit-text-stroke: .045em var(--chocolate); paint-order: stroke fill; text-shadow: .05em .06em 0 var(--chocolate); transform: rotate(-8deg) scale(1.18); margin-left: .06em; }
+
+    /* coroa por cima do G */
+    .g { position: relative; }
+    .g::before {
+      content: ""; position: absolute; left: 50%; top: -.36em;
+      width: .7em; height: .5em; translate: -46% 0; rotate: 10deg;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 46'%3E%3Cpath d='M9 40 6 15l13 11L32 8l13 18 13-11-3 25Z' fill='%23ffc400' stroke='%233b1d10' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M9 34h46' stroke='%233b1d10' stroke-width='3'/%3E%3Ccircle cx='6' cy='12' r='4.5' fill='%23ffc400' stroke='%233b1d10' stroke-width='3'/%3E%3Ccircle cx='32' cy='6' r='4.5' fill='%23ffc400' stroke='%233b1d10' stroke-width='3'/%3E%3Ccircle cx='58' cy='12' r='4.5' fill='%23ffc400' stroke='%233b1d10' stroke-width='3'/%3E%3Ccircle cx='32' cy='27' r='3.2' fill='%23c8102e' stroke='%233b1d10' stroke-width='2'/%3E%3C/svg%3E") no-repeat center / contain;
+      -webkit-text-stroke: 0; pointer-events: none;
+    }
+    .chip { display: inline-block; background: var(--papel); border-radius: 4mm; padding: 1.4mm 3mm; font: 600 6.8pt/1 "Jost"; letter-spacing: .12em; text-transform: uppercase; color: var(--chocolate); }
+    .nivel i { display: inline-block; width: 1.4mm; border-radius: .4mm; background: var(--areia); margin-right: .6mm; vertical-align: bottom; }
+    .nivel i:nth-child(1) { height: 1.5mm; } .nivel i:nth-child(2) { height: 2.4mm; } .nivel i:nth-child(3) { height: 3.3mm; }
+    .nivel i.on { background: var(--cor, var(--capa)); }
 
     /* capa */
-    .capa { background: var(--creme); display: flex; flex-direction: column; }
     .capa .blob { width: 175mm; right: -40mm; top: 40mm; fill: var(--mel); }
     .capa .blob2 { width: 120mm; left: -45mm; top: auto; bottom: -55mm; fill: var(--laranja); }
-    .capa__titulo { position: relative; z-index: 1; font: 400 64pt/.95 "Luckiest Guy", sans-serif; color: var(--chocolate); text-transform: uppercase; margin: 6mm 0 0; }
+    .capa__titulo { position: relative; z-index: 1; font: 400 64pt/.98 "Luckiest Guy", sans-serif; color: var(--chocolate); text-transform: uppercase; margin: 6mm 0 0; }
     .capa__titulo span { display: block; }
     .capa__titulo .do { font: 700 34pt/.8 "Caveat", cursive; color: var(--chocolate-2); text-transform: none; margin: 0 0 0 3mm; }
-    .capa__titulo .rei { color: var(--capa); text-shadow: 2.5pt 3pt 0 var(--mel); }
-    .capa__rei { position: absolute; z-index: 1; width: 158mm; right: -6mm; top: 92mm; filter: drop-shadow(0 6mm 5mm rgba(59, 29, 16, .25)); }
+    .capa__titulo .rei { color: var(--capa); text-shadow: 2.5pt 3pt 0 rgba(255, 196, 0, .9); }
+    .capa__rei { position: absolute; z-index: 1; width: 158mm; right: -6mm; top: 96mm; filter: drop-shadow(0 6mm 5mm rgba(59, 29, 16, .25)); }
     .capa__lema { position: relative; z-index: 1; margin-top: 6mm; font-size: 22pt; }
-    .capa__trio { position: absolute; z-index: 2; left: 16mm; bottom: 26mm; display: flex; gap: 3mm; align-items: flex-end; }
+    .capa__trio { position: absolute; z-index: 2; left: 15mm; bottom: 24mm; display: flex; gap: 3mm; align-items: flex-end; }
     .capa__trio img { width: 30mm; filter: drop-shadow(0 3mm 3mm rgba(59, 29, 16, .3)); }
     .capa__trio img:nth-child(2) { width: 36mm; }
-    .capa__sub { position: absolute; z-index: 2; right: 16mm; bottom: 14mm; color: var(--chocolate); font: 600 8pt/1 "Jost"; letter-spacing: .2em; text-transform: uppercase; }
+    .capa__sub { position: absolute; z-index: 2; right: 15mm; bottom: 12mm; color: var(--chocolate); font: 600 8pt/1 "Jost"; letter-spacing: .2em; text-transform: uppercase; }
 
     /* índice */
-    .indice h2 { color: var(--chocolate); }
-    .indice__lista { margin-top: 10mm; display: grid; gap: 6mm; }
-    .indice__item { display: grid; grid-template-columns: 42mm 1fr; gap: 6mm; align-items: center; background: var(--papel); border-radius: 5mm; padding: 5mm; box-shadow: -4mm 3mm 12mm rgba(59, 29, 16, .1); }
+    .indice__lista { margin-top: 8mm; display: grid; gap: 5mm; }
+    .indice__item { display: grid; grid-template-columns: 40mm 1fr; gap: 6mm; align-items: center; background: var(--papel); border-radius: 5mm; padding: 5mm; box-shadow: -4mm 3mm 12mm rgba(59, 29, 16, .1); }
     .indice__item img { width: 38mm; filter: drop-shadow(0 3mm 3mm rgba(59, 29, 16, .25)); }
-    .indice__item h3 { font: 400 26pt/1 "Bebas Neue"; letter-spacing: .04em; text-transform: uppercase; margin: 0 0 1mm; }
+    .indice__item h3 { font: 400 26pt/1 "Bebas Neue"; letter-spacing: .04em; text-transform: uppercase; margin: 0 0 1mm; color: var(--cor); }
     .indice__item p { margin: 0 0 2mm; color: var(--tinta-suave); }
     .chips { display: flex; flex-wrap: wrap; gap: 2mm; }
-    .chip { background: var(--creme); border-radius: 4mm; padding: 1.4mm 3mm; font: 600 6.8pt/1 "Jost"; letter-spacing: .12em; text-transform: uppercase; color: var(--chocolate); }
-    .ferramentas { margin-top: 9mm; }
-    .ferramentas__grelha { display: flex; justify-content: space-between; margin-top: 3mm; }
-    .ferramentas__grelha figure { margin: 0; text-align: center; width: 20mm; }
-    .ferramentas__grelha img { width: 17mm; height: 17mm; object-fit: contain; margin: 0 auto 1mm; }
-    .ferramentas__grelha figcaption { font: 600 6.3pt/1.2 "Jost"; letter-spacing: .1em; text-transform: uppercase; color: var(--tinta-suave); }
+    .indice__item .chip { background: var(--creme); }
+    .indice__como { margin-top: 8mm; background: var(--papel); border-radius: 5mm; padding: 5mm 6mm; }
+    .indice__como ol { margin: 0; padding-left: 5mm; display: grid; gap: 1.5mm; }
 
-    /* receita */
-    .rec { background: var(--suave); padding-top: 12mm; }
-    .rec .blob { width: 120mm; right: -38mm; top: -30mm; fill: var(--papel); opacity: .6; }
-    .rec__cabeca { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 48mm; gap: 6mm; align-items: center; }
-    .rec__cabeca img { width: 48mm; filter: drop-shadow(0 4mm 4mm rgba(59, 29, 16, .3)); }
-    .rec__nome { font: 400 44pt/.9 "Bebas Neue"; letter-spacing: .04em; text-transform: uppercase; color: var(--cor); margin: 1mm 0 1mm; }
-    .rec__sub { margin: 0 0 2mm; font-size: 11pt; }
-    .rec__info { display: flex; gap: 2mm; flex-wrap: wrap; margin-top: 3mm; }
-    .rec__info .chip { background: var(--papel); }
-    .rec__corpo { position: relative; z-index: 1; display: grid; grid-template-columns: 62mm 1fr; gap: 5mm; margin-top: 4mm; }
-    .ing { background: var(--papel); border-radius: 4mm; padding: 5mm; align-self: start; }
-    .ing h3, .pas h3 { font: 400 17pt/1 "Bebas Neue"; letter-spacing: .06em; text-transform: uppercase; margin: 0 0 1mm; color: var(--chocolate); }
-    .ing__grupo { font: 700 13pt/1 "Caveat"; color: var(--cor); margin: 3.5mm 0 1mm; }
-    .ing ul.lista { list-style: none; margin: 0; padding: 0; }
-    .ing ul.lista li { display: grid; grid-template-columns: 4mm 15mm 1fr; gap: 1.5mm; padding: 1.3mm 0; border-bottom: .3mm dashed var(--areia); font-size: 8.8pt; line-height: 1.3; }
-    .ing ul.lista li:last-child { border: 0; }
-    .ing ul.lista li::before { content: ""; width: 3mm; height: 3mm; border: .4mm solid var(--areia); border-radius: 1mm; margin-top: .3mm; }
-    .ing b { color: var(--chocolate); }
-    .pas ol { list-style: none; margin: 2mm 0 0; padding: 0; display: grid; gap: 1.6mm; }
-    .pas li { display: grid; grid-template-columns: 9mm 1fr; gap: 2.6mm; background: var(--papel); border-radius: 3mm; padding: 1.8mm 2.6mm; font-size: 8.2pt; line-height: 1.32; }
+    /* receita: página 1 */
+    .rec { background: var(--suave); }
+    .rec .blob { width: 120mm; right: -36mm; top: -34mm; fill: var(--papel); opacity: .6; }
+    .rec__cabeca { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 60mm; gap: 6mm; align-items: center; }
+    .rec__cabeca img { width: 60mm; filter: drop-shadow(0 4mm 4mm rgba(59, 29, 16, .3)); }
+    .rec__nome { font: 400 48pt/.9 "Bebas Neue"; letter-spacing: .03em; text-transform: uppercase; color: var(--cor); margin: 1.5mm 0 1.5mm; }
+    .rec__subt { margin: 0 0 4mm; font-size: 11.5pt; }
+    .factos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2mm; margin: 0; }
+    .factos div { background: var(--papel); border-radius: 2.5mm; padding: 2mm 2.6mm; }
+    .factos dt { font: 600 5.8pt/1.4 "Jost"; letter-spacing: .14em; text-transform: uppercase; color: var(--tinta-suave); }
+    .factos dd { margin: .4mm 0 0; font-weight: 700; color: var(--chocolate); font-size: 8.4pt; line-height: 1.25; }
+    .rec__meio { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; margin-top: 5mm; }
+    .bloco { background: var(--papel); border-radius: 4mm; padding: 4mm 5mm; }
+    .bloco ul.antes { margin: 0; padding-left: 4mm; font-size: 8.4pt; line-height: 1.4; display: grid; gap: 1mm; }
+    .equip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2mm 1mm; }
+    .equip figure { margin: 0; text-align: center; }
+    .equip img { width: 12mm; height: 12mm; object-fit: contain; margin: 0 auto .6mm; }
+    .equip figcaption { font: 600 5.6pt/1.2 "Jost"; letter-spacing: .08em; text-transform: uppercase; color: var(--tinta-suave); }
+    .ing { position: relative; z-index: 1; margin-top: 4mm; background: var(--papel); border-radius: 4mm; padding: 4mm 5mm; }
+    .ing__cols { columns: 2; column-gap: 7mm; }
+    .ing__grupo { break-inside: avoid; margin-bottom: 2mm; }
+    .ing__grupo h4 { font: 700 13pt/1 "Caveat"; color: var(--cor); margin: 1mm 0 .8mm; }
+    .ing__grupo ul { list-style: none; margin: 0; padding: 0; }
+    .ing__grupo li { display: grid; grid-template-columns: 3.4mm 15mm 1fr; gap: 1.5mm; padding: 1.2mm 0; border-bottom: .3mm dashed var(--areia); font-size: 8.4pt; line-height: 1.28; break-inside: avoid; }
+    .ing__grupo li:last-child { border: 0; }
+    .ing__grupo li::before { content: ""; width: 3mm; height: 3mm; border: .4mm solid var(--areia); border-radius: 1mm; margin-top: .2mm; }
+    .ing__grupo b { color: var(--chocolate); }
+    .notas { position: relative; z-index: 1; margin-top: 4mm; background: var(--chocolate); color: #f7e8d6; border-radius: 4mm; padding: 3.5mm 5mm; font-size: 8.4pt; }
+    .notas strong { font: 700 13pt/1 "Caveat"; color: var(--mel); display: block; margin-bottom: 1mm; }
+    .notas ul { margin: 0; padding-left: 4mm; display: grid; gap: .8mm; }
+
+    /* receita: página 2 (passos) */
+    .pas__cabeca { position: relative; z-index: 1; display: flex; align-items: center; gap: 4mm; margin-bottom: 4mm; }
+    .pas__cabeca img { width: 18mm; filter: drop-shadow(0 2mm 2mm rgba(59, 29, 16, .25)); }
+    .pas__cabeca h2 { font: 400 30pt/.9 "Bebas Neue"; letter-spacing: .04em; text-transform: uppercase; color: var(--cor); margin: 0; }
+    .pas { position: relative; z-index: 1; list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 4mm; }
+    .pas li { break-inside: avoid; display: grid; grid-template-columns: 9mm 1fr; gap: 2.4mm; background: var(--papel); border-radius: 3mm; padding: 2.4mm 2.8mm; margin-bottom: 2.6mm; font-size: 8.1pt; line-height: 1.36; }
     .pas__ic { position: relative; }
     .pas__ic img { width: 9mm; height: 9mm; object-fit: contain; }
-    .pas__n { position: absolute; top: -1.5mm; left: -1.5mm; width: 4.6mm; height: 4.6mm; border-radius: 50%; background: var(--cor); color: #fff; font: 400 8pt/4.6mm "Bebas Neue"; text-align: center; }
-    .pas h4 { font: 400 11.5pt/1 "Bebas Neue"; letter-spacing: .06em; text-transform: uppercase; margin: .6mm 0 .6mm; color: var(--chocolate); }
-    .pas h4 small { font: 600 6.5pt/1 "Jost"; letter-spacing: .1em; color: var(--capa); margin-left: 1.5mm; }
+    .pas__n { position: absolute; top: -1.6mm; left: -1.6mm; width: 4.6mm; height: 4.6mm; border-radius: 50%; background: var(--cor); color: #fff; font: 400 8pt/4.6mm "Bebas Neue"; text-align: center; }
+    .pas h4 { font: 400 11pt/1.05 "Bebas Neue"; letter-spacing: .05em; text-transform: uppercase; margin: .4mm 0 .6mm; color: var(--chocolate); }
+    .pas h4 small { font: 600 6.3pt/1 "Jost"; letter-spacing: .1em; color: var(--cor); margin-left: 1.4mm; white-space: nowrap; }
     .pas p { margin: 0; }
-    .segredos { margin-top: 3mm; background: var(--chocolate); color: #f7e8d6; border-radius: 3mm; padding: 3mm 4mm; font-size: 8.5pt; }
-    .segredos strong { font: 700 13pt/1 "Caveat"; color: var(--mel); display: block; margin-bottom: 1mm; }
-    .segredos ul { margin: 0; padding-left: 4mm; display: block; }
-    .segredos li { display: list-item; background: none; padding: 0; margin: 0 0 1mm; font-size: 8.3pt; line-height: 1.35; }
-    .piada { margin-top: 1mm; font-size: 13pt; }
 
     /* final */
-    .final h2 { color: var(--chocolate); }
-    .regras { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; margin: 6mm 0 9mm; }
-    .regra { background: var(--papel); border-radius: 4mm; padding: 4mm; display: grid; grid-template-columns: 16mm 1fr; gap: 3mm; align-items: start; }
-    .regra img { width: 16mm; height: 16mm; object-fit: contain; }
+    .regras { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; margin: 6mm 0 8mm; }
+    .regra { background: var(--papel); border-radius: 4mm; padding: 4mm; display: grid; grid-template-columns: 15mm 1fr; gap: 3mm; align-items: start; }
+    .regra img { width: 15mm; height: 15mm; object-fit: contain; }
     .regra h3 { font: 400 14pt/1 "Bebas Neue"; letter-spacing: .05em; text-transform: uppercase; margin: 0 0 1mm; }
-    .regra p { margin: 0; font-size: 8.6pt; color: var(--tinta-suave); line-height: 1.4; }
-    .compras { background: var(--papel); border-radius: 4mm; padding: 4mm 6mm; columns: 2; column-gap: 8mm; margin-top: 3mm; }
-    .compras div { break-inside: avoid; display: grid; grid-template-columns: 4mm 18mm 1fr; gap: 1.5mm; padding: 1.3mm 0; border-bottom: .3mm dashed var(--areia); font-size: 8.8pt; }
-    .compras div::before { content: ""; width: 3mm; height: 3mm; border: .4mm solid var(--areia); border-radius: 1mm; margin-top: .6mm; }
-    .final__rei { position: absolute; right: 10mm; bottom: 12mm; width: 62mm; }
-    .final__adeus { position: absolute; left: 16mm; bottom: 24mm; font-size: 24pt; color: var(--capa); max-width: 105mm; }
+    .regra p { margin: 0; font-size: 8.4pt; color: var(--tinta-suave); line-height: 1.4; }
+    .compras { background: var(--papel); border-radius: 4mm; padding: 3mm 6mm; columns: 2; column-gap: 8mm; margin-top: 3mm; }
+    .compras div { break-inside: avoid; display: grid; grid-template-columns: 3.4mm 18mm 1fr; gap: 1.5mm; padding: 1.2mm 0; border-bottom: .3mm dashed var(--areia); font-size: 8.4pt; }
+    .compras div::before { content: ""; width: 3mm; height: 3mm; border: .4mm solid var(--areia); border-radius: 1mm; margin-top: .5mm; }
+    .final__rei { position: absolute; right: 10mm; bottom: 12mm; width: 60mm; }
+    .final__adeus { position: absolute; left: 15mm; bottom: 24mm; font-size: 24pt; color: var(--capa); max-width: 105mm; }
 
-    .barra { position: sticky; top: 0; z-index: 9; display: flex; justify-content: center; gap: 10px; padding: 10px; background: var(--chocolate); }
-    .barra a, .barra button { font: 600 12px/1 "Jost"; letter-spacing: .14em; text-transform: uppercase; border: 0; border-radius: 30px; padding: 12px 22px; cursor: pointer; text-decoration: none; }
+    .barra { position: sticky; top: 0; z-index: 9; display: flex; justify-content: center; gap: 10px; padding: 10px; background: var(--chocolate); flex-wrap: wrap; }
+    .barra a, .barra button { font: 600 12px/1 "Jost"; letter-spacing: .14em; text-transform: uppercase; border: 0; border-radius: 30px; padding: 14px 22px; cursor: pointer; text-decoration: none; }
     .barra button { background: var(--capa); color: #fff; }
-    @media print { html, body { background: none; } .pagina { margin: 0; box-shadow: none; } .barra { display: none !important; } }
     .barra a { background: #fff; color: var(--chocolate); }
+    @media screen and (max-width: 820px) { #livro { zoom: .45; } }
+    @media print { html, body { background: none; } .pagina { margin: 0; box-shadow: none; } .barra { display: none !important; } #livro { zoom: 1; } }
   </style>
 </head>
 <body>
   <div class="barra">
     <a href="index.html">← Voltar ao site</a>
-    <button onclick="window.print()">Imprimir / guardar PDF</button>
+    <a href="docs/Livro-Cookies-do-King-G.pdf" download>Descarregar PDF</a>
+    <button onclick="window.print()">Imprimir</button>
   </div>
   <div id="livro"></div>
 
@@ -125,49 +146,51 @@
     const BLOB = '<path d="M421 72c62 38 118 102 128 176 10 75-26 160-86 218-60 57-145 87-226 72-82-15-160-75-185-153C27 307 55 212 116 146 177 80 272 43 339 44c30 1 57 11 82 28Z"/>';
     const FR = { .25: "¼", .5: "½", .75: "¾" };
     const frac = x => { const r = Math.round(x * 4) / 4, i = Math.floor(r), d = +(r - i).toFixed(2); return (i || "") + (FR[d] || ""); };
-    const qt = it => ({ g: it.q + " g", ml: it.q + " ml", cc: frac(it.q) + " c. chá", cs: frac(it.q) + " c. sopa", un: frac(it.q) })[it.u];
+    const qt = it => ({ g: Math.round(it.q) + " g", ml: Math.round(it.q) + " ml", cc: frac(it.q) + " c. chá", cs: frac(it.q) + " c. sopa", un: frac(it.q) })[it.u];
     const nome = it => (it.u === "un" && it.q > 1 && it.plural) ? it.plural : it.n;
     const txt = t => t.replace(/\{N\}/g, BASE_COOKIES);
-    const coroas = n => "♛".repeat(n) + '<span style="opacity:.25">' + "♛".repeat(3 - n) + "</span>";
-    const segredos = r => `<div class="segredos"><strong>Segredos do Rei</strong><ul>${r.dicas.map(d => `<li>${d}</li>`).join("")}</ul></div>`;
-    const rodape = (n) => `<div class="rodape-p"><span>Cookie's do King G</span><span>${n}</span></div>`;
+    const nivel = n => `<span class="nivel">${[1, 2, 3].map(i => `<i class="${i <= n ? "on" : ""}"></i>`).join("")}</span> ${NIVEIS[n]}`;
+    const rodape = n => `<div class="rodape-p"><span>Cookie's do King G</span><span>${n}</span></div>`;
+    let pag = 1;
 
     let html = `
       <section class="pagina capa">
         <svg class="blob" viewBox="0 0 600 600">${BLOB}</svg>
         <svg class="blob blob2" viewBox="0 0 600 600">${BLOB}</svg>
-        <p class="rotulo" style="position:relative;z-index:1">Livro de receitas · Padaria real</p>
-        <h1 class="capa__titulo"><span>Cookie's</span><span class="do">do</span><span class="rei">King G</span></h1>
+        <p class="rotulo" style="position:relative;z-index:1">Livro de receitas</p>
+        <h1 class="capa__titulo"><span>Cookie's</span><span class="do">do</span><span class="rei">King <em class="g">G</em></span></h1>
         <p class="script capa__lema">Sua Majestade decretou:<br>cookies para todos.</p>
         <img class="capa__rei" src="assets/img/king-g.png" alt="">
         <div class="capa__trio">${RECEITAS.map(r => `<img src="${r.imagem}" alt="">`).join("")}</div>
         <p class="capa__sub">3 receitas · ${BASE_COOKIES} cookies cada</p>
-      </section>
+      </section>`;
+    pag++;
 
+    html += `
       <section class="pagina indice">
-        <p class="rotulo">O que te espera</p>
+        <p class="rotulo">Índice</p>
         <h2 class="titulo">As três joias da coroa</h2>
-        <p class="script" style="margin-top:2mm">Escolhe com o coração. Ou com o estômago.</p>
         <div class="indice__lista">
           ${RECEITAS.map((r, i) => `
-            <article class="indice__item">
+            <article class="indice__item" style="--cor:${r.cor}">
               <img src="${r.imagem}" alt="">
               <div>
-                <p class="rotulo" style="color:${r.cor}">Página ${i + 3}</p>
-                <h3 style="color:${r.cor}">${r.nome}</h3>
+                <p class="rotulo" style="color:${r.cor}">Páginas ${3 + i * 2}–${4 + i * 2}</p>
+                <h3>${r.nome}</h3>
                 <p>${r.subtitulo}</p>
-                <div class="chips"><span class="chip">${r.forno}</span><span class="chip">${coroas(r.dificuldade)}</span></div>
+                <div class="chips"><span class="chip">${r.tempoTotal}</span><span class="chip">${r.forno}</span><span class="chip">${nivel(r.nivel)}</span></div>
               </div>
             </article>`).join("")}
         </div>
-        <div class="ferramentas">
-          <p class="rotulo">O arsenal do Rei</p>
-          <div class="ferramentas__grelha">
-            ${[["taca","Taça"],["vara","Batedeira ou vara"],["colher","Espátula"],["medidor","Balança"],["rolo","Mãos limpas"],["tabuleiro","Tabuleiro + papel vegetal"],["aro","Aro ou copo"],["luva","Luva de forno"]]
-              .map(([i, t]) => `<figure><img src="${ICON(i)}" alt=""><figcaption>${t}</figcaption></figure>`).join("")}
-          </div>
+        <div class="indice__como">
+          <p class="sub">Como usar este livro</p>
+          <ol>
+            <li>Lê a receita inteira antes de começar, incluindo os tempos de frigorífico e congelador.</li>
+            <li>Pesa todos os ingredientes antes de ligar a batedeira.</li>
+            <li>As quantidades são para ${BASE_COOKIES} cookies grandes. Para outras doses, usa o site: ele recalcula tudo.</li>
+          </ol>
         </div>
-        ${rodape(2)}
+        ${rodape(pag++)}
       </section>`;
 
     RECEITAS.forEach((r, i) => {
@@ -176,63 +199,78 @@
         <svg class="blob" viewBox="0 0 600 600">${BLOB}</svg>
         <header class="rec__cabeca">
           <div>
-            <p class="rotulo" style="color:${r.cor}">Joia nº ${i + 1} · ${BASE_COOKIES} cookies</p>
+            <p class="rotulo" style="color:${r.cor}">Receita ${i + 1} de ${RECEITAS.length}</p>
             <h2 class="rec__nome">${r.nome}</h2>
-            <p class="rec__sub">${r.subtitulo}</p>
-            <p class="script piada">“${r.piada}”</p>
-            <div class="rec__info">
-              <span class="chip">Tempo: ${r.tempoTotal}</span>
-              <span class="chip">Forno: ${r.forno}</span>
-              <span class="chip">${coroas(r.dificuldade)}</span>
-            </div>
+            <p class="rec__subt">${r.subtitulo}</p>
+            <dl class="factos">
+              <div><dt>Rende</dt><dd>${BASE_COOKIES} cookies</dd></div>
+              <div><dt>Mãos na massa</dt><dd>${r.tempoAtivo}</dd></div>
+              <div><dt>Tempo total</dt><dd>${r.tempoTotal}</dd></div>
+              <div><dt>Forno</dt><dd>${r.forno}</dd></div>
+              <div><dt>Cada cookie</dt><dd>${r.pesoBola}</dd></div>
+              <div><dt>Nível</dt><dd>${nivel(r.nivel)}</dd></div>
+            </dl>
           </div>
           <img src="${r.imagem}" alt="">
         </header>
-        <div class="rec__corpo">
-          <aside class="ing">
-            <h3>Ingredientes</h3>
-            ${r.grupos.map(g => `
-              <p class="ing__grupo">${g.titulo}</p>
-              <ul class="lista">${g.itens.map(it => `<li><b>${qt(it)}</b><span>${nome(it)}</span></li>`).join("")}</ul>`).join("")}
-            ${r.passos.length > 9 ? segredos(r) : ""}
-          </aside>
-          <section class="pas">
-            <h3>Passo a passo</h3>
-            <ol>${r.passos.map((p, j) => `
-              <li>
-                <div class="pas__ic"><img src="${ICON(p.icone)}" alt=""><span class="pas__n">${j + 1}</span></div>
-                <div><h4>${p.t}${p.min ? `<small>⏱ ${p.min} min</small>` : ""}</h4><p>${txt(p.d)}</p></div>
-              </li>`).join("")}
-            </ol>
-            ${r.passos.length <= 9 ? segredos(r) : ""}
-          </section>
+        <div class="rec__meio">
+          <div class="bloco">
+            <p class="sub">Antes de começar</p>
+            <ul class="antes">${r.preparacao.map(p => `<li>${p}</li>`).join("")}</ul>
+          </div>
+          <div class="bloco">
+            <p class="sub">Vais precisar de</p>
+            <div class="equip">${r.equipamento.map(e => `<figure><img src="${ICON(e)}" alt=""><figcaption>${EQUIPAMENTO[e]}</figcaption></figure>`).join("")}</div>
+          </div>
         </div>
-        ${rodape(i + 3)}
+        <div class="ing">
+          <p class="sub">Ingredientes</p>
+          <div class="ing__cols">
+            ${r.grupos.map(g => `<div class="ing__grupo"><h4>${g.titulo}</h4><ul>${g.itens.map(it => `<li><b>${qt(it)}</b><span>${nome(it)}</span></li>`).join("")}</ul></div>`).join("")}
+          </div>
+        </div>
+        <div class="notas"><strong>Notas</strong><ul>${r.dicas.map(d => `<li>${d}</li>`).join("")}</ul></div>
+        ${rodape(pag++)}
+      </section>
+
+      <section class="pagina rec" style="--cor:${r.cor};--suave:${r.corSuave}">
+        <svg class="blob" viewBox="0 0 600 600">${BLOB}</svg>
+        <div class="pas__cabeca">
+          <img src="${r.imagem}" alt="">
+          <div><p class="rotulo" style="color:${r.cor}">${r.nome}</p><h2>Passo a passo</h2></div>
+        </div>
+        <ol class="pas">${r.passos.map((p, j) => `
+          <li>
+            <div class="pas__ic"><img src="${ICON(p.icone)}" alt=""><span class="pas__n">${j + 1}</span></div>
+            <div><h4>${p.t}${p.min ? `<small>${p.min} min</small>` : ""}</h4><p>${txt(p.d)}</p></div>
+          </li>`).join("")}
+        </ol>
+        ${rodape(pag++)}
       </section>`;
     });
 
-    // lista de compras das três receitas
     const mapa = new Map();
     RECEITAS.forEach(r => r.grupos.forEach(g => g.itens.forEach(it => {
-      const k = it.n.split(/[(,]/)[0].replace(/\b(picado|derretido|mole)\b/g, "").replace(/\s+/g, " ").trim().toLowerCase() + "|" + it.u;
-      const a = mapa.get(k) || { ...it, q: 0, n: it.n.split(/[(,]/)[0].replace(/\b(picado|derretido)\b/g, "").trim(), plural: it.plural && it.plural.split(/[(,]/)[0].trim() };
+      const curto = s => s && s.split(/[(,]/)[0].trim();
+      const k = curto(it.n).toLowerCase() + "|" + it.u;
+      const a = mapa.get(k) || { ...it, q: 0, n: curto(it.n), plural: curto(it.plural) };
       a.q += it.q; mapa.set(k, a);
     })));
     const lista = [...mapa.values()].sort((a, b) => (a.u === "g" ? 0 : 1) - (b.u === "g" ? 0 : 1) || b.q - a.q);
 
     html += `
       <section class="pagina final">
-        <p class="rotulo">Lei do reino</p>
+        <p class="rotulo">Para as três receitas</p>
         <h2 class="titulo">As quatro regras do Rei</h2>
         <div class="regras">
           ${REGRAS_DO_REINO.map(g => `<div class="regra"><img src="${ICON(g.icone)}" alt=""><div><h3>${g.t}</h3><p>${g.d}</p></div></div>`).join("")}
         </div>
-        <p class="rotulo">Missão supermercado</p>
-        <h2 class="titulo" style="font-size:30pt">Lista de compras: as três receitas</h2>
+        <p class="rotulo">Lista de compras</p>
+        <h2 class="titulo" style="font-size:28pt">As três receitas (${BASE_COOKIES * RECEITAS.length} cookies)</h2>
         <div class="compras">${lista.map(it => `<div><b>${qt(it)}</b><span>${nome(it)}</span></div>`).join("")}</div>
         <p class="script final__adeus">Agora vai. O forno não se pré-aquece sozinho.</p>
         <img class="final__rei" src="assets/img/king-g.png" alt="">
-        ${rodape(RECEITAS.length + 3)}
+        ${rodape(pag++)}
       </section>`;
 
     document.getElementById("livro").innerHTML = html;
