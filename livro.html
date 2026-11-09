@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Livro de receitas · Cookie's do King G</title>
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="stylesheet" href="css/fontes.css">
+  <style>
+    :root {
+      --creme: #fbf6ee; --papel: #fff; --chocolate: #3b1d10; --chocolate-2: #5a3221;
+      --capa: #c8102e; --mel: #ffc400; --laranja: #ed7328; --areia: #ecdcc2;
+      --tinta: #2b170d; --tinta-suave: #6b5144;
+    }
+    @page { size: A4; margin: 0; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: #d9cbb6; }
+    body { font: 400 10.5pt/1.5 "DM Sans", system-ui, sans-serif; color: var(--tinta); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .pagina {
+      width: 210mm; height: 297mm; margin: 10mm auto; background: var(--creme);
+      position: relative; overflow: hidden; padding: 16mm 16mm 14mm;
+      page-break-after: always; break-after: page;
+      box-shadow: 0 10px 40px rgba(59, 29, 16, .2);
+    }
+
+    .rotulo { font: 600 7.5pt/1.4 "Jost", sans-serif; letter-spacing: .22em; text-transform: uppercase; color: var(--capa); margin: 0; }
+    .script { font: 700 17pt/1.15 "Caveat", cursive; color: var(--chocolate-2); margin: 0; }
+    .titulo { font: 400 40pt/.95 "Bebas Neue", sans-serif; letter-spacing: .04em; text-transform: uppercase; margin: 0; }
+    .blob { position: absolute; z-index: 0; }
+    .rodape-p { position: absolute; left: 16mm; right: 16mm; bottom: 9mm; display: flex; justify-content: space-between; font: 600 7pt/1 "Jost", sans-serif; letter-spacing: .2em; text-transform: uppercase; color: var(--tinta-suave); }
+
+    /* capa */
+    .capa { background: var(--creme); display: flex; flex-direction: column; }
+    .capa .blob { width: 175mm; right: -40mm; top: 40mm; fill: var(--mel); }
+    .capa .blob2 { width: 120mm; left: -45mm; top: auto; bottom: -55mm; fill: var(--laranja); }
+    .capa__titulo { position: relative; z-index: 1; font: 400 64pt/.95 "Luckiest Guy", sans-serif; color: var(--chocolate); text-transform: uppercase; margin: 6mm 0 0; }
+    .capa__titulo span { display: block; }
+    .capa__titulo .do { font: 700 34pt/.8 "Caveat", cursive; color: var(--chocolate-2); text-transform: none; margin: 0 0 0 3mm; }
+    .capa__titulo .rei { color: var(--capa); text-shadow: 2.5pt 3pt 0 var(--mel); }
+    .capa__rei { position: absolute; z-index: 1; width: 158mm; right: -6mm; top: 92mm; filter: drop-shadow(0 6mm 5mm rgba(59, 29, 16, .25)); }
+    .capa__lema { position: relative; z-index: 1; margin-top: 6mm; font-size: 22pt; }
+    .capa__trio { position: absolute; z-index: 2; left: 16mm; bottom: 26mm; display: flex; gap: 3mm; align-items: flex-end; }
+    .capa__trio img { width: 30mm; filter: drop-shadow(0 3mm 3mm rgba(59, 29, 16, .3)); }
+    .capa__trio img:nth-child(2) { width: 36mm; }
+    .capa__sub { position: absolute; z-index: 2; right: 16mm; bottom: 14mm; color: var(--chocolate); font: 600 8pt/1 "Jost"; letter-spacing: .2em; text-transform: uppercase; }
+
+    /* índice */
+    .indice h2 { color: var(--chocolate); }
+    .indice__lista { margin-top: 10mm; display: grid; gap: 6mm; }
+    .indice__item { display: grid; grid-template-columns: 42mm 1fr; gap: 6mm; align-items: center; background: var(--papel); border-radius: 5mm; padding: 5mm; box-shadow: -4mm 3mm 12mm rgba(59, 29, 16, .1); }
+    .indice__item img { width: 38mm; filter: drop-shadow(0 3mm 3mm rgba(59, 29, 16, .25)); }
+    .indice__item h3 { font: 400 26pt/1 "Bebas Neue"; letter-spacing: .04em; text-transform: uppercase; margin: 0 0 1mm; }
+    .indice__item p { margin: 0 0 2mm; color: var(--tinta-suave); }
+    .chips { display: flex; flex-wrap: wrap; gap: 2mm; }
+    .chip { background: var(--creme); border-radius: 4mm; padding: 1.4mm 3mm; font: 600 6.8pt/1 "Jost"; letter-spacing: .12em; text-transform: uppercase; color: var(--chocolate); }
+    .ferramentas { margin-top: 9mm; }
+    .ferramentas__grelha { display: flex; justify-content: space-between; margin-top: 3mm; }
+    .ferramentas__grelha figure { margin: 0; text-align: center; width: 20mm; }
+    .ferramentas__grelha img { width: 17mm; height: 17mm; object-fit: contain; margin: 0 auto 1mm; }
+    .ferramentas__grelha figcaption { font: 600 6.3pt/1.2 "Jost"; letter-spacing: .1em; text-transform: uppercase; color: var(--tinta-suave); }
+
+    /* receita */
+    .rec { background: var(--suave); padding-top: 12mm; }
+    .rec .blob { width: 120mm; right: -38mm; top: -30mm; fill: var(--papel); opacity: .6; }
+    .rec__cabeca { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 48mm; gap: 6mm; align-items: center; }
+    .rec__cabeca img { width: 48mm; filter: drop-shadow(0 4mm 4mm rgba(59, 29, 16, .3)); }
+    .rec__nome { font: 400 44pt/.9 "Bebas Neue"; letter-spacing: .04em; text-transform: uppercase; color: var(--cor); margin: 1mm 0 1mm; }
+    .rec__sub { margin: 0 0 2mm; font-size: 11pt; }
+    .rec__info { display: flex; gap: 2mm; flex-wrap: wrap; margin-top: 3mm; }
+    .rec__info .chip { background: var(--papel); }
+    .rec__corpo { position: relative; z-index: 1; display: grid; grid-template-columns: 62mm 1fr; gap: 5mm; margin-top: 4mm; }
+    .ing { background: var(--papel); border-radius: 4mm; padding: 5mm; align-self: start; }
+    .ing h3, .pas h3 { font: 400 17pt/1 "Bebas Neue"; letter-spacing: .06em; text-transform: uppercase; margin: 0 0 1mm; color: var(--chocolate); }
+    .ing__grupo { font: 700 13pt/1 "Caveat"; color: var(--cor); margin: 3.5mm 0 1mm; }
+    .ing ul.lista { list-style: none; margin: 0; padding: 0; }
+    .ing ul.lista li { display: grid; grid-template-columns: 4mm 15mm 1fr; gap: 1.5mm; padding: 1.3mm 0; border-bottom: .3mm dashed var(--areia); font-size: 8.8pt; line-height: 1.3; }
+    .ing ul.lista li:last-child { border: 0; }
+    .ing ul.lista li::before { content: ""; width: 3mm; height: 3mm; border: .4mm solid var(--areia); border-radius: 1mm; margin-top: .3mm; }
+    .ing b { color: var(--chocolate); }
+    .pas ol { list-style: none; margin: 2mm 0 0; padding: 0; display: grid; gap: 1.6mm; }
+    .pas li { display: grid; grid-template-columns: 9mm 1fr; gap: 2.6mm; background: var(--papel); border-radius: 3mm; padding: 1.8mm 2.6mm; font-size: 8.2pt; line-height: 1.32; }
+    .pas__ic { position: relative; }
+    .pas__ic img { width: 9mm; height: 9mm; object-fit: contain; }
+    .pas__n { position: absolute; top: -1.5mm; left: -1.5mm; width: 4.6mm; height: 4.6mm; border-radius: 50%; background: var(--cor); color: #fff; font: 400 8pt/4.6mm "Bebas Neue"; text-align: center; }
+    .pas h4 { font: 400 11.5pt/1 "Bebas Neue"; letter-spacing: .06em; text-transform: uppercase; margin: .6mm 0 .6mm; color: var(--chocolate); }
+    .pas h4 small { font: 600 6.5pt/1 "Jost"; letter-spacing: .1em; color: var(--capa); margin-left: 1.5mm; }
+    .pas p { margin: 0; }
+    .segredos { margin-top: 3mm; background: var(--chocolate); color: #f7e8d6; border-radius: 3mm; padding: 3mm 4mm; font-size: 8.5pt; }
+    .segredos strong { font: 700 13pt/1 "Caveat"; color: var(--mel); display: block; margin-bottom: 1mm; }
+    .segredos ul { margin: 0; padding-left: 4mm; display: block; }
+    .segredos li { display: list-item; background: none; padding: 0; margin: 0 0 1mm; font-size: 8.3pt; line-height: 1.35; }
+    .piada { margin-top: 1mm; font-size: 13pt; }
+
+    /* final */
+    .final h2 { color: var(--chocolate); }
+    .regras { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; margin: 6mm 0 9mm; }
+    .regra { background: var(--papel); border-radius: 4mm; padding: 4mm; display: grid; grid-template-columns: 16mm 1fr; gap: 3mm; align-items: start; }
+    .regra img { width: 16mm; height: 16mm; object-fit: contain; }
+    .regra h3 { font: 400 14pt/1 "Bebas Neue"; letter-spacing: .05em; text-transform: uppercase; margin: 0 0 1mm; }
+    .regra p { margin: 0; font-size: 8.6pt; color: var(--tinta-suave); line-height: 1.4; }
+    .compras { background: var(--papel); border-radius: 4mm; padding: 4mm 6mm; columns: 2; column-gap: 8mm; margin-top: 3mm; }
+    .compras div { break-inside: avoid; display: grid; grid-template-columns: 4mm 18mm 1fr; gap: 1.5mm; padding: 1.3mm 0; border-bottom: .3mm dashed var(--areia); font-size: 8.8pt; }
+    .compras div::before { content: ""; width: 3mm; height: 3mm; border: .4mm solid var(--areia); border-radius: 1mm; margin-top: .6mm; }
+    .final__rei { position: absolute; right: 10mm; bottom: 12mm; width: 62mm; }
+    .final__adeus { position: absolute; left: 16mm; bottom: 24mm; font-size: 24pt; color: var(--capa); max-width: 105mm; }
+
+    .barra { position: sticky; top: 0; z-index: 9; display: flex; justify-content: center; gap: 10px; padding: 10px; background: var(--chocolate); }
+    .barra a, .barra button { font: 600 12px/1 "Jost"; letter-spacing: .14em; text-transform: uppercase; border: 0; border-radius: 30px; padding: 12px 22px; cursor: pointer; text-decoration: none; }
+    .barra button { background: var(--capa); color: #fff; }
+    @media print { html, body { background: none; } .pagina { margin: 0; box-shadow: none; } .barra { display: none !important; } }
+    .barra a { background: #fff; color: var(--chocolate); }
+  </style>
+</head>
+<body>
+  <div class="barra">
+    <a href="index.html">← Voltar ao site</a>
+    <button onclick="window.print()">Imprimir / guardar PDF</button>
+  </div>
+  <div id="livro"></div>
+
+  <script src="js/receitas.js"></script>
+  <script>
+  (() => {
+    const ICON = n => `assets/img/icons/${n}.png`;
+    const BLOB = '<path d="M421 72c62 38 118 102 128 176 10 75-26 160-86 218-60 57-145 87-226 72-82-15-160-75-185-153C27 307 55 212 116 146 177 80 272 43 339 44c30 1 57 11 82 28Z"/>';
+    const FR = { .25: "¼", .5: "½", .75: "¾" };
+    const frac = x => { const r = Math.round(x * 4) / 4, i = Math.floor(r), d = +(r - i).toFixed(2); return (i || "") + (FR[d] || ""); };
+    const qt = it => ({ g: it.q + " g", ml: it.q + " ml", cc: frac(it.q) + " c. chá", cs: frac(it.q) + " c. sopa", un: frac(it.q) })[it.u];
+    const nome = it => (it.u === "un" && it.q > 1 && it.plural) ? it.plural : it.n;
+    const txt = t => t.replace(/\{N\}/g, BASE_COOKIES);
+    const coroas = n => "♛".repeat(n) + '<span style="opacity:.25">' + "♛".repeat(3 - n) + "</span>";
+    const segredos = r => `<div class="segredos"><strong>Segredos do Rei</strong><ul>${r.dicas.map(d => `<li>${d}</li>`).join("")}</ul></div>`;
+    const rodape = (n) => `<div class="rodape-p"><span>Cookie's do King G</span><span>${n}</span></div>`;
+
+    let html = `
+      <section class="pagina capa">
+        <svg class="blob" viewBox="0 0 600 600">${BLOB}</svg>
+        <svg class="blob blob2" viewBox="0 0 600 600">${BLOB}</svg>
+        <p class="rotulo" style="position:relative;z-index:1">Livro de receitas · Padaria real</p>
+        <h1 class="capa__titulo"><span>Cookie's</span><span class="do">do</span><span class="rei">King G</span></h1>
+        <p class="script capa__lema">Sua Majestade decretou:<br>cookies para todos.</p>
+        <img class="capa__rei" src="assets/img/king-g.png" alt="">
+        <div class="capa__trio">${RECEITAS.map(r => `<img src="${r.imagem}" alt="">`).join("")}</div>
+        <p class="capa__sub">3 receitas · ${BASE_COOKIES} cookies cada</p>
+      </section>
+
+      <section class="pagina indice">
+        <p class="rotulo">O que te espera</p>
+        <h2 class="titulo">As três joias da coroa</h2>
+        <p class="script" style="margin-top:2mm">Escolhe com o coração. Ou com o estômago.</p>
+        <div class="indice__lista">
+          ${RECEITAS.map((r, i) => `
+            <article class="indice__item">
+              <img src="${r.imagem}" alt="">
+              <div>
+                <p class="rotulo" style="color:${r.cor}">Página ${i + 3}</p>
+                <h3 style="color:${r.cor}">${r.nome}</h3>
+                <p>${r.subtitulo}</p>
+                <div class="chips"><span class="chip">${r.forno}</span><span class="chip">${coroas(r.dificuldade)}</span></div>
+              </div>
+            </article>`).join("")}
+        </div>
+        <div class="ferramentas">
+          <p class="rotulo">O arsenal do Rei</p>
+          <div class="ferramentas__grelha">
+            ${[["taca","Taça"],["vara","Batedeira ou vara"],["colher","Espátula"],["medidor","Balança"],["rolo","Mãos limpas"],["tabuleiro","Tabuleiro + papel vegetal"],["aro","Aro ou copo"],["luva","Luva de forno"]]
+              .map(([i, t]) => `<figure><img src="${ICON(i)}" alt=""><figcaption>${t}</figcaption></figure>`).join("")}
+          </div>
+        </div>
+        ${rodape(2)}
+      </section>`;
+
+    RECEITAS.forEach((r, i) => {
+      html += `
+      <section class="pagina rec" style="--cor:${r.cor};--suave:${r.corSuave}">
+        <svg class="blob" viewBox="0 0 600 600">${BLOB}</svg>
+        <header class="rec__cabeca">
+          <div>
+            <p class="rotulo" style="color:${r.cor}">Joia nº ${i + 1} · ${BASE_COOKIES} cookies</p>
+            <h2 class="rec__nome">${r.nome}</h2>
+            <p class="rec__sub">${r.subtitulo}</p>
+            <p class="script piada">“${r.piada}”</p>
+            <div class="rec__info">
+              <span class="chip">Tempo: ${r.tempoTotal}</span>
+              <span class="chip">Forno: ${r.forno}</span>
+              <span class="chip">${coroas(r.dificuldade)}</span>
+            </div>
+          </div>
+          <img src="${r.imagem}" alt="">
+        </header>
+        <div class="rec__corpo">
+          <aside class="ing">
+            <h3>Ingredientes</h3>
+            ${r.grupos.map(g => `
+              <p class="ing__grupo">${g.titulo}</p>
+              <ul class="lista">${g.itens.map(it => `<li><b>${qt(it)}</b><span>${nome(it)}</span></li>`).join("")}</ul>`).join("")}
+            ${r.passos.length > 9 ? segredos(r) : ""}
+          </aside>
+          <section class="pas">
+            <h3>Passo a passo</h3>
+            <ol>${r.passos.map((p, j) => `
+              <li>
+                <div class="pas__ic"><img src="${ICON(p.icone)}" alt=""><span class="pas__n">${j + 1}</span></div>
+                <div><h4>${p.t}${p.min ? `<small>⏱ ${p.min} min</small>` : ""}</h4><p>${txt(p.d)}</p></div>
+              </li>`).join("")}
+            </ol>
+            ${r.passos.length <= 9 ? segredos(r) : ""}
+          </section>
+        </div>
+        ${rodape(i + 3)}
+      </section>`;
+    });
+
+    // lista de compras das três receitas
+    const mapa = new Map();
+    RECEITAS.forEach(r => r.grupos.forEach(g => g.itens.forEach(it => {
+      const k = it.n.split(/[(,]/)[0].replace(/\b(picado|derretido|mole)\b/g, "").replace(/\s+/g, " ").trim().toLowerCase() + "|" + it.u;
+      const a = mapa.get(k) || { ...it, q: 0, n: it.n.split(/[(,]/)[0].replace(/\b(picado|derretido)\b/g, "").trim(), plural: it.plural && it.plural.split(/[(,]/)[0].trim() };
+      a.q += it.q; mapa.set(k, a);
+    })));
+    const lista = [...mapa.values()].sort((a, b) => (a.u === "g" ? 0 : 1) - (b.u === "g" ? 0 : 1) || b.q - a.q);
+
+    html += `
+      <section class="pagina final">
+        <p class="rotulo">Lei do reino</p>
+        <h2 class="titulo">As quatro regras do Rei</h2>
+        <div class="regras">
+          ${REGRAS_DO_REINO.map(g => `<div class="regra"><img src="${ICON(g.icone)}" alt=""><div><h3>${g.t}</h3><p>${g.d}</p></div></div>`).join("")}
+        </div>
+        <p class="rotulo">Missão supermercado</p>
+        <h2 class="titulo" style="font-size:30pt">Lista de compras: as três receitas</h2>
+        <div class="compras">${lista.map(it => `<div><b>${qt(it)}</b><span>${nome(it)}</span></div>`).join("")}</div>
+        <p class="script final__adeus">Agora vai. O forno não se pré-aquece sozinho.</p>
+        <img class="final__rei" src="assets/img/king-g.png" alt="">
+        ${rodape(RECEITAS.length + 3)}
+      </section>`;
+
+    document.getElementById("livro").innerHTML = html;
+  })();
+  </script>
+</body>
+</html>
