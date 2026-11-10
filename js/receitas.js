@@ -383,3 +383,46 @@ function emVolume(item, fator) {
 }
 
 if (typeof module !== "undefined") Object.assign(module.exports, { MEDIDAS, emVolume });
+
+/* =========================================================
+   VALOR NUTRICIONAL (estimativa)
+   Valores por 100 g (ou 100 ml) de cada ingrediente, de rótulos
+   e tabelas de composição: [kcal, gordura, saturada, hidratos, açúcares, proteína].
+   A ordem conta: a primeira chave que aparece no nome do ingrediente ganha.
+   ========================================================= */
+const NUTRI = [
+  ["kinder bueno", [572, 37.3, 17.3, 49.5, 41.2, 8.6]],
+  ["nutella", [539, 30.9, 10.6, 57.5, 56.3, 6.3]],
+  ["chocolate de leite ou negro", [545, 33, 20, 52, 45, 7]],
+  ["chocolate branco", [550, 32, 19, 58, 58, 6]],
+  ["chocolate de leite", [535, 30, 18, 59, 56, 7.5]],
+  ["natas", [337, 35, 22, 3.2, 3.2, 2.1]],
+  ["manteiga", [745, 82, 54, 0.6, 0.6, 0.7]],
+  ["açúcar", [395, 0, 0, 99, 98, 0]],
+  ["ovo", [143, 9.5, 3.1, 0.7, 0.4, 12.6]],
+  ["baunilha", [288, 0, 0, 12.7, 12.7, 0]],
+  ["farinha", [350, 1.2, 0.2, 73, 0.6, 10]],
+  ["cacau", [355, 11, 6.5, 14, 0.5, 22]],
+  ["amido", [355, 0.1, 0, 88, 0, 0.3]],
+  ["leite", [46, 1.6, 1, 4.8, 4.8, 3.3]],
+  ["corante", [270, 0, 0, 68, 60, 0]]
+];
+/* por cookie, com a receita base */
+function nutricao(r) {
+  const t = [0, 0, 0, 0, 0, 0];
+  let peso = 0;
+  r.grupos.forEach(g => g.itens.forEach(it => {
+    const n = it.n.toLowerCase(), v = (NUTRI.find(([k]) => n.includes(k)) || [0, null])[1];
+    peso += it.q;
+    if (v) v.forEach((x, i) => { t[i] += x * it.q / 100; });
+  }));
+  const um = t.map(x => x / BASE_COOKIES);
+  /* ~10% da água evapora no forno: o peso cozido é menor, as calorias não mudam */
+  const pesoCozido = peso / BASE_COOKIES * 0.9;
+  return {
+    kcal: Math.round(um[0] / 10) * 10, gordura: Math.round(um[1]), saturada: Math.round(um[2]),
+    hidratos: Math.round(um[3]), acucares: Math.round(um[4]), proteina: Math.round(um[5]),
+    peso: Math.round(pesoCozido / 5) * 5, kcal100: Math.round(um[0] / pesoCozido * 100 / 5) * 5
+  };
+}
+if (typeof module !== "undefined") Object.assign(module.exports, { NUTRI, nutricao });

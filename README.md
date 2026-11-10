@@ -14,9 +14,9 @@ Site com as três receitas de cookies da La Cookie Locaa, cada uma para 6 cookie
 
 ## O que o site faz
 
-- **Página inicial**: cabeçalho fixo com pesquisa sempre visível; hero; as 3 cookies (passa o rato para ver o corte); "O que tens em casa?" com filtros (Recheadas, Rápidas, Sem batedeira, Para oferecer) e pesquisa por ingrediente ("tenho Kinder em casa"); pré-visualização do modo cozinha; sobre o chef; galeria "fiz e ficou assim"; newsletter; rodapé.
+- **Página inicial**: cabeçalho fixo com pesquisa sempre visível (também por ingrediente: "tenho Kinder em casa"); hero; as 3 cookies; tabela de calorias de cada cookie; sobre o chef; galeria "fiz e ficou assim"; newsletter; rodapé.
 - **Página de cada cookie**: botão "Saltar para a receita", ingredientes em gramas com a medida em chávenas/colheres ao lado, doses ajustáveis, passos com os ingredientes de cada passo, temporizadores, e schema Recipe para o Google.
-- **Modo cozinha**: um passo de cada vez em letra grande, com os ingredientes desse passo, temporizador e ecrã sempre ligado (Screen Wake Lock). Avança com um toque, a deslizar ou com as setas.
+- **Calorias**: estimadas a partir dos ingredientes (tabela `NUTRI` em `js/receitas.js`), por cookie. Aparecem na página inicial, em cada receita e no schema Recipe.
 - **Lista de compras** (`lista.html`): um talão que junta e soma os ingredientes das receitas escolhidas.
 - **Livro de receitas**: [`livro.html`](livro.html) para imprimir, ou o PDF em [`docs/`](docs/Livro-La-Cookie-Locaa.pdf).
 - Modo escuro automático, navegação por teclado e `prefers-reduced-motion` (desliga as animações).
@@ -51,7 +51,7 @@ Abre `js/receitas.js`. Cada receita tem `grupos` (ingredientes) e `passos`; cada
 As quantidades são para 6 cookies; o site faz as contas para outras doses.
 Nos passos, `{N}` é trocado pelo número de cookies escolhido.
 
-Cada ingrediente tem `p: [números dos passos]` onde é usado, para aparecer nesses passos e no modo cozinha.
+Cada ingrediente tem `p: [números dos passos]` onde é usado, para as quantidades aparecerem nesses passos.
 Depois de mudares alguma coisa, volta a gerar as páginas:
 
 ```bash

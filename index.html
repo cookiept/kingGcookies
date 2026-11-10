@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>La Cookie Locaa · Cookies loucas, receitas simples</title>
-  <meta name="description" content="Cookies loucas, receitas simples. Três receitas caseiras de cookies grossas e macias, passo a passo, com modo cozinha.">
+  <meta name="description" content="Cookies loucas, receitas simples. Três receitas caseiras de cookies grossas e macias, passo a passo, com as calorias de cada uma.">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#fbf5ec" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#1b120d" media="(prefers-color-scheme: dark)">
   <meta property="og:type" content="website">
   <meta property="og:title" content="La Cookie Locaa · Cookies loucas, receitas simples">
-  <meta property="og:description" content="Cookies loucas, receitas simples. Três receitas caseiras de cookies grossas e macias, passo a passo, com modo cozinha.">
+  <meta property="og:description" content="Cookies loucas, receitas simples. Três receitas caseiras de cookies grossas e macias, passo a passo, com as calorias de cada uma.">
   <meta property="og:image" content="assets/img/cookies/recheada.webp">
   <link rel="icon" type="image/webp" href="assets/img/mascote.webp">
   <link rel="preload" href="assets/fonts/fredoka-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -28,8 +28,8 @@
       </a>
       <nav class="cab__nav" aria-label="Principal">
         <a href="index.html#receitas" aria-current="page">Receitas</a>
+        <a href="index.html#calorias">Calorias</a>
         <a href="index.html#chef">Sobre o chef</a>
-        <a href="index.html#modo-cozinha">Modo cozinha</a>
       </nav>
       <button class="icone-btn" type="button" data-pesquisa aria-label="Pesquisar receitas"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
       <a class="icone-btn" href="lista.html" aria-label="Lista de compras"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-2-1.5L14 21l-2-1.5L10 21l-2-1.5L6 21Z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></a>
@@ -37,8 +37,8 @@
     </div>
     <nav class="cab__gaveta" id="gaveta" aria-label="Menu">
       <a href="index.html#receitas">Receitas</a>
+      <a href="index.html#calorias">Calorias</a>
       <a href="index.html#chef">Sobre o chef</a>
-      <a href="index.html#modo-cozinha">Modo cozinha</a>
       <a href="lista.html">Lista de compras</a>
       <a href="livro.html">Livro de receitas (PDF)</a>
     </nav>
@@ -59,7 +59,7 @@
       <div class="hero__grelha">
         <div>
           <h1 class="h1 hero__titulo" id="hero-titulo">Cookies loucas.<span>Receitas simples.</span></h1>
-          <p class="lead">Cookies grossas, douradas por fora e cremosas por dentro. Três receitas caseiras explicadas passo a passo, com modo cozinha para seguires com as mãos na massa.</p>
+          <p class="lead">Cookies grossas, douradas por fora e cremosas por dentro. Três receitas caseiras explicadas passo a passo, com as quantidades em gramas e em chávenas.</p>
           <div class="hero__acoes">
             <a class="btn btn--acao" href="#receitas">Ver receitas <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
             <a class="link" href="cookie-red-velvet.html" data-ir="assets/img/topo/redvelvet.webp" data-cor="#fbe0e3">Fazer a minha primeira cookie <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -127,44 +127,51 @@
       </div>
     </section>
 
-    <section class="contentor" aria-labelledby="procura-titulo">
-      <div class="procura">
-        <p class="olho">Encontrar a receita certa</p>
-        <h2 class="h2" id="procura-titulo">O que tens em casa?</h2>
-        <div class="procura__campo">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-          <label class="vh" for="procura-input">Pesquisar por receita ou ingrediente</label>
-          <input id="procura-input" type="search" placeholder="Ex.: tenho Kinder em casa" autocomplete="off">
-        </div>
-        <div class="filtros" role="group" aria-label="Filtros" id="filtros"></div>
-        <ul class="achados" id="achados" aria-live="polite"><li><a class="resultado" href="cookie-chocolate-recheada.html" data-ir="assets/img/topo/recheada.webp" data-cor="#f3e3d6"><img src="assets/img/topo/recheada-mini.webp" alt="" width="56" height="56" loading="lazy"><span><b>Cookie de Chocolate Recheada</b><small>Massa de chocolate com recheio de mousse de chocolate</small></span></a></li><li><a class="resultado" href="cookie-kinder-bueno.html" data-ir="assets/img/topo/bueno.webp" data-cor="#fde7d2"><img src="assets/img/topo/bueno-mini.webp" alt="" width="56" height="56" loading="lazy"><span><b>Cookie Kinder Bueno</b><small>Com pedaços de Kinder Bueno e recheio de Nutella</small></span></a></li><li><a class="resultado" href="cookie-red-velvet.html" data-ir="assets/img/topo/redvelvet.webp" data-cor="#fbe0e3"><img src="assets/img/topo/redvelvet-mini.webp" alt="" width="56" height="56" loading="lazy"><span><b>Cookie Red Velvet</b><small>Red velvet com chocolate branco e de leite</small></span></a></li></ul>
-      </div>
-    </section>
-
-    <section class="sec contentor" id="modo-cozinha" aria-labelledby="mc-titulo">
-      <div class="mc">
+    <section class="sec contentor" id="calorias" aria-labelledby="kcal-titulo">
+      <div class="sec__cab">
         <div>
-          <p class="olho">Modo cozinha</p>
-          <h2 class="h2" id="mc-titulo">Um passo de cada vez, com as mãos na massa</h2>
-          <ul class="mc__lista">
-            <li><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M9 8h6M9 12h6"/></svg></span><span><b>Um passo de cada vez</b><span>Letra grande, para leres a um metro. Avanças com um toque ou a deslizar.</span></span></li>
-            <li><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M7 7l-3 7a3 3 0 0 0 6 0L7 7M17 7l-3 7a3 3 0 0 0 6 0l-3-7M12 4v16M8 20h8"/></svg></span><span><b>Os ingredientes desse passo</b><span>Já com as quantidades certas para o número de cookies que escolheste.</span></span></li>
-            <li><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg></span><span><b>Temporizador</b><span>Toca quando acaba, mesmo que mudes de passo.</span></span></li>
-            <li><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span><span><b>Ecrã sempre ligado</b><span>O telemóvel não escurece enquanto cozinhas.</span></span></li>
-          </ul>
-          <a class="btn btn--acao" href="cookie-kinder-bueno.html#cozinha" data-ir="assets/img/topo/bueno.webp" data-cor="#fde7d2">Experimentar o modo cozinha <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <p class="olho">Valor nutricional</p>
+          <h2 class="h2" id="kcal-titulo">Quantas calorias tem cada cookie?</h2>
         </div>
-        <div class="telefone" aria-hidden="true">
-          <div class="telefone__ecra">
-            <div class="telefone__barra"><span></span></div>
-            <span class="telefone__passo">Passo 4 de 14 · Massa</span>
-            <p class="telefone__titulo">Bater a manteiga com os açúcares</p>
-            <div class="telefone__ing"><span>115 g manteiga com sal</span><span>120 g açúcar mascavado claro</span><span>50 g açúcar branco</span></div>
-            <p class="telefone__texto">Bate a manteiga, o açúcar mascavado e o açúcar branco em velocidade média durante 3 minutos, até a mistura ficar mais clara e fofa.</p>
-            <div class="telefone__relogio"><b>03:00</b><span>Iniciar</span></div>
-            <span class="telefone__ligado">Ecrã sempre ligado</span>
-          </div>
-        </div>
+        <p>Valores por cookie, calculados a partir dos ingredientes de cada receita.</p>
+      </div>
+      <div class="kcal">
+        <table class="kcal__tabela">
+          <caption class="vh">Calorias e nutrientes por cookie</caption>
+          <thead>
+            <tr>
+              <th scope="col">Cookie</th>
+              <th scope="col">Calorias</th>
+              <th scope="col">Gordura</th>
+              <th scope="col">Hidratos</th>
+              <th scope="col">Proteína</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="--suave:#f3e3d6">
+              <th scope="row"><a href="cookie-chocolate-recheada.html" data-ir="assets/img/topo/recheada.webp" data-cor="#f3e3d6"><img src="assets/img/topo/recheada-mini.webp" alt="" width="52" height="52" loading="lazy"><span>Cookie de Chocolate Recheada<small>≈ 125 g depois de cozida</small></span></a></th>
+              <td data-rotulo="Calorias" class="kcal__valor"><b>630</b> kcal<span class="kcal__barra" aria-hidden="true"><span style="width:90%"></span></span><small>500 kcal por 100 g · 32% do dia</small></td>
+              <td data-rotulo="Gordura">32 g <small>20 g saturada</small></td>
+              <td data-rotulo="Hidratos">78 g <small>54 g açúcares</small></td>
+              <td data-rotulo="Proteína">7 g</td>
+            </tr>
+            <tr style="--suave:#fde7d2">
+              <th scope="row"><a href="cookie-kinder-bueno.html" data-ir="assets/img/topo/bueno.webp" data-cor="#fde7d2"><img src="assets/img/topo/bueno-mini.webp" alt="" width="52" height="52" loading="lazy"><span>Cookie Kinder Bueno<small>≈ 135 g depois de cozida</small></span></a></th>
+              <td data-rotulo="Calorias" class="kcal__valor"><b>700</b> kcal<span class="kcal__barra" aria-hidden="true"><span style="width:100%"></span></span><small>525 kcal por 100 g · 35% do dia</small></td>
+              <td data-rotulo="Gordura">36 g <small>20 g saturada</small></td>
+              <td data-rotulo="Hidratos">85 g <small>57 g açúcares</small></td>
+              <td data-rotulo="Proteína">9 g</td>
+            </tr>
+            <tr style="--suave:#fbe0e3">
+              <th scope="row"><a href="cookie-red-velvet.html" data-ir="assets/img/topo/redvelvet.webp" data-cor="#fbe0e3"><img src="assets/img/topo/redvelvet-mini.webp" alt="" width="52" height="52" loading="lazy"><span>Cookie Red Velvet<small>≈ 110 g depois de cozida</small></span></a></th>
+              <td data-rotulo="Calorias" class="kcal__valor"><b>550</b> kcal<span class="kcal__barra" aria-hidden="true"><span style="width:79%"></span></span><small>490 kcal por 100 g · 28% do dia</small></td>
+              <td data-rotulo="Gordura">25 g <small>16 g saturada</small></td>
+              <td data-rotulo="Hidratos">73 g <small>48 g açúcares</small></td>
+              <td data-rotulo="Proteína">6 g</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="kcal__nota">Valores aproximados, com base nos rótulos dos ingredientes, para a receita de 6 cookies. A percentagem é sobre uma dieta de referência de 2000 kcal por dia.</p>
       </div>
     </section>
 

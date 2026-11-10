@@ -4,10 +4,10 @@
    ========================================================= */
 const fs = require("fs"), path = require("path");
 const site = path.resolve(process.argv[2] || ".");
-const { RECEITAS, BASE_COOKIES, NIVEIS, emVolume } = require(path.join(site, "js/receitas.js"));
+const { RECEITAS, BASE_COOKIES, NIVEIS, emVolume, nutricao } = require(path.join(site, "js/receitas.js"));
 
 const MARCA = "La Cookie Locaa";
-const DESCRICAO = "Cookies loucas, receitas simples. Três receitas caseiras de cookies grossas e macias, passo a passo, com modo cozinha.";
+const DESCRICAO = "Cookies loucas, receitas simples. Três receitas caseiras de cookies grossas e macias, passo a passo, com as calorias de cada uma.";
 const GITHUB = "https://github.com/cookiept/kingGcookies";
 
 /* ---------- ícones ---------- */
@@ -53,9 +53,6 @@ ${extra}</head>
 }
 function header(atual) {
   const cur = (k) => (atual === k ? ' aria-current="page"' : "");
-  const modo = atual === "receita"
-    ? `<a href="#cozinha" data-acao="cozinhar">Modo cozinha</a>`
-    : `<a href="index.html#modo-cozinha"${cur("modo")}>Modo cozinha</a>`;
   return `  <header class="cab">
     <div class="contentor cab__dentro">
       <a class="marca" href="index.html" aria-label="${MARCA}, página inicial">
@@ -64,8 +61,8 @@ function header(atual) {
       </a>
       <nav class="cab__nav" aria-label="Principal">
         <a href="index.html#receitas"${cur("inicio")}>Receitas</a>
+        <a href="index.html#calorias">Calorias</a>
         <a href="index.html#chef">Sobre o chef</a>
-        ${modo}
       </nav>
       <button class="icone-btn" type="button" data-pesquisa aria-label="Pesquisar receitas">${SVG.lupa}</button>
       <a class="icone-btn" href="lista.html" aria-label="Lista de compras"${cur("lista")}>${SVG.talao}</a>
@@ -73,8 +70,8 @@ function header(atual) {
     </div>
     <nav class="cab__gaveta" id="gaveta" aria-label="Menu">
       <a href="index.html#receitas">Receitas</a>
+      <a href="index.html#calorias">Calorias</a>
       <a href="index.html#chef">Sobre o chef</a>
-      ${atual === "receita" ? `<a href="#cozinha" data-acao="cozinhar">Modo cozinha</a>` : `<a href="index.html#modo-cozinha">Modo cozinha</a>`}
       <a href="lista.html">Lista de compras</a>
       <a href="livro.html">Livro de receitas (PDF)</a>
     </nav>
@@ -141,10 +138,8 @@ const resultado = (r) => `<li><a class="resultado" href="${r.pagina}" data-ir="$
 
 /* ---------- página inicial ---------- */
 function paginaInicial() {
-  const demo = RECEITAS.find(r => r.id === "bueno");
-  const passoDemo = 4;
-  const p = demo.passos[passoDemo - 1];
-  const ingDemo = demo.grupos.flatMap(x => x.itens).filter(it => it.p.includes(passoDemo));
+  const nut = RECEITAS.map(r => ({ r, n: nutricao(r) }));
+  const maxKcal = Math.max(...nut.map(x => x.n.kcal));
   const primeira = RECEITAS.slice().sort((a, b) => a.nivel - b.nivel || a.totalMin - b.totalMin)[0];
   const total = RECEITAS.length * BASE_COOKIES;
   return cabeca({ titulo: `${MARCA} · Cookies loucas, receitas simples`, descricao: DESCRICAO, imagem: "assets/img/cookies/recheada.webp",
@@ -156,7 +151,7 @@ ${header("inicio")}
       <div class="hero__grelha">
         <div>
           <h1 class="h1 hero__titulo" id="hero-titulo">Cookies loucas.<span>Receitas simples.</span></h1>
-          <p class="lead">Cookies grossas, douradas por fora e cremosas por dentro. Três receitas caseiras explicadas passo a passo, com modo cozinha para seguires com as mãos na massa.</p>
+          <p class="lead">Cookies grossas, douradas por fora e cremosas por dentro. Três receitas caseiras explicadas passo a passo, com as quantidades em gramas e em chávenas.</p>
           <div class="hero__acoes">
             <a class="btn btn--acao" href="#receitas">Ver receitas ${SVG.seta}</a>
             <a class="link" href="${primeira.pagina}" data-ir="${primeira.topoGrande}" data-cor="${primeira.corSuave}">Fazer a minha primeira cookie ${SVG.seta}</a>
@@ -185,44 +180,37 @@ ${header("inicio")}
       </div>
     </section>
 
-    <section class="contentor" aria-labelledby="procura-titulo">
-      <div class="procura">
-        <p class="olho">Encontrar a receita certa</p>
-        <h2 class="h2" id="procura-titulo">O que tens em casa?</h2>
-        <div class="procura__campo">
-          ${SVG.lupa}
-          <label class="vh" for="procura-input">Pesquisar por receita ou ingrediente</label>
-          <input id="procura-input" type="search" placeholder="Ex.: tenho Kinder em casa" autocomplete="off">
-        </div>
-        <div class="filtros" role="group" aria-label="Filtros" id="filtros"></div>
-        <ul class="achados" id="achados" aria-live="polite">${RECEITAS.map(resultado).join("")}</ul>
-      </div>
-    </section>
-
-    <section class="sec contentor" id="modo-cozinha" aria-labelledby="mc-titulo">
-      <div class="mc">
+    <section class="sec contentor" id="calorias" aria-labelledby="kcal-titulo">
+      <div class="sec__cab">
         <div>
-          <p class="olho">Modo cozinha</p>
-          <h2 class="h2" id="mc-titulo">Um passo de cada vez, com as mãos na massa</h2>
-          <ul class="mc__lista">
-            <li><span class="ic">${SVG.passo}</span><span><b>Um passo de cada vez</b><span>Letra grande, para leres a um metro. Avanças com um toque ou a deslizar.</span></span></li>
-            <li><span class="ic">${SVG.balanca}</span><span><b>Os ingredientes desse passo</b><span>Já com as quantidades certas para o número de cookies que escolheste.</span></span></li>
-            <li><span class="ic">${SVG.relogio}</span><span><b>Temporizador</b><span>Toca quando acaba, mesmo que mudes de passo.</span></span></li>
-            <li><span class="ic">${SVG.sol}</span><span><b>Ecrã sempre ligado</b><span>O telemóvel não escurece enquanto cozinhas.</span></span></li>
-          </ul>
-          <a class="btn btn--acao" href="${demo.pagina}#cozinha" data-ir="${demo.topoGrande}" data-cor="${demo.corSuave}">Experimentar o modo cozinha ${SVG.seta}</a>
+          <p class="olho">Valor nutricional</p>
+          <h2 class="h2" id="kcal-titulo">Quantas calorias tem cada cookie?</h2>
         </div>
-        <div class="telefone" aria-hidden="true">
-          <div class="telefone__ecra">
-            <div class="telefone__barra"><span></span></div>
-            <span class="telefone__passo">Passo ${passoDemo} de ${demo.passos.length} · ${p.fase}</span>
-            <p class="telefone__titulo">${p.t}</p>
-            <div class="telefone__ing">${ingDemo.map(it => `<span>${g(it.q)} ${it.n.split(/[(,]/)[0].trim()}</span>`).join("")}</div>
-            <p class="telefone__texto">${p.d}</p>
-            <div class="telefone__relogio"><b>0${p.min}:00</b><span>Iniciar</span></div>
-            <span class="telefone__ligado">Ecrã sempre ligado</span>
-          </div>
-        </div>
+        <p>Valores por cookie, calculados a partir dos ingredientes de cada receita.</p>
+      </div>
+      <div class="kcal">
+        <table class="kcal__tabela">
+          <caption class="vh">Calorias e nutrientes por cookie</caption>
+          <thead>
+            <tr>
+              <th scope="col">Cookie</th>
+              <th scope="col">Calorias</th>
+              <th scope="col">Gordura</th>
+              <th scope="col">Hidratos</th>
+              <th scope="col">Proteína</th>
+            </tr>
+          </thead>
+          <tbody>${nut.map(({ r, n }) => `
+            <tr style="--suave:${r.corSuave}">
+              <th scope="row"><a href="${r.pagina}" data-ir="${r.topoGrande}" data-cor="${r.corSuave}"><img src="${r.topo}" alt="" width="52" height="52" loading="lazy"><span>${r.nome}<small>≈ ${n.peso} g depois de cozida</small></span></a></th>
+              <td data-rotulo="Calorias" class="kcal__valor"><b>${n.kcal}</b> kcal<span class="kcal__barra" aria-hidden="true"><span style="width:${Math.round(n.kcal / maxKcal * 100)}%"></span></span><small>${n.kcal100} kcal por 100 g · ${Math.round(n.kcal / 2000 * 100)}% do dia</small></td>
+              <td data-rotulo="Gordura">${n.gordura} g <small>${n.saturada} g saturada</small></td>
+              <td data-rotulo="Hidratos">${n.hidratos} g <small>${n.acucares} g açúcares</small></td>
+              <td data-rotulo="Proteína">${n.proteina} g</td>
+            </tr>`).join("")}
+          </tbody>
+        </table>
+        <p class="kcal__nota">Valores aproximados, com base nos rótulos dos ingredientes, para a receita de ${BASE_COOKIES} cookies. A percentagem é sobre uma dieta de referência de 2000 kcal por dia.</p>
       </div>
     </section>
 
@@ -310,6 +298,7 @@ function schema(r) {
     author: { "@type": "Person", name: "Gonçalo" },
     recipeCategory: "Sobremesa", recipeCuisine: "Caseira", keywords: `cookies, ${r.nome.toLowerCase()}`,
     recipeYield: `${BASE_COOKIES} cookies`,
+    nutrition: (n => ({ "@type": "NutritionInformation", servingSize: "1 cookie", calories: `${n.kcal} kcal`, fatContent: `${n.gordura} g`, saturatedFatContent: `${n.saturada} g`, carbohydrateContent: `${n.hidratos} g`, sugarContent: `${n.acucares} g`, proteinContent: `${n.proteina} g` }))(nutricao(r)),
     prepTime: iso(r.ativoMin), cookTime: iso(r.fornoMin), totalTime: iso(r.totalMin),
     recipeIngredient: ing,
     recipeInstructions: r.passos.map(p => ({ "@type": "HowToStep", name: p.t, text: p.d.replace(/\{N\}/g, BASE_COOKIES) }))
@@ -327,22 +316,9 @@ ${header("receita")}
   <div class="barra-movel">
     <a href="#precisas">Ingredientes</a>
     <a href="#preparacao">Passos</a>
-    <button class="btn--acao" data-acao="cozinhar">Modo cozinha</button>
+    <a href="#servir">Servir</a>
   </div>
 
-  <div class="cozinha" id="cozinha" role="dialog" aria-modal="true" aria-labelledby="cozinha-titulo" hidden>
-    <div class="cozinha__topo">
-      <b>${r.nome}</b>
-      <button class="icone-btn" id="cozinha-fechar" aria-label="Fechar modo cozinha">${SVG.fechar}</button>
-    </div>
-    <div class="cozinha__barra"><span id="cozinha-progresso"></span></div>
-    <div class="cozinha__ligado" id="cozinha-ligado"></div>
-    <div class="cozinha__palco" id="cozinha-palco" aria-live="polite"></div>
-    <div class="cozinha__nav">
-      <button class="btn btn--sec" id="cozinha-ant">${SVG.voltar} Anterior</button>
-      <button class="btn btn--acao" id="cozinha-seg">Próximo ${SVG.seta}</button>
-    </div>
-  </div>
   <div class="doca" id="doca" aria-live="polite"></div>
 ${footer()}`;
 }

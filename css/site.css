@@ -18,15 +18,19 @@
 :root {
   color-scheme: light dark;
   --bg: #fbf6ee;          /* creme */
-  --massa: #ecdcc2;       /* areia */
+  --massa: #f5eee4;       /* creme mais escuro */
   --surface: #ffffff;
-  --text: #2b170d;        /* chocolate */
+  --text: #3b1d10;        /* chocolate */
   --text-soft: #6b5144;
-  --accent: #c8102e;      /* vermelho (5,9:1 com texto branco) */
-  --accent-hover: #a00c25;
+  --accent: #d2386f;      /* rosa para texto e detalhes (4,6:1 sobre o creme) */
+  --rosa: #ef6f9c;        /* rosa decorativo */
+  --botao: #ffe14d;       /* amarelo dos botões */
+  --botao-hover: #ffd51f;
+  --botao-ink: #3b1d10;
+  --accent-hover: #b52a5c;
   --accent-ink: #ffffff;
-  --mel: #ffc400;
-  --line: #e4d2b6;
+  --mel: #ffe14d;
+  --line: #ece2d4;
   --sombra: 0 14px 30px rgba(59, 29, 16, .08);
   --sombra-forte: 0 22px 44px rgba(59, 29, 16, .16);
 
@@ -43,16 +47,20 @@
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #1b120d;
-    --massa: #2b1d15;
-    --surface: #251912;
-    --text: #f7ebdb;
-    --text-soft: #d2bca6;
-    --accent: #ff5a67;
-    --accent-hover: #ff7a85;
-    --accent-ink: #1b120d;
-    --mel: #ffc400;
-    --line: #3f2d22;
+    --bg: #151214;
+    --massa: #27222a;
+    --surface: #1f1b1e;
+    --text: #f8f2ec;
+    --text-soft: #cfc3bb;
+    --accent: #ff8ab4;
+    --rosa: #ff8ab4;
+    --botao: #ffe14d;
+    --botao-hover: #fff07a;
+    --botao-ink: #2b170d;
+    --accent-hover: #ffa6c6;
+    --accent-ink: #151214;
+    --mel: #ffe14d;
+    --line: #352e33;
     --sombra: 0 14px 30px rgba(0, 0, 0, .35);
     --sombra-forte: 0 22px 44px rgba(0, 0, 0, .5);
   }
@@ -68,7 +76,7 @@ button { cursor: pointer; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
 .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .contentor { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
-.saltar { position: absolute; left: 12px; top: -60px; z-index: 200; background: var(--accent); color: var(--accent-ink); padding: 12px 18px; border-radius: 12px; font-weight: 700; text-decoration: none; }
+.saltar { position: absolute; left: 12px; top: -60px; z-index: 200; background: var(--botao); color: var(--botao-ink); padding: 12px 18px; border-radius: 12px; font-weight: 700; text-decoration: none; }
 .saltar:focus { top: 12px; }
 
 /* ---------- tipografia ---------- */
@@ -84,8 +92,8 @@ button { cursor: pointer; }
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: var(--toque); padding: 12px 24px; border-radius: 999px; border: 2px solid transparent; font: 700 16px/1.1 var(--f-body); text-decoration: none; transition: background .15s, color .15s, transform .15s; }
 .btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; flex: none; }
 .btn:active { transform: scale(.97); }
-.btn--acao { background: var(--accent); color: var(--accent-ink); }
-.btn--acao:hover { background: var(--accent-hover); }
+.btn--acao { background: var(--botao); color: var(--botao-ink); }
+.btn--acao:hover { background: var(--botao-hover); }
 .btn--sec { background: transparent; color: var(--text); border-color: var(--line); }
 .btn--sec:hover { border-color: var(--text); }
 .btn--peq { min-height: 40px; padding: 8px 16px; font-size: 14px; }
@@ -182,44 +190,36 @@ button { cursor: pointer; }
 .dificuldade img { width: 18px; height: 18px; }
 .dificuldade img.off { opacity: .22; filter: grayscale(1); }
 
-/* encontrar a receita */
-.procura { background: var(--massa); border-radius: calc(var(--raio) + 8px); padding: clamp(24px, 4vw, 48px); }
-.procura__campo { display: flex; align-items: center; gap: 10px; margin-top: 20px; padding: 6px 6px 6px 18px; background: var(--surface); border: 2px solid transparent; border-radius: 999px; box-shadow: var(--sombra); }
-.procura__campo:focus-within { border-color: var(--accent); }
-.procura__campo svg { width: 22px; height: 22px; fill: none; stroke: var(--text-soft); stroke-width: 2; flex: none; }
-.procura__campo input { flex: 1; min-width: 0; min-height: 48px; border: 0; background: transparent; font-size: 17px; outline: none; }
-.filtros { display: flex; gap: 8px; overflow-x: auto; padding: 16px 2px 4px; scrollbar-width: none; }
-.filtros::-webkit-scrollbar { display: none; }
-@media (min-width: 600px) { .filtros { flex-wrap: wrap; overflow: visible; } }
-.achados { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 10px; }
-@media (min-width: 700px) { .achados { grid-template-columns: repeat(3, 1fr); } }
-.achados .resultado { background: var(--surface); }
-.achados__vazio { padding: 14px 4px; color: var(--text-soft); }
-
-/* pré-visualização do modo cozinha */
-.mc { display: grid; gap: 36px; align-items: center; }
-@media (min-width: 900px) { .mc { grid-template-columns: 1fr 1fr; gap: 64px; } }
-.mc__lista { list-style: none; margin: 22px 0 28px; padding: 0; display: grid; gap: 14px; }
-.mc__lista li { display: grid; grid-template-columns: 44px 1fr; gap: 14px; align-items: start; }
-.mc__lista .ic { width: 44px; height: 44px; border-radius: 14px; background: var(--massa); display: grid; place-items: center; }
-.mc__lista .ic svg { width: 22px; height: 22px; fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.mc__lista b { display: block; }
-.mc__lista span { color: var(--text-soft); font-size: 15px; }
-.telefone { justify-self: center; width: min(330px, 86vw); aspect-ratio: 9 / 18.5; border-radius: 44px; padding: 12px; background: #1b120d; box-shadow: var(--sombra-forte); }
-.telefone__ecra { position: relative; height: 100%; border-radius: 34px; overflow: hidden; background: #fbf6ee; color: #3b1d10; display: flex; flex-direction: column; padding: 34px 18px 18px; }
-.telefone__ecra::before { content: ""; position: absolute; top: 10px; left: 50%; translate: -50% 0; width: 90px; height: 22px; border-radius: 12px; background: #1b120d; }
-.telefone__barra { height: 6px; border-radius: 4px; background: #e7d5bf; overflow: hidden; margin-bottom: 14px; }
-.telefone__barra span { display: block; height: 100%; width: 28%; background: #c8102e; }
-.telefone__passo { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #c8102e; }
-.telefone__titulo { font: 700 26px/1.05 var(--f-display); margin: 6px 0 10px; }
-.telefone__ing { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
-.telefone__ing span { background: #ecdcc2; border-radius: 999px; padding: 5px 10px; font-size: 12.5px; font-weight: 700; }
-.telefone__texto { font-size: 15px; line-height: 1.45; margin: 0; }
-.telefone__relogio { margin-top: auto; display: flex; align-items: center; justify-content: space-between; background: #fff; border-radius: 20px; padding: 10px 10px 10px 16px; box-shadow: 0 6px 16px rgba(59, 29, 16, .1); }
-.telefone__relogio b { font: 700 30px/1 var(--f-display); }
-.telefone__relogio span { background: #c8102e; color: #fff; border-radius: 999px; padding: 8px 14px; font-size: 13px; font-weight: 700; }
-.telefone__ligado { display: flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 11.5px; color: #6b4a3a; }
-.telefone__ligado::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #2f9e44; }
+/* calorias */
+.kcal { position: relative; z-index: 1; background: var(--surface); border-radius: calc(var(--raio) + 6px); box-shadow: var(--sombra); padding: clamp(8px, 2vw, 18px) clamp(14px, 3vw, 32px) clamp(18px, 3vw, 28px); }
+.kcal__tabela { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.kcal__tabela thead th { text-align: left; font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--text-soft); padding: 14px 12px; border-bottom: 2px solid var(--line); }
+.kcal__tabela td:not(.kcal__valor) small { display: block; font-size: 13px; margin-top: 2px; }
+.kcal__tabela th small, .kcal__tabela td small { font-weight: 400; color: var(--text-soft); letter-spacing: 0; text-transform: none; }
+.kcal__tabela tbody th, .kcal__tabela td { padding: 16px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; font-size: 17px; }
+.kcal__tabela tbody tr:last-child > * { border-bottom: 0; }
+.kcal__tabela tbody th a { display: flex; align-items: center; gap: 14px; text-decoration: none; font: 700 19px/1.15 var(--f-display); }
+.kcal__tabela tbody th a:hover span { color: var(--accent); }
+.kcal__tabela tbody th img { width: 56px; height: 56px; flex: none; border-radius: 50%; background: var(--suave); padding: 4px; }
+.kcal__tabela tbody th small { display: block; font: 400 13px/1.4 var(--f-body); margin-top: 3px; }
+.kcal__valor { min-width: 190px; }
+.kcal__valor b { font: 700 30px/1 var(--f-display); color: var(--accent); }
+.kcal__valor small { display: block; font-size: 13px; margin-top: 6px; }
+.kcal__barra { display: block; height: 8px; border-radius: 6px; background: var(--massa); overflow: hidden; margin-top: 8px; max-width: 220px; }
+.kcal__barra span { display: block; height: 100%; border-radius: 6px; background: var(--accent); }
+.kcal__nota { margin: 14px 12px 0; font-size: 14px; color: var(--text-soft); }
+@media (max-width: 760px) {
+  .kcal__tabela thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .kcal__tabela, .kcal__tabela tbody, .kcal__tabela tr, .kcal__tabela tbody th, .kcal__tabela td { display: block; }
+  .kcal__tabela tr { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px 12px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .kcal__tabela tbody tr:last-child { border-bottom: 0; }
+  .kcal__tabela tbody th, .kcal__tabela td { border: 0; padding: 0; }
+  .kcal__tabela tbody th, .kcal__valor { grid-column: 1 / -1; }
+  .kcal__valor { margin: 12px 0 10px; }
+  .kcal__tabela td:not(.kcal__valor) { font-size: 16px; font-weight: 700; }
+  .kcal__tabela td:not(.kcal__valor)::before { content: attr(data-rotulo); display: block; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--text-soft); }
+  .kcal__tabela td:not(.kcal__valor) small { display: block; font-weight: 400; }
+}
 
 /* sobre o chef */
 .chef { display: grid; gap: 28px; align-items: center; }
@@ -402,42 +402,14 @@ html:has(.etapas) { scroll-padding-top: calc(var(--header-h) + 72px); }
 /* barra fixa no telemóvel (polegar) */
 .barra-movel { position: fixed; z-index: 40; left: 10px; right: 10px; bottom: calc(10px + var(--seguro-baixo)); display: flex; gap: 6px; padding: 6px; border-radius: 999px; background: var(--text); box-shadow: var(--sombra-forte); }
 .barra-movel a, .barra-movel button { flex: 1; min-height: var(--toque); border: 0; border-radius: 999px; background: transparent; color: var(--bg); text-decoration: none; display: grid; place-items: center; font-weight: 700; font-size: 14px; }
-.barra-movel .btn--acao { background: var(--accent); color: var(--accent-ink); }
+.barra-movel .btn--acao { background: var(--botao); color: var(--botao-ink); }
 @media (min-width: 900px) { .barra-movel { display: none; } }
 @media (max-width: 899px) { body[data-pagina="receita"] .rodape { padding-bottom: calc(100px + var(--seguro-baixo)); } }
-body.em-cozinha .barra-movel { display: none; }
 
-/* =========================================================
-   MODO COZINHA
-   ========================================================= */
-.cozinha { position: fixed; inset: 0; z-index: 90; display: flex; flex-direction: column; background: var(--bg); color: var(--text); padding: 12px var(--gutter) calc(14px + var(--seguro-baixo)); }
-.cozinha[hidden] { display: none; }
-body.em-cozinha { overflow: hidden; }
-.cozinha__topo { display: flex; align-items: center; gap: 12px; }
-.cozinha__topo b { flex: 1; font: 700 18px/1.2 var(--f-display); }
-.cozinha__barra { height: 8px; border-radius: 6px; background: var(--line); overflow: hidden; margin: 12px 0 6px; }
-.cozinha__barra span { display: block; height: 100%; background: var(--accent); transition: width .3s; }
-.cozinha__ligado { font-size: 13px; color: var(--text-soft); display: flex; align-items: center; gap: 6px; min-height: 20px; }
-.cozinha__ligado.sim::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #2f9e44; }
-.cozinha__palco { flex: 1; overflow-y: auto; display: flex; flex-direction: column; justify-content: center; max-width: 760px; width: 100%; margin: 0 auto; padding-block: 12px; }
-.cozinha__passo { font-size: 14px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
-.cozinha__titulo { font: 700 clamp(32px, 7vw, 60px)/1.02 var(--f-display); margin: 6px 0 16px; }
-.cozinha__ing { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
-.cozinha__ing span { background: var(--massa); border-radius: 999px; padding: 8px 14px; font-size: 16px; font-weight: 700; }
-.cozinha__texto { font-size: clamp(20px, 3vw, 26px); line-height: 1.5; margin: 0; }
-.cozinha__relogio { margin-top: 22px; display: inline-flex; align-items: center; gap: 14px; background: var(--surface); border-radius: 999px; padding: 8px 8px 8px 22px; box-shadow: var(--sombra); align-self: flex-start; }
-.cozinha__relogio b { font: 700 40px/1 var(--f-display); font-variant-numeric: tabular-nums; min-width: 3.6ch; }
-.cozinha__nav { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 760px; width: 100%; margin: 0 auto; }
-.cozinha__nav .btn { min-height: 60px; font-size: 18px; }
-.cozinha__fim { text-align: center; }
-.cozinha__fim img { width: min(220px, 60vw); margin: 0 auto 10px; }
-
-/* temporizadores */
 .doca { position: fixed; z-index: 95; left: 50%; bottom: calc(80px + var(--seguro-baixo)); translate: -50% 0; display: grid; gap: 8px; width: max-content; max-width: calc(100vw - 20px); pointer-events: none; }
 @media (min-width: 900px) { .doca { bottom: 20px; } }
-body.em-cozinha .doca { bottom: calc(96px + var(--seguro-baixo)); }
 .tempo { pointer-events: auto; display: flex; align-items: center; gap: 10px; padding: 6px 6px 6px 18px; border-radius: 999px; background: var(--text); color: var(--bg); box-shadow: var(--sombra-forte); }
-.tempo.toca { background: var(--accent); color: var(--accent-ink); }
+.tempo.toca { background: var(--botao); color: var(--botao-ink); }
 .tempo__nome { font-size: 12px; font-weight: 700; max-width: 16ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; opacity: .85; }
 .tempo__t { font: 700 24px/1 var(--f-display); font-variant-numeric: tabular-nums; }
 .tempo button { min-height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: rgba(255, 255, 255, .16); color: inherit; font-size: 13px; font-weight: 700; }
@@ -487,7 +459,7 @@ body.em-cozinha .doca { bottom: calc(96px + var(--seguro-baixo)); }
 .tal-item__caixa { width: 17px; height: 17px; margin-top: 2px; border: 1.5px solid currentColor; display: grid; place-items: center; }
 .tal-item__caixa svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
 .tal-item input:checked + .tal-item__caixa svg { opacity: 1; }
-.tal-item input:focus-visible + .tal-item__caixa { outline: 3px solid #c8102e; outline-offset: 2px; }
+.tal-item input:focus-visible + .tal-item__caixa { outline: 3px solid #d2386f; outline-offset: 2px; }
 .tal-item__q { font-weight: 700; text-align: right; padding-right: 8px; white-space: nowrap; }
 .tal-item input:checked ~ .tal-item__q, .tal-item input:checked ~ .tal-item__n { text-decoration: line-through; text-decoration-thickness: 2px; opacity: .45; }
 .talao__vazio { text-align: center; padding: 14px 0; font-size: 12px; }
@@ -521,3 +493,16 @@ html.cortina-pre::after { content: ""; position: fixed; inset: 0; z-index: 199; 
   .mascote:hover { transform: none; }
 }
 input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; display: none; }
+
+/* valor nutricional na receita */
+.nutri { margin: 0; }
+.nutri > div { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.nutri dt { color: var(--text); }
+.nutri dd { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; }
+.nutri__kcal { border-bottom: 3px solid var(--text) !important; }
+.nutri__kcal dt, .nutri__kcal dd { font: 700 20px/1.2 var(--f-display); }
+.nutri__kcal dd { color: var(--accent); }
+.nutri__sub dt { padding-left: 14px; color: var(--text-soft); font-size: 15px; }
+.nutri__sub dd { font-weight: 400; color: var(--text-soft); }
+.nutri__nota { font-size: 13.5px; color: var(--text-soft); margin: 12px 0 0; }
+.nutri__nota a { color: var(--accent); font-weight: 700; }
