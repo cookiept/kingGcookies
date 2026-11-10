@@ -1,5 +1,5 @@
 /* =========================================================
-   COOKIE'S DO KING G — AS RECEITAS
+   LA COOKIE LOCAA — AS RECEITAS
    Fonte única: o site e o livro em PDF leem este ficheiro.
    Quantidades para 6 cookies. Nos passos, {N} é trocado pelo
    número de cookies escolhido no site.
@@ -23,6 +23,8 @@ const RECEITAS = [
     cor: "#5a2d1a",
     corSuave: "#f3e3d6",
     imagem: "assets/img/cookies/recheada.png",
+    topo: "assets/img/topo/recheada-mini.png",
+    topoGrande: "assets/img/topo/recheada.png",
     pesoBola: "≈113 g de massa + 25 g de recheio",
     tempoAtivo: "45 min",
     tempoTotal: "2 h 45 min",
@@ -108,6 +110,8 @@ const RECEITAS = [
     cor: "#b9520e",
     corSuave: "#fde7d2",
     imagem: "assets/img/cookies/bueno.png",
+    topo: "assets/img/topo/bueno-mini.png",
+    topoGrande: "assets/img/topo/bueno.png",
     pesoBola: "≈114 g de massa + 15 g de Nutella",
     tempoAtivo: "40 min",
     tempoTotal: "1 h 50 min",
@@ -196,6 +200,8 @@ const RECEITAS = [
     cor: "#b3122a",
     corSuave: "#fbe0e3",
     imagem: "assets/img/cookies/redvelvet.png",
+    topo: "assets/img/topo/redvelvet-mini.png",
+    topoGrande: "assets/img/topo/redvelvet.png",
     pesoBola: "≈123 g",
     tempoAtivo: "30 min",
     tempoTotal: "1 h 15 min",

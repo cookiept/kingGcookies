@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Livro de receitas · Cookie's do King G</title>
+  <title>Livro de receitas · La Cookie Locaa</title>
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <link rel="stylesheet" href="css/fontes.css">
   <style>
@@ -136,7 +136,7 @@
 <body>
   <div class="barra">
     <a href="index.html">← Voltar ao site</a>
-    <a href="docs/Livro-Cookies-do-King-G.pdf" download>Descarregar PDF</a>
+    <a href="docs/Livro-La-Cookie-Locaa.pdf" download>Descarregar PDF</a>
     <button onclick="window.print()">Imprimir</button>
   </div>
   <div id="livro"></div>
@@ -152,7 +152,7 @@
     const nome = it => it.n;
     const txt = t => t.replace(/\{N\}/g, BASE_COOKIES);
     const nivel = n => `<span class="nivel">${[1, 2, 3].map(i => `<i class="${i <= n ? "on" : ""}"></i>`).join("")}</span> ${NIVEIS[n]}`;
-    const rodape = n => `<div class="rodape-p"><span>Cookie's do King G</span><span>${n}</span></div>`;
+    const rodape = n => `<div class="rodape-p"><span>La Cookie Locaa</span><span>${n}</span></div>`;
     let pag = 1;
 
     let html = `
@@ -160,9 +160,9 @@
         <svg class="blob" viewBox="0 0 600 600">${BLOB}</svg>
         <svg class="blob blob2" viewBox="0 0 600 600">${BLOB}</svg>
         <p class="rotulo" style="position:relative;z-index:1">Livro de receitas</p>
-        <h1 class="capa__titulo"><span>Cookie's</span><span class="do">do</span><span class="rei">King <em class="g">G</em></span></h1>
-        <p class="script capa__lema">Sua Majestade decretou:<br>cookies para todos.</p>
-        <img class="capa__rei" src="assets/img/king-g.png" alt="">
+        <h1 class="capa__titulo"><span class="do">la</span><span>Cookie</span><span class="rei">Locaa</span></h1>
+        <p class="script capa__lema">Cookies grossas e macias,<br>feitas em casa.</p>
+        <img class="capa__rei" src="assets/img/monte.png" alt="">
         <div class="capa__trio">${RECEITAS.map(r => `<img src="${r.imagem}" alt="">`).join("")}</div>
         <p class="capa__sub">3 receitas · ${BASE_COOKIES} cookies cada</p>
       </section>`;
@@ -267,7 +267,7 @@
     html += `
       <section class="pagina final">
         <p class="rotulo">Para as três receitas</p>
-        <h2 class="titulo">As quatro regras do Rei</h2>
+        <h2 class="titulo">As quatro regras de ouro</h2>
         <div class="regras">
           ${REGRAS_DO_REINO.map(g => `<div class="regra"><img src="${ICON(g.icone)}" alt=""><div><h3>${g.t}</h3><p>${g.d}</p></div></div>`).join("")}
         </div>
@@ -275,7 +275,7 @@
         <h2 class="titulo" style="font-size:28pt">As três receitas (${BASE_COOKIES * RECEITAS.length} cookies)</h2>
         <div class="compras">${lista.map(it => `<div><b>${qt(it)}</b><span>${nome(it)}</span></div>`).join("")}</div>
         <p class="script final__adeus">Agora vai. O forno não se pré-aquece sozinho.</p>
-        <img class="final__rei" src="assets/img/king-g.png" alt="">
+        <img class="final__rei" src="assets/img/topo/bueno.png" alt="">
         ${rodape(pag++)}
       </section>`;
 

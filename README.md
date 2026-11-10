@@ -1,10 +1,10 @@
-<p align="center"><img src="assets/img/king-g.png" width="320" alt="King G"></p>
+<p align="center"><img src="assets/img/monte.png" width="420" alt="Monte de cookies"></p>
 
-# Cookie's do King G 👑
+# La Cookie Locaa 🍪
 
 > Sua Majestade decretou: cookies para todos.
 
-Site com as três receitas de cookies do King G, cada uma para 6 cookies:
+Site com as três receitas de cookies da La Cookie Locaa, cada uma para 6 cookies:
 
 | Cookie | O que é |
 |---|---|
@@ -14,8 +14,8 @@ Site com as três receitas de cookies do King G, cada uma para 6 cookies:
 
 ## O que o site faz
 
-- **Página inicial**: hero, as três cookies (foto, nome, tempo e nível), porquê o King G, o monte de cookies, "Sobre mim" e vantagens. Carregar numa cookie abre a receita, com uma cortina dessa cookie pelo meio.
-- **Foto do "Sobre mim"**: põe a tua foto em `assets/img/eu.jpg` (enquanto não existir, aparece o Rei).
+- **Página inicial**: hero, as três cookies (foto, nome, tempo e nível), o monte de cookies, "Sobre mim" e vantagens. Carregar numa cookie abre a receita, com uma cortina dessa cookie pelo meio.
+- **Foto do "Sobre mim"**: põe a tua foto em `assets/img/eu.jpg` (enquanto não existir, aparece uma cookie).
 - **Cortina vista de cima** (opcional): imagens em `assets/img/topo/` e `topo: "assets/img/topo/<nome>.png"` na receita.
 - **Página de cada cookie**, organizada em três etapas, com uma barra fixa para saltar entre elas:
   1. **O que precisas**: equipamento, "antes de começar" e ingredientes em gramas e chávenas/colheres (líquidos em ml), com doses ajustáveis e vistos.
@@ -23,7 +23,7 @@ Site com as três receitas de cookies do King G, cada uma para 6 cookies:
   3. **Servir e guardar**: como servir, conservar e congelar.
   No fim aparecem as outras receitas.
 - **Lista de compras** (`lista.html`): um talão que junta e soma os ingredientes das receitas escolhidas.
-- **Livro de receitas**: [`livro.html`](livro.html) para imprimir, ou o PDF em [`docs/`](docs/Livro-Cookies-do-King-G.pdf).
+- **Livro de receitas**: [`livro.html`](livro.html) para imprimir, ou o PDF em [`docs/`](docs/Livro-La-Cookie-Locaa.pdf).
 
 ## Estrutura
 
@@ -48,7 +48,7 @@ kingGcookies/
 │   ├── img/              ← logo, cookies, ícones
 │   └── fonts/
 └── docs/
-    └── Livro-Cookies-do-King-G.pdf
+    └── Livro-La-Cookie-Locaa.pdf
 ```
 
 ## Mudar uma receita

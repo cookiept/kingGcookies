@@ -1,5 +1,5 @@
 /* =========================================================
-   COOKIE'S DO KING G — lógica do site
+   LA COOKIE LOCAA — lógica do site
    Uma só script para as duas páginas:
    - início (body[data-pagina="inicio"])
    - receita (body[data-pagina="receita"][data-receita="id"])
@@ -195,24 +195,34 @@
      PÁGINA INICIAL
      ========================================================= */
   function iniciarInicio() {
-    /* monte de cookies (estilo da referência dos croissants) */
-    const pilha = $("#pilha");
-    if (pilha) {
-      const imgs = ["assets/img/cookie.png", ...RECEITAS.map(r => r.imagem)];
-      const pos = [
-        [2, 8, 30, -12], [14, -6, 26, 18], [26, 12, 32, -6], [40, -10, 28, 24], [52, 6, 34, -16], [66, -8, 28, 10], [78, 10, 30, -20], [90, -4, 26, 14],
-        [-4, 34, 24, 20], [8, 44, 28, -8], [22, 38, 22, 30], [34, 46, 26, -24], [48, 36, 24, 6], [60, 46, 26, -10], [72, 36, 24, 22], [86, 44, 28, -14], [98, 34, 22, 8],
-        [18, 66, 20, -18], [44, 70, 22, 12], [70, 66, 20, -6]
-      ];
-      pilha.innerHTML = pos.map(([x, y, w, r], i) => `<img src="${imgs[i % imgs.length]}" alt="" style="left:${x}%;top:${y}%;width:${w}%;--r:${r}deg">`).join("");
+    /* cookies espalhadas à volta do número (com sombra colorida desfasada) */
+    const esp = $("#espalhadas");
+    if (esp) {
+      const imgs = RECEITAS.map(r => r.topoGrande);
+      const sombras = ["#fbd0d9", "#ffe08a", "#cfe0ff", "#fbd0d9"];
+      const pos = [[4, 12, 16, -16], [16, 40, 11, 12], [2, 72, 15, 20], [14, 94, 12, -10],
+                   [96, 10, 15, 18], [84, 42, 12, -14], [98, 72, 16, 8], [86, 96, 12, -20]];
+      esp.innerHTML = pos.map(([x, y, w, r], i) => `<img src="${imgs[i % imgs.length]}" alt="" style="left:${x}%;top:${y}%;width:${w}%;--r:${r}deg;--s:${sombras[i % sombras.length]}">`).join("");
     }
-    $("#cartoes").innerHTML = RECEITAS.map(r => `
-      <a class="i-cookie" href="${r.pagina}" data-ir="${r.imagem}" data-cor="${r.corSuave}" style="--cor:${r.cor};--suave:${r.corSuave}">
-        <span class="i-cookie__img"><img src="${r.imagem}" alt=""></span>
-        <h3>${r.nome}</h3>
-        <p>${r.subtitulo}</p>
-        <span class="i-cookie__meta">${SVG_RELOGIO}${r.tempoTotal}<i aria-hidden="true">·</i>${nivel(r.nivel)}</span>
-      </a>`).join("");
+    const cartoes = $("#cartoes");
+    const desenhar = (filtro) => {
+      const lista = RECEITAS.filter(r => filtro === "todas" ? true : filtro === "recheio" ? /recheio/i.test(r.subtitulo) : String(r.nivel) === filtro);
+      cartoes.innerHTML = lista.map(r => `
+        <a class="b-card" href="${r.pagina}" data-ir="${r.imagem}" data-cor="${r.corSuave}" style="--cor:${r.cor};--suave:${r.corSuave}">
+          <span class="b-card__img"><img src="${r.imagem}" alt=""></span>
+          <span class="b-card__txt">
+            <h3>${r.nome}</h3>
+            <span class="b-card__desc">${r.subtitulo}</span>
+            <span class="b-card__meta">${SVG_RELOGIO}${r.tempoTotal}<i aria-hidden="true">·</i>${nivel(r.nivel)}</span>
+            <span class="b-card__base"><span>${BASE_COOKIES} cookies</span><span class="b-card__btn" aria-hidden="true">${SVG_SETA}</span></span>
+          </span>
+        </a>`).join("") || `<p class="b-vazio">Nenhuma cookie neste filtro.</p>`;
+    };
+    desenhar("todas");
+    document.querySelectorAll("[data-filtro]").forEach(bt => bt.addEventListener("click", () => {
+      document.querySelectorAll("[data-filtro]").forEach(x => x.setAttribute("aria-selected", String(x === bt)));
+      desenhar(bt.dataset.filtro);
+    }));
   }
 
   function iniciarLista() {
@@ -230,7 +240,7 @@
     });
     $("#copiar-lista").addEventListener("click", async () => {
       const itens = desenharCompras().filter(([k]) => !estado.comprado[k]);
-      const linhas = ["Lista de compras · Cookie's do King G", ""].concat(itens.map(([, it]) => `• ${it.qtd} ${it.nome}`));
+      const linhas = ["Lista de compras · La Cookie Locaa", ""].concat(itens.map(([, it]) => `• ${it.qtd} ${it.nome}`));
       try { await navigator.clipboard.writeText(linhas.join("\n")); avisar("Lista copiada."); }
       catch (e) { avisar("Não foi possível copiar. Tira um print."); }
     });
@@ -284,11 +294,11 @@
     const riscados = itens.filter(([k]) => estado.comprado[k]).length;
     const badge = $("#nav-badge"); if (badge) badge.textContent = itens.length - riscados;
     $("#talao").innerHTML = `
-      <img class="talao__logo" src="assets/img/king-g.png" alt="">
-      <p class="talao__marca">COOKIE'S DO KING G</p>
-      <p class="talao__centro">Padaria Real · Edição Caseira<br>LISTA DE COMPRAS</p>
+      <img class="talao__logo" src="assets/img/topo/bueno-mini.png" alt="">
+      <p class="talao__marca">LA COOKIE LOCAA</p>
+      <p class="talao__centro">Receitas caseiras<br>LISTA DE COMPRAS</p>
       <div class="talao__linha"><span>DATA ${data}</span><span>HORA ${hora}</span></div>
-      <div class="talao__linha"><span>TALÃO Nº ${String(cookies).padStart(4, "0")}</span><span>OP. KING G</span></div>
+      <div class="talao__linha"><span>TALÃO Nº ${String(cookies).padStart(4, "0")}</span><span>OP. GONÇALO</span></div>
       <hr>
       ${escolhidas.length ? escolhidas.map(r => `<div class="talao__linha talao__receita"><span>${r.nome.toUpperCase()}</span><span>x${estado.doses[r.id]}</span></div>`).join("") : ""}
       <hr>
@@ -589,6 +599,16 @@
       desenharDoca();
     }, 1000);
 
+  }
+
+  /* menu do cabeçalho (todas as páginas) */
+  const mb = $(".b-nav__menu"), mn = $("#b-menu");
+  if (mb) {
+    mb.addEventListener("click", () => {
+      const ab = mb.getAttribute("aria-expanded") === "true";
+      mb.setAttribute("aria-expanded", String(!ab)); mn.classList.toggle("aberto", !ab);
+    });
+    mn.addEventListener("click", (e) => { if (e.target.closest("a")) { mb.setAttribute("aria-expanded", "false"); mn.classList.remove("aberto"); } });
   }
 
   if (pagina === "inicio") iniciarInicio();

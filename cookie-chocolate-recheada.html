@@ -3,60 +3,76 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Cookie de Chocolate Recheada · Cookie's do King G</title>
+  <title>Cookie de Chocolate Recheada · La Cookie Locaa</title>
   <meta name="description" content="Massa de chocolate com recheio de mousse de chocolate. Receita para 6 cookies, passo a passo.">
-  <meta property="og:title" content="Cookie de Chocolate Recheada · Cookie's do King G">
+  <meta property="og:title" content="Cookie de Chocolate Recheada · La Cookie Locaa">
   <meta property="og:description" content="Massa de chocolate com recheio de mousse de chocolate">
   <meta property="og:image" content="assets/img/cookies/recheada.png">
   <meta name="theme-color" content="#f3e3d6">
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
-  <link rel="apple-touch-icon" href="assets/img/king-head.png">
+  <link rel="apple-touch-icon" href="assets/img/topo/bueno-mini.png">
   <link rel="preload" href="assets/fonts/bebas-neue-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/fontes.css">
   <link rel="stylesheet" href="css/estilo.css">
   <script>try{if(sessionStorage.getItem("kingg:cortina"))document.documentElement.classList.add("cortina-pre")}catch(e){}</script>
 </head>
-<body data-pagina="receita" data-receita="recheada" style="--cor:#5a2d1a;--suave:#f3e3d6">
+<body data-pagina="receita" class="b-pagina" data-receita="recheada" style="--cor:#5a2d1a;--suave:#f3e3d6">
 
   <a class="saltar" href="#precisas">Saltar para a receita</a>
 
-  <header class="nav">
-    <a class="nav__marca" href="index.html" aria-label="Cookie's do King G, início">
-      <img src="assets/img/king-g.png" alt="" width="58" height="44">
-      <span>Cookie's do King <em class="g">G</em></span>
-    </a>
-    <button class="nav__menu" aria-expanded="false" aria-controls="nav-links" aria-label="Abrir menu">
-      <span></span><span></span><span></span>
-    </button>
-    <nav class="nav__links" id="nav-links" aria-label="Principal">
-      <a href="index.html#cookies">As cookies</a>
+  <header class="b-nav">
+    <button class="b-nav__menu" aria-expanded="false" aria-controls="b-menu" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+    <nav class="b-nav__links" id="b-menu" aria-label="Principal">
+      <a href="index.html#cookies">Cookies</a>
+      <a href="index.html#sobre">Sobre mim</a>
       <a href="lista.html">Lista de compras</a>
       <a href="livro.html">Livro PDF</a>
     </nav>
+    <a class="b-nav__marca" href="index.html" aria-label="La Cookie Locaa, início">
+      <span class="b-ponto"></span>La Cookie Locaa<span class="b-ponto"></span>
+    </a>
+    <div class="b-nav__icones">
+      <a href="lista.html" aria-label="Lista de compras">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-2-1.5L14 21l-2-1.5L10 21l-2-1.5L6 21Z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>
+      </a>
+      <a href="livro.html" aria-label="Livro de receitas">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2Z"/><path d="M4 21V5M19 19v2H6"/></svg>
+      </a>
+    </div>
   </header>
 
   <main id="receita" class="pagina-receita"></main>
 
-  <footer class="rodape">
-    <div class="contentor rodape__grelha">
-      <div class="rodape__col">
-        <h2>Receitas</h2>
-        <a href="cookie-chocolate-recheada.html">Cookie de Chocolate Recheada</a>
-        <a href="cookie-kinder-bueno.html">Cookie Kinder Bueno</a>
-        <a href="cookie-red-velvet.html">Cookie Red Velvet</a>
+  <footer class="b-rodape">
+    <div class="contentor b-rodape__grelha">
+      <div class="b-rodape__marca">
+        <p><span class="b-ponto"></span>La Cookie Locaa<span class="b-ponto"></span></p>
+        <span class="b-script b-script--peq">feito em casa</span>
       </div>
-      <div class="rodape__col">
-        <h2>Mais</h2>
-        <a href="lista.html">Lista de compras</a>
-        <a href="livro.html">Livro de receitas (PDF)</a>
-        <a href="index.html#sobre">Sobre mim</a>
-      </div>
-      <div class="rodape__marca">
-        <img src="assets/img/king-g.png" alt="" width="125" height="96">
-        <p class="rodape__nome">Cookie's do King <em class="g">G</em></p>
-        <p class="rodape__lema">Feito com manteiga a mais e zero vergonha.</p>
-      </div>
+      <details class="b-rodape__col" open>
+        <summary>Receitas</summary>
+        <div>
+          <a href="cookie-chocolate-recheada.html">Chocolate Recheada</a>
+          <a href="cookie-kinder-bueno.html">Kinder Bueno</a>
+          <a href="cookie-red-velvet.html">Red Velvet</a>
+        </div>
+      </details>
+      <details class="b-rodape__col" open>
+        <summary>Ferramentas</summary>
+        <div>
+          <a href="lista.html">Lista de compras</a>
+          <a href="livro.html">Livro de receitas (PDF)</a>
+        </div>
+      </details>
+      <details class="b-rodape__col" open>
+        <summary>La Cookie Locaa</summary>
+        <div>
+          <a href="index.html#sobre">Sobre mim</a>
+          <a href="index.html#cookies">Todas as cookies</a>
+        </div>
+      </details>
     </div>
+    <p class="contentor b-rodape__fim">© 2026 La Cookie Locaa · Receitas caseiras</p>
   </footer>
 
   <!-- barra fixa no telemóvel -->
