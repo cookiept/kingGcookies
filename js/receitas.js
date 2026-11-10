@@ -311,7 +311,14 @@ const MEDIDAS = [
 
 /* devolve { q: "1⅓ chávenas", nota } ou null se não houver conversão */
 function emVolume(item, fator) {
-  if (item.u === "ml") return { q: Math.max(1, Math.round(item.q * fator)) + " ml" };
+  if (item.u === "ml") {
+    /* referência portuguesa: colher de chá (5 ml), colher de sopa (15 ml), chávena (240 ml) */
+    const ml = item.q * fator;
+    if (ml >= 120) { const c = Math.round((ml / 240) * 4) / 4; const fr = { .25: "¼", .5: "½", .75: "¾" }; const i = Math.floor(c), d = +(c - i).toFixed(2); return { q: (i || "") + (fr[d] || "") + (c > 1 ? " chávenas" : " chávena") }; }
+    if (ml >= 15) { const n = Math.round((ml / 15) * 2) / 2; return { q: (n % 1 ? (Math.floor(n) || "") + "½" : n) + " c. sopa" }; }
+    const n = Math.round((ml / 5) * 4) / 4; const fr = { .25: "¼", .5: "½", .75: "¾" }; const i = Math.floor(n), d = +(n - i).toFixed(2);
+    return { q: ((i || "") + (fr[d] || "") || "¼") + " c. chá" };
+  }
   const g = item.q * fator;
   if (item.loja) {
     const n = Math.max(0.5, Math.round((g / item.loja.por) * 2) / 2);

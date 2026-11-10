@@ -14,10 +14,12 @@ Site com as três receitas de cookies do King G, cada uma para 6 cookies:
 
 ## O que o site faz
 
-- **Página inicial**: o conceito e as três cookies (foto, nome, tempo e nível). Carregar numa abre a receita, com uma cortina dessa cookie pelo meio.
+- **Página inicial**: hero, as três cookies (foto, nome, tempo e nível), porquê o King G, o monte de cookies, "Sobre mim" e vantagens. Carregar numa cookie abre a receita, com uma cortina dessa cookie pelo meio.
+- **Foto do "Sobre mim"**: põe a tua foto em `assets/img/eu.jpg` (enquanto não existir, aparece o Rei).
+- **Cortina vista de cima** (opcional): imagens em `assets/img/topo/` e `topo: "assets/img/topo/<nome>.png"` na receita.
 - **Página de cada cookie**, organizada em três etapas, com uma barra fixa para saltar entre elas:
   1. **O que precisas**: equipamento, "antes de começar" e ingredientes em gramas e chávenas/colheres (líquidos em ml), com doses ajustáveis e vistos.
-  2. **Preparação**: cronologia com os passos numerados e agrupados por fase (por exemplo, Recheio → Massa → Moldar → Forno → Decorar), com temporizadores, "marcar como feito" e modo cozinha.
+  2. **Preparação**: cronologia com os passos numerados e agrupados por fase (por exemplo, Recheio → Massa → Moldar → Forno → Decorar), com temporizadores; toca num passo para o marcar como feito.
   3. **Servir e guardar**: como servir, conservar e congelar.
   No fim aparecem as outras receitas.
 - **Lista de compras** (`lista.html`): um talão que junta e soma os ingredientes das receitas escolhidas.

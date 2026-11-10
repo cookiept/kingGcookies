@@ -20,6 +20,8 @@
 
   <a class="saltar" href="#cookies">Saltar para as cookies</a>
 
+  <div class="v-faixa"><span>Receitas caseiras · 3 receitas · 18 cookies</span></div>
+
   <header class="nav">
     <a class="nav__marca" href="index.html" aria-label="Cookie's do King G, início">
       <img src="assets/img/king-g.png" alt="" width="58" height="44">
@@ -37,59 +39,91 @@
 
   <main class="inicio">
 
-    <section class="i-hero">
-      <div class="i-hero__cookies" aria-hidden="true">
-        <img class="ic ic--1" src="assets/img/cookies/recheada.png" alt="">
-        <img class="ic ic--2" src="assets/img/cookie.png" alt="">
-        <img class="ic ic--3" src="assets/img/cookies/redvelvet.png" alt="">
-        <img class="ic ic--4" src="assets/img/cookies/bueno.png" alt="">
-        <img class="ic ic--5" src="assets/img/cookie.png" alt="">
-        <img class="ic ic--6" src="assets/img/cookies/redvelvet.png" alt="">
-        <img class="ic ic--7" src="assets/img/cookies/recheada.png" alt="">
-        <img class="ic ic--8" src="assets/img/cookies/bueno.png" alt="">
+    <!-- HERO -->
+    <section class="v-hero">
+      <div class="contentor v-hero__dentro">
+        <h1 class="v-hero__titulo">Grossas <span>&amp;</span> <em>Macias</em></h1>
+        <div class="v-hero__grelha">
+          <div class="v-hero__texto">
+            <p>Receitas caseiras de cookies ao estilo das melhores pastelarias, explicadas passo a passo pelo King G.</p>
+            <a class="pilula" href="#cookies">Ver receitas <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <svg class="v-rabisco" viewBox="0 0 120 90" aria-hidden="true"><path d="M8 10c30 4 52 18 58 38s-6 30-20 26-12-24 10-30 44 6 54 30" /><path d="M100 64l10 10-14 2" /></svg>
+          </div>
+          <div class="v-hero__prato">
+            <img class="v-hero__ck v-hero__ck--tras1" src="assets/img/cookies/recheada.png" alt="">
+            <img class="v-hero__ck v-hero__ck--tras2" src="assets/img/cookies/redvelvet.png" alt="">
+            <img class="v-hero__ck v-hero__ck--frente" src="assets/img/cookies/bueno.png" alt="Cookie Kinder Bueno, Cookie de Chocolate Recheada e Cookie Red Velvet">
+            <span class="v-selo"><b>100%</b>caseiras</span>
+          </div>
+        </div>
       </div>
-      <div class="i-hero__centro">
-        <img class="i-hero__rei" src="assets/img/king-g.png" alt="O King G: uma cookie com coroa, capa vermelha e ceptro" width="1000" height="767">
-        <h1 class="i-hero__titulo">Cookie's do <span class="nw">King <em class="g">G</em></span></h1>
-        <p class="i-hero__texto">Receitas caseiras de cookies grossas e macias, explicadas passo a passo.</p>
-        <a class="pilula" href="#cookies">Ver as cookies</a>
-      </div>
+      <img class="v-mascote v-mascote--hero" src="assets/img/king-g.png" alt="" aria-hidden="true">
     </section>
 
+    <div class="v-zigzag" aria-hidden="true"></div>
+
+    <!-- COOKIES -->
     <section class="i-cookies contentor" id="cookies">
-      <p class="etiqueta-rosa">3 receitas · 6 cookies cada</p>
-      <h2 class="i-titulo">As cookies do Rei</h2>
+      <h2 class="v-titulo">As nossas <em>cookies</em></h2>
+      <p class="v-sub">3 receitas · 6 cookies cada · carrega numa para ver a receita</p>
       <div class="i-grelha" id="cartoes"></div>
     </section>
 
-    <section class="i-como contentor" id="como">
-      <h2 class="i-titulo">Como funciona</h2>
-      <div class="i-como__grelha">
-        <div class="i-como__visual" aria-hidden="true">
-          <img class="cv cv--rei" src="assets/img/king-g.png" alt="">
-          <img class="cv cv--taca" src="assets/img/icons/taca.png" alt="">
-          <img class="cv cv--balanca" src="assets/img/icons/balanca.png" alt="">
-          <img class="cv cv--forno" src="assets/img/icons/forno.png" alt="">
-          <img class="cv cv--grade" src="assets/img/icons/grade.png" alt="">
-        </div>
-        <div class="i-como__texto">
-          <p>Cada receita está organizada em três etapas, pela ordem em que vais precisar delas.</p>
-          <ol class="i-etapas">
-            <li><b>O que precisas</b><span>Equipamento, ingredientes em gramas e chávenas, e o que deixar preparado antes.</span></li>
-            <li><b>Preparação</b><span>Passos numerados e agrupados por fase, com temporizadores e modo cozinha.</span></li>
-            <li><b>Servir e guardar</b><span>Como servir, quanto tempo duram e como as congelar.</span></li>
-          </ol>
-          <a class="pilula" href="cookie-kinder-bueno.html" data-ir="assets/img/cookies/bueno.png">Ver uma receita</a>
+    <!-- PORQUÊ -->
+    <section class="v-porque">
+      <div class="v-rasgado v-rasgado--cima" aria-hidden="true"></div>
+      <div class="contentor">
+        <h2 class="v-titulo">Porquê o <em>King G</em></h2>
+        <div class="v-porque__grelha">
+          <article class="v-card">
+            <img src="assets/img/cookie-rain.jpg" alt="">
+            <div class="v-card__txt"><h3>Receitas testadas</h3><p>Quantidades pensadas para cookies grossas, douradas por fora e macias por dentro.</p></div>
+          </article>
+          <article class="v-card v-card--cor" style="--cor:#f3e3d6">
+            <img class="v-card__ck" src="assets/img/cookies/recheada.png" alt="">
+            <div class="v-card__txt"><h3>Gramas e colheres</h3><p>Cada ingrediente em gramas, com a medida em chávenas ou colheres ao lado.</p></div>
+          </article>
+          <article class="v-card v-card--cor" style="--cor:#fbe0e3">
+            <img class="v-card__ck" src="assets/img/cookies/redvelvet.png" alt="">
+            <div class="v-card__txt"><h3>Passo a passo</h3><p>Passos numerados e agrupados por fase, com temporizadores e vistos.</p></div>
+          </article>
         </div>
       </div>
-      <div class="i-lista">
-        <div class="i-lista__texto">
-          <h3>Lista de compras</h3>
-          <p>Escolhe as receitas e quantas cookies queres. A lista junta os ingredientes e soma as quantidades num talão que podes riscar no supermercado.</p>
-          <a class="pilula pilula--claro" href="lista.html">Abrir lista</a>
-        </div>
-        <img class="i-lista__img" src="assets/img/icons/medidor.png" alt="" aria-hidden="true">
+    </section>
+
+    <!-- MONTE DE COOKIES + NÚMERO -->
+    <section class="v-monte" aria-labelledby="monte-num">
+      <div class="v-monte__pilha" id="pilha" aria-hidden="true"></div>
+      <div class="contentor v-monte__texto">
+        <p class="v-monte__num" id="monte-num">18</p>
+        <p class="v-monte__legenda">cookies em 3 receitas</p>
+        <p class="v-monte__script">Feitas em casa, para partilhar com quem gosta de cookies.</p>
       </div>
+    </section>
+
+    <!-- SOBRE MIM -->
+    <section class="v-sobre contentor" id="sobre">
+      <div class="v-sobre__foto">
+        <img src="assets/img/eu.jpg" alt="Gonçalo, o chef por trás do King G" onerror="this.onerror=null;this.src='assets/img/king-g.png';this.classList.add('sem-foto')">
+        <span class="v-sobre__selo">O chef</span>
+      </div>
+      <div class="v-sobre__texto">
+        <p class="etiqueta-rosa">Sobre mim</p>
+        <h2 class="v-titulo v-titulo--esq">Olá, sou o <em>Gonçalo</em></h2>
+        <p>Sou o King G. Comecei a fazer cookies em casa à procura daquela cookie grossa e macia das pastelarias, e fui afinando as receitas até ficarem como queria.</p>
+        <p>Aqui partilho as minhas receitas favoritas, explicadas como se estivesse na cozinha contigo: o que precisas, os passos pela ordem certa e os truques que fazem a diferença.</p>
+        <a class="pilula" href="#cookies">Experimentar uma receita <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </section>
+
+    <!-- VANTAGENS -->
+    <section class="v-vantagens contentor" aria-label="O que encontras aqui">
+      <ul>
+        <li><span><img src="assets/img/icons/balanca.png" alt=""></span><b>Medidas claras</b><small>Gramas, chávenas e colheres</small></li>
+        <li><span><img src="assets/img/icons/tabuleiro.png" alt=""></span><b>Temporizadores</b><small>Em cada passo com tempo</small></li>
+        <li><a href="lista.html"><span><img src="assets/img/icons/medidor.png" alt=""></span><b>Lista de compras</b><small>Junta e soma tudo</small></a></li>
+        <li><a href="livro.html"><span><img src="assets/img/icons/forno.png" alt=""></span><b>Livro em PDF</b><small>Para imprimir</small></a></li>
+      </ul>
     </section>
 
   </main>
@@ -106,7 +140,7 @@
         <h2>Mais</h2>
         <a href="lista.html">Lista de compras</a>
         <a href="livro.html">Livro de receitas (PDF)</a>
-        <a href="index.html#como">Como funciona</a>
+        <a href="index.html#sobre">Sobre mim</a>
       </div>
       <div class="rodape__marca">
         <img src="assets/img/king-g.png" alt="" width="125" height="96">

@@ -117,7 +117,9 @@
   const IMGS_CORTINA = IMGS_CHUVA.map(MINI);
   IMGS_CORTINA.forEach(src => { const i = new Image(); i.src = src; });
 
-  function gerarCortina(img) {
+  /* imagem da cortina: a versão vista de cima (topo) quando existir */
+  const imgCortina = (img) => { const r = RECEITAS.find(x => x.imagem === img); return r && r.topo ? r.topo : MINI(img); };
+  function gerarCortina(img, cor) {
     const vw = window.innerWidth, vh = window.innerHeight;
     const cols = Math.max(4, Math.ceil(vw / 170));
     const cel = vw / cols, linhas = Math.ceil(vh / cel) + 1, tam = cel * 1.32;
@@ -130,16 +132,17 @@
           bolachas.push({
             x: Math.round(x), y: Math.round(y), s: Math.round(tam * (.92 + Math.random() * .16)),
             r: Math.round(Math.random() * 360),
-            l, i: img ? MINI(img) : IMGS_CORTINA[Math.floor(Math.random() * IMGS_CORTINA.length)]
+            l, i: img ? imgCortina(img) : IMGS_CORTINA[Math.floor(Math.random() * IMGS_CORTINA.length)]
           });
         }
       }
     }
-    return { linhas, bolachas };
+    return { linhas, bolachas, cor: cor || "#fbf6ee" };
   }
   function desenharCortina(cortina, fase) {
     const el = document.createElement("div");
     el.className = "cortina " + fase;
+    el.style.setProperty("--fundo", cortina.cor || "#fbf6ee");
     el.setAttribute("aria-hidden", "true");
     const ultima = cortina.linhas;
     el.innerHTML = cortina.bolachas.map(b => {
@@ -151,9 +154,9 @@
     return el;
   }
 
-  function irPara(url, img) {
+  function irPara(url, img, cor) {
     if (reduzido) { location.href = url; return; }
-    const cortina = gerarCortina(img);
+    const cortina = gerarCortina(img, cor);
     const el = desenharCortina(cortina, "a-entrar");
     const total = cortina.linhas * 55 + 90 + 520;
     setTimeout(() => el.classList.add("cheia"), total * .55);
@@ -181,7 +184,7 @@
 
   document.addEventListener("click", (e) => {
     const link = e.target.closest("[data-ir]");
-    if (link && !e.metaKey && !e.ctrlKey && !e.shiftKey) { e.preventDefault(); irPara(link.getAttribute("href"), link.dataset.ir); return; }
+    if (link && !e.metaKey && !e.ctrlKey && !e.shiftKey) { e.preventDefault(); irPara(link.getAttribute("href"), link.dataset.ir, link.dataset.cor); return; }
     const voltar = e.target.closest("[data-voltar]");
     if (voltar && !e.metaKey && !e.ctrlKey) { e.preventDefault(); irPara(voltar.getAttribute("href"), "assets/img/cookie.png"); }
   });
@@ -192,8 +195,19 @@
      PÁGINA INICIAL
      ========================================================= */
   function iniciarInicio() {
+    /* monte de cookies (estilo da referência dos croissants) */
+    const pilha = $("#pilha");
+    if (pilha) {
+      const imgs = ["assets/img/cookie.png", ...RECEITAS.map(r => r.imagem)];
+      const pos = [
+        [2, 8, 30, -12], [14, -6, 26, 18], [26, 12, 32, -6], [40, -10, 28, 24], [52, 6, 34, -16], [66, -8, 28, 10], [78, 10, 30, -20], [90, -4, 26, 14],
+        [-4, 34, 24, 20], [8, 44, 28, -8], [22, 38, 22, 30], [34, 46, 26, -24], [48, 36, 24, 6], [60, 46, 26, -10], [72, 36, 24, 22], [86, 44, 28, -14], [98, 34, 22, 8],
+        [18, 66, 20, -18], [44, 70, 22, 12], [70, 66, 20, -6]
+      ];
+      pilha.innerHTML = pos.map(([x, y, w, r], i) => `<img src="${imgs[i % imgs.length]}" alt="" style="left:${x}%;top:${y}%;width:${w}%;--r:${r}deg">`).join("");
+    }
     $("#cartoes").innerHTML = RECEITAS.map(r => `
-      <a class="i-cookie" href="${r.pagina}" data-ir="${r.imagem}" style="--cor:${r.cor};--suave:${r.corSuave}">
+      <a class="i-cookie" href="${r.pagina}" data-ir="${r.imagem}" data-cor="${r.corSuave}" style="--cor:${r.cor};--suave:${r.corSuave}">
         <span class="i-cookie__img"><img src="${r.imagem}" alt=""></span>
         <h3>${r.nome}</h3>
         <p>${r.subtitulo}</p>
@@ -367,16 +381,17 @@
         linha += passos.map(({ p, i }) => `
           <li class="r-passo ${pf[i] ? "feito" : ""}" data-passo="${i}">
             <span class="r-passo__num" aria-hidden="true">${i + 1}</span>
-            <div class="r-passo__cartao">
+            <div class="r-passo__cartao" role="button" tabindex="0" aria-pressed="${!!pf[i]}">
               <img class="r-passo__ic" src="${ICON(p.icone)}" alt="">
               <div class="r-passo__corpo">
                 <h4><span class="vh">Passo ${i + 1}: </span>${p.t}</h4>
                 <p>${texto(p.d, r)}</p>
                 <div class="r-passo__acoes">
-                  ${p.min ? `<button class="mini" data-temp="${i}">${SVG_RELOGIO} ${p.min} min</button>` : ""}
-                  <button class="mini mini--feito" data-feito="${i}" aria-pressed="${!!pf[i]}">${SVG_CHECK} ${pf[i] ? "Feito" : "Marcar como feito"}</button>
+                  ${p.min ? `<button class="mini" data-temp="${i}">${SVG_RELOGIO} Temporizador ${p.min} min</button>` : ""}
+                  <span class="r-passo__marca">${pf[i] ? "Feito" : "Toca para marcar como feito"}</span>
                 </div>
               </div>
+              <span class="r-passo__check" aria-hidden="true">${SVG_CHECK}</span>
             </div>
           </li>`).join("");
       });
@@ -391,25 +406,20 @@
               </a>
               <h1 class="r-hero__nome">${r.nome}</h1>
               <p class="r-hero__desc">${r.descricao}</p>
-              <dl class="r-factos">
-                <div><dt>Rende</dt><dd>${SVG_COOKIE_IC}${BASE_COOKIES} cookies</dd></div>
-                <div><dt>Tempo total</dt><dd>${SVG_RELOGIO}${r.tempoTotal}</dd></div>
-                <div><dt>Mãos na massa</dt><dd>${SVG_RELOGIO}${r.tempoAtivo}</dd></div>
-                <div><dt>Forno</dt><dd><img src="${ICON("forno")}" alt="">${r.forno}</dd></div>
-                <div><dt>Cada cookie</dt><dd><img src="${ICON("balanca")}" alt="">${r.pesoBola}</dd></div>
-                <div><dt>Nível</dt><dd>${nivel(r.nivel)}</dd></div>
-              </dl>
-              <div class="r-hero__botoes">
-                <button class="pilula" data-acao="cozinhar">Começar a cozinhar ${SVG_SETA}</button>
-                <a class="pilula pilula--claro" href="#precisas">Ver o que precisas</a>
-              </div>
+              <ul class="r-chips">
+                <li><span class="r-chip__ic">${SVG_RELOGIO}</span><span><b>${r.tempoTotal}</b><small>tempo total</small></span></li>
+                <li><span class="r-chip__ic"><img src="assets/img/mini/cookie.png" alt=""></span><span><b>${BASE_COOKIES} cookies</b><small>${r.pesoBola.split(" + ")[0]} cada</small></span></li>
+                <li><span class="r-chip__ic"><img src="${ICON("forno")}" alt=""></span><span><b>${r.forno.split(" · ")[0]}</b><small>${r.forno.split(" · ")[1] || "forno"}</small></span></li>
+                <li><span class="r-chip__ic r-chip__ic--nivel"><span class="nivel__barras" aria-hidden="true">${[1, 2, 3].map(i => `<i class="${i <= r.nivel ? "on" : ""}"></i>`).join("")}</span></span><span><b>${NIVEIS[r.nivel]}</b><small>${r.tempoAtivo} de mãos na massa</small></span></li>
+              </ul>
+              <a class="pilula" href="#precisas">Ver ingredientes ${SVG_SETA}</a>
             </div>
           </div>
         </section>
 
         <nav class="r-etapas" aria-label="Etapas da receita">
           <div class="contentor r-etapas__lista">
-            <a href="#precisas" data-etapa="precisas"><span>1</span>O que precisas</a>
+            <a href="#precisas" data-etapa="precisas"><span>1</span>Ingredientes</a>
             <a href="#preparacao" data-etapa="preparacao"><span>2</span>Preparação</a>
             <a href="#servir" data-etapa="servir"><span>3</span>Servir</a>
           </div>
@@ -421,20 +431,10 @@
             <div>
               <p class="r-etapa__olho">Etapa 1 de 3</p>
               <h2>O que precisas</h2>
-              <p class="r-etapa__resumo">${r.equipamento.length} utensílios · ${nIng} ingredientes</p>
+              <p class="r-etapa__resumo">${nIng} ingredientes · ${r.equipamento.length} utensílios</p>
             </div>
           </header>
           <div class="r-precisas">
-            <div class="r-precisas__col">
-              <div class="r-bloco">
-                <h3 class="r-bloco__titulo">Equipamento</h3>
-                <ul class="r-equip">${r.equipamento.map(e => `<li><img src="${ICON(e)}" alt=""><span>${EQUIPAMENTO[e]}</span></li>`).join("")}</ul>
-              </div>
-              <div class="r-bloco">
-                <h3 class="r-bloco__titulo">Antes de começar</h3>
-                <ul class="r-antes">${r.preparacao.map(p => `<li>${p}</li>`).join("")}</ul>
-              </div>
-            </div>
             <div class="r-bloco r-bloco--ing" id="ingredientes">
               <div class="r-bloco__cab">
                 <h3 class="r-bloco__titulo">Ingredientes</h3>
@@ -454,7 +454,7 @@
                   <h4 class="grupo__titulo">${g.titulo}</h4>
                   <ul class="lista-ing">${g.itens.map(it => {
                     const k = idx++;
-                    const v = it.u === "ml" ? null : emVolume(it, f);
+                    const v = emVolume(it, f);
                     const nota = v && v.nota ? ` <em class="check__nota">${v.nota}</em>` : "";
                     return `
                     <li><label class="check">
@@ -467,6 +467,16 @@
                 </div>`).join("")}
               </div>
               <button class="mini" data-limpar-ing>Desmarcar ingredientes</button>
+            </div>
+            <div class="r-precisas__col">
+              <div class="r-bloco">
+                <h3 class="r-bloco__titulo">Equipamento</h3>
+                <ul class="r-equip">${r.equipamento.map(e => `<li><img src="${ICON(e)}" alt=""><span>${EQUIPAMENTO[e]}</span></li>`).join("")}</ul>
+              </div>
+              <div class="r-bloco">
+                <h3 class="r-bloco__titulo">Antes de começar</h3>
+                <ul class="r-antes">${r.preparacao.map(p => `<li>${p}</li>`).join("")}</ul>
+              </div>
             </div>
           </div>
         </section>
@@ -498,7 +508,7 @@
         <section class="r-outras contentor">
           <h2 class="i-titulo">Outras receitas</h2>
           <div class="i-grelha i-grelha--2">${outras.map(o => `
-            <a class="i-cookie" href="${o.pagina}" data-ir="${o.imagem}" style="--cor:${o.cor};--suave:${o.corSuave}">
+            <a class="i-cookie" href="${o.pagina}" data-ir="${o.imagem}" data-cor="${o.corSuave}" style="--cor:${o.cor};--suave:${o.corSuave}">
               <span class="i-cookie__img"><img src="${o.imagem}" alt=""></span>
               <h3>${o.nome}</h3>
               <p>${o.subtitulo}</p>
@@ -542,15 +552,20 @@
       if (e.target.closest("[data-limpar-passos]")) { estado.passosFeitos[r.id] = {}; guardar("passosFeitos", estado.passosFeitos); desenhar(); return; }
       const temp = e.target.closest("[data-temp]");
       if (temp) { const p = r.passos[+temp.dataset.temp]; iniciarTempo(p.t, p.min); return; }
-      const feito = e.target.closest("[data-feito]");
-      if (feito) {
-        const i = feito.dataset.feito, pf = estado.passosFeitos[r.id] = estado.passosFeitos[r.id] || {};
+      const cartao = e.target.closest(".r-passo__cartao");
+      if (cartao) {
+        const li = cartao.closest(".r-passo"), i = li.dataset.passo;
+        const pf = estado.passosFeitos[r.id] = estado.passosFeitos[r.id] || {};
         pf[i] = !pf[i]; guardar("passosFeitos", estado.passosFeitos);
-        const li = feito.closest(".r-passo"); li.classList.toggle("feito", pf[i]);
-        feito.setAttribute("aria-pressed", String(pf[i]));
-        feito.innerHTML = `${SVG_CHECK} ${pf[i] ? "Feito" : "Marcar como feito"}`;
+        li.classList.toggle("feito", pf[i]);
+        cartao.setAttribute("aria-pressed", String(pf[i]));
+        const marca = cartao.querySelector(".r-passo__marca"); if (marca) marca.textContent = pf[i] ? "Feito" : "Toca para marcar como feito";
         contarPassos(); return;
       }
+    });
+    main.addEventListener("keydown", (e) => {
+      const c = e.target.closest && e.target.closest(".r-passo__cartao");
+      if (c && e.target === c && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); c.click(); }
     });
     main.addEventListener("change", (e) => {
       const ing = e.target.closest("[data-ing]");
@@ -566,109 +581,14 @@
       if (e.target.closest("[data-pausa]")) {
         if (t.pausa != null) { t.fim = Date.now() + t.pausa; t.pausa = null; } else t.pausa = t.fim - Date.now();
       }
-      desenharDoca(); relogioCozinha();
+      desenharDoca();
     });
     setInterval(() => {
       if (!timers.length) return;
       timers.forEach(t => { if (!t.tocou && segundos(t) <= 0) { t.tocou = true; bip(); avisar(`${t.nome}: tempo terminado`); } });
-      desenharDoca(); relogioCozinha();
+      desenharDoca();
     }, 1000);
 
-    /* ---------- modo cozinha ---------- */
-    const coz = { passo: 0 }, cozinha = $("#cozinha");
-    let focoAntes, wakeLock = null;
-
-    async function manterEcraLigado() {
-      try { if ("wakeLock" in navigator) wakeLock = await navigator.wakeLock.request("screen"); } catch (e) {}
-    }
-    document.addEventListener("visibilitychange", () => { if (!cozinha.hidden && document.visibilityState === "visible") manterEcraLigado(); });
-
-    function abrirCozinha() {
-      focoAntes = document.activeElement;
-      const pf = estado.passosFeitos[r.id] || {};
-      const primeiro = r.passos.findIndex((_, i) => !pf[i]);
-      coz.passo = primeiro < 0 ? 0 : primeiro;
-      cozinha.hidden = false; document.body.classList.add("em-cozinha");
-      manterEcraLigado(); desenharCozinha(); $("#cozinha-seg").focus();
-    }
-    function fecharCozinha() {
-      cozinha.hidden = true; document.body.classList.remove("em-cozinha");
-      if (wakeLock) { wakeLock.release().catch(() => {}); wakeLock = null; }
-      desenhar(); if (focoAntes && document.contains(focoAntes)) focoAntes.focus();
-    }
-    function desenharCozinha() {
-      const total = r.passos.length, fim = coz.passo >= total;
-      $("#cozinha-progresso").style.width = Math.min(100, (coz.passo / total) * 100) + "%";
-      const palco = $("#cozinha-palco");
-      if (fim) {
-        palco.innerHTML = `<div class="cozinha__fim">
-          <img src="assets/img/king-g.png" alt="">
-          <p class="sobrancelha">Receita concluída</p>
-          <h2 class="cozinha__titulo" id="cozinha-titulo">Viva o Rei!</h2>
-          <p class="cozinha__texto">${estado.doses[r.id]} cookies “${r.nome}” prontas. Serve-as mornas.</p>
-        </div>`;
-        $("#cozinha-seg").innerHTML = "Fechar";
-        chuva(40);
-      } else {
-        const p = r.passos[coz.passo];
-        palco.innerHTML = `
-          <img class="cozinha__icone" src="${ICON(p.icone)}" alt="" aria-hidden="true">
-          <p class="sobrancelha">Passo ${coz.passo + 1} de ${total} · ${p.fase}</p>
-          <h2 class="cozinha__titulo" id="cozinha-titulo">${p.t}</h2>
-          <p class="cozinha__texto">${texto(p.d, r)}</p>
-          <div class="cozinha__temporizador" id="cozinha-temp"></div>`;
-        $("#cozinha-seg").innerHTML = (coz.passo === total - 1 ? "Terminar" : "Próximo") + " " + SVG_SETA;
-        relogioCozinha();
-      }
-      $("#cozinha-ant").style.visibility = coz.passo === 0 ? "hidden" : "visible";
-    }
-    function relogioCozinha() {
-      if (cozinha.hidden) return;
-      const box = $("#cozinha-temp"), p = r.passos[coz.passo];
-      if (!box || !p) return;
-      if (!p.min) { box.innerHTML = ""; return; }
-      const t = timers.find(x => x.nome === p.t), s = t ? segundos(t) : p.min * 60;
-      box.innerHTML = `<div class="relogio">
-        <span class="relogio__tempo">${t && s <= 0 ? "Pronto" : mmss(s)}</span>
-        <button class="btn btn--real btn--peq" id="relogio-btn">${t ? (s <= 0 ? "OK" : (t.pausa != null ? "Retomar" : "Pausa")) : "Iniciar"}</button>
-      </div>`;
-    }
-    cozinha.addEventListener("click", (e) => {
-      if (!e.target.closest("#relogio-btn")) return;
-      const p = r.passos[coz.passo], t = timers.find(x => x.nome === p.t);
-      if (!t) iniciarTempo(p.t, p.min);
-      else if (segundos(t) <= 0) timers.splice(timers.indexOf(t), 1);
-      else if (t.pausa != null) { t.fim = Date.now() + t.pausa; t.pausa = null; }
-      else t.pausa = t.fim - Date.now();
-      desenharDoca(); relogioCozinha();
-    });
-    function marcarFeito(i) {
-      const pf = estado.passosFeitos[r.id] = estado.passosFeitos[r.id] || {};
-      pf[i] = true; guardar("passosFeitos", estado.passosFeitos);
-    }
-    $("#cozinha-seg").addEventListener("click", () => {
-      if (coz.passo >= r.passos.length) return fecharCozinha();
-      marcarFeito(coz.passo); coz.passo++; desenharCozinha();
-    });
-    $("#cozinha-ant").addEventListener("click", () => { if (coz.passo > 0) { coz.passo--; desenharCozinha(); } });
-    $("#cozinha-fechar").addEventListener("click", fecharCozinha);
-    document.addEventListener("keydown", (e) => {
-      if (cozinha.hidden) return;
-      if (e.key === "Escape") fecharCozinha();
-      if (e.key === "ArrowRight") $("#cozinha-seg").click();
-      if (e.key === "ArrowLeft") $("#cozinha-ant").click();
-    });
-    /* deslizar no telemóvel */
-    let toqueX = null;
-    cozinha.addEventListener("touchstart", (e) => { toqueX = e.touches[0].clientX; }, { passive: true });
-    cozinha.addEventListener("touchend", (e) => {
-      if (toqueX == null) return;
-      const dx = e.changedTouches[0].clientX - toqueX; toqueX = null;
-      if (Math.abs(dx) < 70) return;
-      if (dx < 0) $("#cozinha-seg").click(); else $("#cozinha-ant").click();
-    });
-
-    document.addEventListener("click", (e) => { if (e.target.closest('[data-acao="cozinhar"]')) abrirCozinha(); });
   }
 
   if (pagina === "inicio") iniciarInicio();

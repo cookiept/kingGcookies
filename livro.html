@@ -228,7 +228,7 @@
         <div class="ing">
           <p class="sub">Ingredientes <span style="font:600 6.5pt Jost;letter-spacing:.12em;color:var(--tinta-suave);margin-left:2mm">GRAMAS · CHÁVENAS E COLHERES (240 / 15 / 5 ML)</span></p>
           <div class="ing__cols">
-            ${r.grupos.map(g => `<div class="ing__grupo"><h4>${g.titulo}</h4><ul>${g.itens.map(it => { const v = emVolume(it, 1); return `<li><b>${qt(it)}</b><span>${nome(it)}</span><i>${v && it.u !== "ml" ? v.q : ""}</i></li>`; }).join("")}</ul></div>`).join("")}
+            ${r.grupos.map(g => `<div class="ing__grupo"><h4>${g.titulo}</h4><ul>${g.itens.map(it => { const v = emVolume(it, 1); return `<li><b>${qt(it)}</b><span>${nome(it)}</span><i>${v ? v.q : ""}</i></li>`; }).join("")}</ul></div>`).join("")}
           </div>
         </div>
         <div class="notas"><strong>Notas</strong><ul>${r.dicas.map(d => `<li>${d}</li>`).join("")}</ul></div>
