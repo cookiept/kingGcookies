@@ -127,7 +127,6 @@ const cartao = (r, lazy = true) => `
         <a class="card" href="${r.pagina}" data-ir="${r.topoGrande}" data-cor="${r.corSuave}" style="--suave:${r.corSuave}">
           <div class="card__foto">
             <img class="card__topo" src="${r.topoGrande}" alt="${esc(r.altTopo)}" width="520" height="520"${lazy ? ' loading="lazy"' : ""}>
-            <img class="card__corte" src="${r.imagem}" alt="" width="900" height="560" loading="lazy">
           </div>
           <div class="card__corpo">
             <h3 class="h3">${r.nome}</h3>
@@ -181,7 +180,6 @@ ${header("inicio")}
           <p class="olho">As 3 cookies estrela</p>
           <h2 class="h2" id="receitas-titulo">Escolhe a tua cookie</h2>
         </div>
-        <p>Passa por cima para veres por dentro.</p>
       </div>
       <div class="estrelas">${RECEITAS.map((r, i) => cartao(r, i > 0)).join("")}
       </div>

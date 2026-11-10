@@ -417,7 +417,7 @@
           <div class="sec__cab"><h2 class="h2" id="t-outras">Outras receitas</h2></div>
           <div class="outras">${outras.map(o => `
             <a class="card" href="${o.pagina}" data-ir="${o.topoGrande}" data-cor="${o.corSuave}" style="--suave:${o.corSuave}">
-              <div class="card__foto"><img class="card__topo" src="${o.topoGrande}" alt="${o.altTopo}" loading="lazy"><img class="card__corte" src="${o.imagem}" alt="" loading="lazy"></div>
+              <div class="card__foto"><img class="card__topo" src="${o.topoGrande}" alt="${o.altTopo}" loading="lazy"></div>
               <div class="card__corpo"><h3 class="h3">${o.nome}</h3><div class="card__meta"><span>${SVG.relogio}${o.tempoTotal}</span><span>${BASE_COOKIES} unidades</span></div></div>
             </a>`).join("")}
           </div>
