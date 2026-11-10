@@ -3,150 +3,250 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>La Cookie Locaa</title>
-  <meta name="description" content="As três receitas de cookies da La Cookie Locaa: recheada de mousse, Kinder Bueno e Red Velvet. Passo a passo, com temporizadores.">
-  <meta property="og:title" content="La Cookie Locaa">
-  <meta property="og:description" content="Cookies grossas e macias, feitas em casa.">
-  <meta property="og:image" content="assets/img/cookies/bueno.png">
-  <meta name="theme-color" content="#fbf6ee">
-  <link rel="icon" type="image/png" href="assets/img/favicon.png">
-  <link rel="apple-touch-icon" href="assets/img/topo/bueno-mini.png">
-  <link rel="preload" href="assets/fonts/luckiest-guy-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/fontes.css">
-  <link rel="stylesheet" href="css/estilo.css">
-  <script>try{if(sessionStorage.getItem("kingg:cortina"))document.documentElement.classList.add("cortina-pre")}catch(e){}</script>
+  <title>La Cookie Locaa · Cookies loucas, receitas simples</title>
+  <meta name="description" content="Cookies loucas, receitas simples. Três receitas caseiras de cookies grossas e macias, passo a passo, com modo cozinha.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#fbf5ec" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1b120d" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="La Cookie Locaa · Cookies loucas, receitas simples">
+  <meta property="og:description" content="Cookies loucas, receitas simples. Três receitas caseiras de cookies grossas e macias, passo a passo, com modo cozinha.">
+  <meta property="og:image" content="assets/img/cookies/recheada.webp">
+  <link rel="icon" type="image/webp" href="assets/img/mascote.webp">
+  <link rel="preload" href="assets/fonts/fredoka-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/site.css">
+  <script>try{if(sessionStorage.getItem("lcl:cortina"))document.documentElement.classList.add("cortina-pre")}catch(e){}</script>
+  <link rel="preload" as="image" href="assets/img/cookies/recheada.webp">
 </head>
-<body data-pagina="inicio" class="b-pagina">
-
-  <a class="saltar" href="#cookies">Saltar para as cookies</a>
-
-  <header class="b-nav">
-    <button class="b-nav__menu" aria-expanded="false" aria-controls="b-menu" aria-label="Abrir menu"><span></span><span></span><span></span></button>
-    <nav class="b-nav__links" id="b-menu" aria-label="Principal">
-      <a href="#cookies">Cookies</a>
-      <a href="#sobre">Sobre mim</a>
-      <a href="lista.html">Lista de compras</a>
-      <a href="livro.html">Livro PDF</a>
-    </nav>
-    <a class="b-nav__marca" href="index.html" aria-label="La Cookie Locaa, início">
-      <span class="b-ponto"></span>La Cookie Locaa<span class="b-ponto"></span>
-    </a>
-    <div class="b-nav__icones">
-      <a href="lista.html" aria-label="Lista de compras">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-2-1.5L14 21l-2-1.5L10 21l-2-1.5L6 21Z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>
+<body data-pagina="inicio">
+  <a class="saltar" href="#receitas">Saltar para as receitas</a>
+  <header class="cab">
+    <div class="contentor cab__dentro">
+      <a class="marca" href="index.html" aria-label="La Cookie Locaa, página inicial">
+        <img src="assets/img/mascote.webp" alt="" width="40" height="40">
+        <span>La Cookie <em>Locaa</em></span>
       </a>
-      <a href="livro.html" aria-label="Livro de receitas">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2Z"/><path d="M4 21V5M19 19v2H6"/></svg>
-      </a>
+      <nav class="cab__nav" aria-label="Principal">
+        <a href="index.html#receitas" aria-current="page">Receitas</a>
+        <a href="index.html#chef">Sobre o chef</a>
+        <a href="index.html#modo-cozinha">Modo cozinha</a>
+      </nav>
+      <button class="icone-btn" type="button" data-pesquisa aria-label="Pesquisar receitas"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+      <a class="icone-btn" href="lista.html" aria-label="Lista de compras"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-2-1.5L14 21l-2-1.5L10 21l-2-1.5L6 21Z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></a>
+      <button class="icone-btn cab__menu" type="button" aria-expanded="false" aria-controls="gaveta" aria-label="Abrir menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
+    <nav class="cab__gaveta" id="gaveta" aria-label="Menu">
+      <a href="index.html#receitas">Receitas</a>
+      <a href="index.html#chef">Sobre o chef</a>
+      <a href="index.html#modo-cozinha">Modo cozinha</a>
+      <a href="lista.html">Lista de compras</a>
+      <a href="livro.html">Livro de receitas (PDF)</a>
+    </nav>
   </header>
 
-  <main class="b-main">
+  <dialog class="pesquisa" id="pesquisa" aria-label="Pesquisar receitas">
+    <form method="dialog" class="pesquisa__campo" role="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <label class="vh" for="pesquisa-input">Pesquisar receitas ou ingredientes</label>
+      <input id="pesquisa-input" type="search" placeholder="Ex.: tenho Kinder em casa" autocomplete="off">
+      <button class="icone-btn" value="fechar" aria-label="Fechar pesquisa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </form>
+    <ul class="pesquisa__resultados" id="pesquisa-resultados" aria-live="polite"></ul>
+  </dialog>
 
-    <!-- HERO -->
-    <section class="b-hero contentor">
-      <h1 class="b-hero__titulo">
-        <span class="b-hero__l1"><span class="b-hero__do">la</span> Cookie</span>
-        <span class="b-hero__l2">Locaa</span>
-      </h1>
-      <img class="b-hero__ck" src="assets/img/cookies/bueno.png" alt="">
-      <p class="b-hero__texto">Cookies grossas e macias, feitas em casa. Douradas por fora, macias por dentro, com as receitas explicadas passo a passo.</p>
-      <div class="b-hero__acoes">
-        <a class="b-pill" href="#cookies">Ver receitas <span class="b-pill__ponto"></span></a>
-        <a class="b-link" href="lista.html">Lista de compras <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      </div>
-    </section>
-
-    <!-- COOKIES -->
-    <section class="b-produtos contentor" id="cookies">
-      <div class="b-produtos__cab">
-        <h2 class="b-h2">As cookies</h2>
-        <div class="b-tabs" role="tablist" aria-label="Filtrar cookies">
-          <button role="tab" aria-selected="true" data-filtro="todas">Todas</button>
-          <button role="tab" aria-selected="false" data-filtro="recheio">Com recheio</button>
-          <button role="tab" aria-selected="false" data-filtro="1">Fáceis</button>
-          <button role="tab" aria-selected="false" data-filtro="3">Desafio</button>
+  <main>
+    <section class="hero contentor" aria-labelledby="hero-titulo">
+      <div class="hero__grelha">
+        <div>
+          <h1 class="h1 hero__titulo" id="hero-titulo">Cookies loucas.<span>Receitas simples.</span></h1>
+          <p class="lead">Cookies grossas, douradas por fora e cremosas por dentro. Três receitas caseiras explicadas passo a passo, com modo cozinha para seguires com as mãos na massa.</p>
+          <div class="hero__acoes">
+            <a class="btn btn--acao" href="#receitas">Ver receitas <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="link" href="cookie-red-velvet.html" data-ir="assets/img/topo/redvelvet.webp" data-cor="#fbe0e3">Fazer a minha primeira cookie <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
         </div>
-      </div>
-      <div class="b-cards" id="cartoes"></div>
-      <div class="b-progresso" aria-hidden="true"><span></span></div>
-    </section>
-
-    <!-- NÚMERO GRANDE COM COOKIES ESPALHADAS -->
-    <section class="b-numero" aria-labelledby="b-num">
-      <div class="b-numero__ck" id="espalhadas" aria-hidden="true"></div>
-      <img class="b-numero__monte" src="assets/img/monte.png" alt="Monte de cookies: Kinder Bueno, red velvet, chocolate e pepitas" width="1400" height="676">
-      <div class="b-numero__centro">
-        <p class="b-numero__n" id="b-num">18</p>
-        <p class="b-numero__pill">cookies em 3 receitas</p>
-      </div>
-    </section>
-
-    <!-- O SÍTIO -->
-    <section class="b-sitio contentor">
-      <h2 class="b-script">O sítio mais doce<br>para as tuas fornadas</h2>
-      <div class="b-sitio__grelha">
-        <div class="b-sitio__fotos">
-          <img class="b-sitio__foto" src="assets/img/cookie-rain.jpg" alt="Cookies com pepitas de chocolate a cair">
-          <img class="b-sitio__ck" src="assets/img/cookies/recheada.png" alt="">
-        </div>
-        <div class="b-sitio__texto">
-          <p><b>La Cookie Locaa</b> junta as minhas receitas favoritas de cookies grossas, ao estilo das melhores pastelarias.</p>
-          <p>Cada receita diz-te o que precisas, os passos pela ordem certa e quanto tempo demora. As quantidades estão em gramas e em chávenas ou colheres.</p>
+        <div class="hero__foto">
+          <div class="hero__fundo" aria-hidden="true"></div>
+          <img src="assets/img/cookies/recheada.webp" alt="Cookie de chocolate partida ao meio, com recheio de mousse de chocolate a escorrer" width="900" height="560" fetchpriority="high">
+          <p class="hero__selo"><b>18</b>cookies em 3 receitas</p>
+          <div class="mascote" tabindex="0" aria-label="Mascote da La Cookie Locaa">
+            <img src="assets/img/mascote.webp" alt="" width="140" height="140">
+            <span class="mascote__balao">Psst… prova a recheada!</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- SOBRE MIM -->
-    <section class="b-sobre contentor" id="sobre">
-      <div class="b-sobre__texto">
-        <h2 class="b-h2">Sobre mim</h2>
-        <p>Olá, sou o Gonçalo. Comecei a fazer cookies em casa à procura daquela cookie grossa e macia das pastelarias, e fui afinando as receitas até ficarem como queria.</p>
-        <p>Aqui partilho-as como se estivesse na cozinha contigo.</p>
-        <a class="b-link" href="#cookies">Experimentar uma receita <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <section class="sec contentor" id="receitas" aria-labelledby="receitas-titulo">
+      <div class="sec__cab">
+        <div>
+          <p class="olho">As 3 cookies estrela</p>
+          <h2 class="h2" id="receitas-titulo">Escolhe a tua cookie</h2>
+        </div>
+        <p>Passa por cima para veres por dentro.</p>
       </div>
-      <div class="b-sobre__foto">
-        <img src="assets/img/eu.jpg" alt="Gonçalo, o chef por trás da La Cookie Locaa" onerror="this.onerror=null;this.src='assets/img/topo/bueno.png';this.classList.add('sem-foto')">
+      <div class="estrelas">
+        <a class="card" href="cookie-chocolate-recheada.html" data-ir="assets/img/topo/recheada.webp" data-cor="#f3e3d6" style="--suave:#f3e3d6">
+          <div class="card__foto">
+            <img class="card__topo" src="assets/img/topo/recheada.webp" alt="Cookie de chocolate vista de cima, com pedaços de chocolate derretido" width="520" height="520">
+            <img class="card__corte" src="assets/img/cookies/recheada.webp" alt="" width="900" height="560" loading="lazy">
+          </div>
+          <div class="card__corpo">
+            <h3 class="h3">Cookie de Chocolate Recheada</h3>
+            <div class="card__meta">
+              <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg>2 h 45 min</span>
+              <span class="dificuldade" aria-label="Dificuldade: 3 de 3 (Exigente)" title="Exigente"><img src="assets/img/mini/cookie.webp" alt="" width="18" height="18" class=""><img src="assets/img/mini/cookie.webp" alt="" width="18" height="18" class=""><img src="assets/img/mini/cookie.webp" alt="" width="18" height="18" class=""></span>
+              <span>6 unidades</span>
+            </div>
+          </div>
+        </a>
+        <a class="card" href="cookie-kinder-bueno.html" data-ir="assets/img/topo/bueno.webp" data-cor="#fde7d2" style="--suave:#fde7d2">
+          <div class="card__foto">
+            <img class="card__topo" src="assets/img/topo/bueno.webp" alt="Cookie Kinder Bueno vista de cima, com fios de chocolate em diagonal" width="520" height="520" loading="lazy">
+            <img class="card__corte" src="assets/img/cookies/bueno.webp" alt="" width="900" height="560" loading="lazy">
+          </div>
+          <div class="card__corpo">
+            <h3 class="h3">Cookie Kinder Bueno</h3>
+            <div class="card__meta">
+              <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg>1 h 50 min</span>
+              <span class="dificuldade" aria-label="Dificuldade: 2 de 3 (Médio)" title="Médio"><img src="assets/img/mini/cookie.webp" alt="" width="18" height="18" class=""><img src="assets/img/mini/cookie.webp" alt="" width="18" height="18" class=""><img src="assets/img/mini/cookie.webp" alt="" width="18" height="18" class="off"></span>
+              <span>6 unidades</span>
+            </div>
+          </div>
+        </a>
+        <a class="card" href="cookie-red-velvet.html" data-ir="assets/img/topo/redvelvet.webp" data-cor="#fbe0e3" style="--suave:#fbe0e3">
+          <div class="card__foto">
+            <img class="card__topo" src="assets/img/topo/redvelvet.webp" alt="Cookie red velvet vista de cima, com pepitas de chocolate branco e de leite" width="520" height="520" loading="lazy">
+            <img class="card__corte" src="assets/img/cookies/redvelvet.webp" alt="" width="900" height="560" loading="lazy">
+          </div>
+          <div class="card__corpo">
+            <h3 class="h3">Cookie Red Velvet</h3>
+            <div class="card__meta">
+              <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg>1 h 15 min</span>
+              <span class="dificuldade" aria-label="Dificuldade: 1 de 3 (Fácil)" title="Fácil"><img src="assets/img/mini/cookie.webp" alt="" width="18" height="18" class=""><img src="assets/img/mini/cookie.webp" alt="" width="18" height="18" class="off"><img src="assets/img/mini/cookie.webp" alt="" width="18" height="18" class="off"></span>
+              <span>6 unidades</span>
+            </div>
+          </div>
+        </a>
       </div>
     </section>
 
+    <section class="contentor" aria-labelledby="procura-titulo">
+      <div class="procura">
+        <p class="olho">Encontrar a receita certa</p>
+        <h2 class="h2" id="procura-titulo">O que tens em casa?</h2>
+        <div class="procura__campo">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <label class="vh" for="procura-input">Pesquisar por receita ou ingrediente</label>
+          <input id="procura-input" type="search" placeholder="Ex.: tenho Kinder em casa" autocomplete="off">
+        </div>
+        <div class="filtros" role="group" aria-label="Filtros" id="filtros"></div>
+        <ul class="achados" id="achados" aria-live="polite"><li><a class="resultado" href="cookie-chocolate-recheada.html" data-ir="assets/img/topo/recheada.webp" data-cor="#f3e3d6"><img src="assets/img/topo/recheada-mini.webp" alt="" width="56" height="56" loading="lazy"><span><b>Cookie de Chocolate Recheada</b><small>Massa de chocolate com recheio de mousse de chocolate</small></span></a></li><li><a class="resultado" href="cookie-kinder-bueno.html" data-ir="assets/img/topo/bueno.webp" data-cor="#fde7d2"><img src="assets/img/topo/bueno-mini.webp" alt="" width="56" height="56" loading="lazy"><span><b>Cookie Kinder Bueno</b><small>Com pedaços de Kinder Bueno e recheio de Nutella</small></span></a></li><li><a class="resultado" href="cookie-red-velvet.html" data-ir="assets/img/topo/redvelvet.webp" data-cor="#fbe0e3"><img src="assets/img/topo/redvelvet-mini.webp" alt="" width="56" height="56" loading="lazy"><span><b>Cookie Red Velvet</b><small>Red velvet com chocolate branco e de leite</small></span></a></li></ul>
+      </div>
+    </section>
+
+    <section class="sec contentor" id="modo-cozinha" aria-labelledby="mc-titulo">
+      <div class="mc">
+        <div>
+          <p class="olho">Modo cozinha</p>
+          <h2 class="h2" id="mc-titulo">Um passo de cada vez, com as mãos na massa</h2>
+          <ul class="mc__lista">
+            <li><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M9 8h6M9 12h6"/></svg></span><span><b>Um passo de cada vez</b><span>Letra grande, para leres a um metro. Avanças com um toque ou a deslizar.</span></span></li>
+            <li><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M7 7l-3 7a3 3 0 0 0 6 0L7 7M17 7l-3 7a3 3 0 0 0 6 0l-3-7M12 4v16M8 20h8"/></svg></span><span><b>Os ingredientes desse passo</b><span>Já com as quantidades certas para o número de cookies que escolheste.</span></span></li>
+            <li><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg></span><span><b>Temporizador</b><span>Toca quando acaba, mesmo que mudes de passo.</span></span></li>
+            <li><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span><span><b>Ecrã sempre ligado</b><span>O telemóvel não escurece enquanto cozinhas.</span></span></li>
+          </ul>
+          <a class="btn btn--acao" href="cookie-kinder-bueno.html#cozinha" data-ir="assets/img/topo/bueno.webp" data-cor="#fde7d2">Experimentar o modo cozinha <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="telefone" aria-hidden="true">
+          <div class="telefone__ecra">
+            <div class="telefone__barra"><span></span></div>
+            <span class="telefone__passo">Passo 4 de 14 · Massa</span>
+            <p class="telefone__titulo">Bater a manteiga com os açúcares</p>
+            <div class="telefone__ing"><span>115 g manteiga com sal</span><span>120 g açúcar mascavado claro</span><span>50 g açúcar branco</span></div>
+            <p class="telefone__texto">Bate a manteiga, o açúcar mascavado e o açúcar branco em velocidade média durante 3 minutos, até a mistura ficar mais clara e fofa.</p>
+            <div class="telefone__relogio"><b>03:00</b><span>Iniciar</span></div>
+            <span class="telefone__ligado">Ecrã sempre ligado</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec contentor" id="chef" aria-labelledby="chef-titulo">
+      <div class="chef">
+        <div class="chef__foto">
+          <img src="assets/img/eu.webp" alt="Gonçalo, o chef da La Cookie Locaa" width="360" height="360" loading="lazy" data-provisoria="assets/img/mascote.webp" onerror="this.onerror=null;this.src=this.dataset.provisoria;this.classList.add('provisoria')">
+        </div>
+        <div>
+          <p class="olho">Sobre o chef</p>
+          <h2 class="h2" id="chef-titulo">Olá, sou o Gonçalo</h2>
+          <p>Faço cookies porque não há nada melhor do que partir uma ainda morna e ver o recheio a escorrer.</p>
+          <p>Andei fornadas e fornadas atrás da cookie grossa das pastelarias, até acertar nas medidas. Agora partilho-as aqui, sem segredos.</p>
+          <a class="link" href="#receitas">Ver as minhas receitas <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="contentor" aria-labelledby="social-titulo">
+      <div class="sec__cab">
+        <div>
+          <p class="olho">Fiz e ficou assim</p>
+          <h2 class="h2" id="social-titulo">As vossas fornadas</h2>
+        </div>
+      </div>
+      <div id="comunidade">
+        <div class="vazio-social">
+          <div class="vazio-social__fotos" aria-hidden="true"><span style="--r:-8deg"><img src="assets/img/topo/recheada-mini.webp" alt="" width="58" height="58" loading="lazy"></span><span style="--r:4deg"><img src="assets/img/topo/bueno-mini.webp" alt="" width="58" height="58" loading="lazy"></span><span style="--r:10deg"><img src="assets/img/topo/redvelvet-mini.webp" alt="" width="58" height="58" loading="lazy"></span></div>
+          <div>
+            <h3 class="h3">Ainda não há fotos aqui</h3>
+            <p>Esta galeria vai mostrar cookies feitas por quem seguiu as receitas. Fizeste uma? A tua fornada pode ser a primeira.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec contentor" aria-labelledby="news-titulo">
+      <div class="news">
+        <div>
+          <h2 class="h2" id="news-titulo">Uma receita nova por mês.</h2>
+          <p>Sem spam, só manteiga.</p>
+        </div>
+        <form class="news__form" id="news" novalidate>
+          <label for="news-email">O teu email</label>
+          <input id="news-email" type="email" name="email" placeholder="nome@exemplo.pt" autocomplete="email" required>
+          <button class="btn btn--acao" type="submit">Quero receber</button>
+          <p class="news__msg" id="news-msg" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
   </main>
 
-  <footer class="b-rodape">
-    <div class="contentor b-rodape__grelha">
-      <div class="b-rodape__marca">
-        <p><span class="b-ponto"></span>La Cookie Locaa<span class="b-ponto"></span></p>
-        <span class="b-script b-script--peq">feito em casa</span>
+  <footer class="rodape">
+    <div class="contentor">
+      <div class="rodape__grelha">
+        <div class="rodape__marca">
+          <img src="assets/img/mascote.webp" alt="" width="72" height="72" loading="lazy">
+          <div><b>La Cookie Locaa</b><span>Até à próxima fornada!</span></div>
+        </div>
+        <div>
+          <h2>Receitas</h2>
+          <ul><li><a href="cookie-chocolate-recheada.html" data-ir="assets/img/topo/recheada.webp" data-cor="#f3e3d6">Cookie de Chocolate Recheada</a></li><li><a href="cookie-kinder-bueno.html" data-ir="assets/img/topo/bueno.webp" data-cor="#fde7d2">Cookie Kinder Bueno</a></li><li><a href="cookie-red-velvet.html" data-ir="assets/img/topo/redvelvet.webp" data-cor="#fbe0e3">Cookie Red Velvet</a></li></ul>
+        </div>
+        <div>
+          <h2>Mais</h2>
+          <ul>
+            <li><a href="lista.html">Lista de compras</a></li>
+            <li><a href="livro.html">Livro de receitas (PDF)</a></li>
+            <li><a href="https://github.com/cookiept/kingGcookies" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg> Código no GitHub</a></li>
+          </ul>
+        </div>
       </div>
-      <details class="b-rodape__col" open>
-        <summary>Receitas</summary>
-        <div>
-          <a href="cookie-chocolate-recheada.html">Chocolate Recheada</a>
-          <a href="cookie-kinder-bueno.html">Kinder Bueno</a>
-          <a href="cookie-red-velvet.html">Red Velvet</a>
-        </div>
-      </details>
-      <details class="b-rodape__col" open>
-        <summary>Ferramentas</summary>
-        <div>
-          <a href="lista.html">Lista de compras</a>
-          <a href="livro.html">Livro de receitas (PDF)</a>
-        </div>
-      </details>
-      <details class="b-rodape__col" open>
-        <summary>La Cookie Locaa</summary>
-        <div>
-          <a href="#sobre">Sobre mim</a>
-          <a href="#cookies">Todas as cookies</a>
-        </div>
-      </details>
+      <p class="rodape__fim">© 2026 La Cookie Locaa · Receitas caseiras feitas com manteiga a mais.</p>
     </div>
-    <p class="contentor b-rodape__fim">© 2026 La Cookie Locaa · Receitas caseiras</p>
   </footer>
 
   <div class="aviso" id="aviso" role="status" aria-live="polite"></div>
-
-  <script src="js/receitas.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/receitas.js" defer></script>
+  <script src="js/app.js" defer></script>
 </body>
 </html>

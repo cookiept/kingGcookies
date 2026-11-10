@@ -12,6 +12,22 @@ const BASE_COOKIES = 6;
 
 const NIVEIS = { 1: "Fácil", 2: "Médio", 3: "Exigente" };
 
+/* filtros da página inicial */
+const FILTROS = [
+  { id: "todas", nome: "Todas" },
+  { id: "recheada", nome: "Recheadas" },
+  { id: "rapida", nome: "Rápidas (≤ 30 min de trabalho)" },
+  { id: "sem-batedeira", nome: "Sem batedeira" },
+  { id: "oferecer", nome: "Para oferecer" }
+];
+
+/* fotos da comunidade ("fiz e ficou assim"): adiciona aqui fotos reais que te enviarem
+   ex.: { foto: "assets/img/comunidade/ana.webp", nome: "Ana", receita: "bueno", texto: "Ficaram enormes!" } */
+const COMUNIDADE = [];
+
+/* newsletter: quando escolheres um serviço (Buttondown, MailerLite, Brevo…), põe aqui o endereço do formulário */
+const NEWSLETTER_ACAO = "";
+
 const RECEITAS = [
   {
     id: "recheada",
@@ -22,9 +38,13 @@ const RECEITAS = [
     descricao: "Cookie grossa de massa de chocolate, com pedaços de chocolate de leite e um recheio de ganache batida que fica cremoso depois de cozer. Serve-se morna.",
     cor: "#5a2d1a",
     corSuave: "#f3e3d6",
-    imagem: "assets/img/cookies/recheada.png",
-    topo: "assets/img/topo/recheada-mini.png",
-    topoGrande: "assets/img/topo/recheada.png",
+    imagem: "assets/img/cookies/recheada.webp",
+    topo: "assets/img/topo/recheada-mini.webp",
+    topoGrande: "assets/img/topo/recheada.webp",
+    alt: "Cookie de chocolate partida ao meio, com recheio de mousse de chocolate a escorrer",
+    altTopo: "Cookie de chocolate vista de cima, com pedaços de chocolate derretido",
+    tags: ["recheada"],
+    totalMin: 165, ativoMin: 45, fornoMin: 13,
     pesoBola: "≈113 g de massa + 25 g de recheio",
     tempoAtivo: "45 min",
     tempoTotal: "2 h 45 min",
@@ -40,24 +60,24 @@ const RECEITAS = [
       {
         titulo: "Recheio de mousse (ganache batida)",
         itens: [
-          { q: 100, u: "g", n: "chocolate de leite ou negro (50–55%), picado fino" },
-          { q: 60, u: "ml", n: "natas para bater (35% gordura)" }
+          { p: [2], q: 100, u: "g", n: "chocolate de leite ou negro (50–55%), picado fino" },
+          { p: [1], q: 60, u: "ml", n: "natas para bater (35% gordura)" }
         ]
       },
       {
         titulo: "Massa",
         itens: [
-          { q: 115, u: "g", n: "manteiga com sal, a 18–20 °C" },
-          { q: 130, u: "g", n: "açúcar mascavado claro" },
-          { q: 50, u: "g", n: "açúcar branco" },
-          { q: 50, u: "g", n: "ovo batido (1 ovo grande ≈ 50 g), à temperatura ambiente", loja: { por: 50, n: "ovo grande", plural: "ovos grandes", un: "ovo", unPl: "ovos", nomeVol: "grande, à temperatura ambiente", nomeVolPl: "grandes, à temperatura ambiente" } },
-          { q: 5, u: "ml", n: "extrato de baunilha" },
-          { q: 175, u: "g", n: "farinha sem fermento" },
-          { q: 30, u: "g", n: "cacau em pó sem açúcar" },
-          { q: 4, u: "g", n: "amido de milho (Maizena)" },
-          { q: 3, u: "g", n: "bicarbonato de sódio" },
-          { q: 2, u: "g", n: "sal fino" },
-          { q: 120, u: "g", n: "chocolate de leite, em pedaços de 1 cm" }
+          { p: [7], q: 115, u: "g", n: "manteiga com sal, a 18–20 °C" },
+          { p: [7], q: 130, u: "g", n: "açúcar mascavado claro" },
+          { p: [7], q: 50, u: "g", n: "açúcar branco" },
+          { p: [8], q: 50, u: "g", n: "ovo batido (1 ovo grande ≈ 50 g), à temperatura ambiente", loja: { por: 50, n: "ovo grande", plural: "ovos grandes", un: "ovo", unPl: "ovos", nomeVol: "grande, à temperatura ambiente", nomeVolPl: "grandes, à temperatura ambiente" } },
+          { p: [8], q: 5, u: "ml", n: "extrato de baunilha" },
+          { p: [9], q: 175, u: "g", n: "farinha sem fermento" },
+          { p: [9], q: 30, u: "g", n: "cacau em pó sem açúcar" },
+          { p: [9], q: 4, u: "g", n: "amido de milho (Maizena)" },
+          { p: [9], q: 3, u: "g", n: "bicarbonato de sódio" },
+          { p: [9], q: 2, u: "g", n: "sal fino" },
+          { p: [11], q: 120, u: "g", n: "chocolate de leite, em pedaços de 1 cm" }
         ]
       }
     ],
@@ -109,9 +129,13 @@ const RECEITAS = [
     descricao: "Cookie de baunilha com pedaços de Kinder Bueno e chocolate de leite, recheada com Nutella e decorada com fios de chocolate de leite e branco.",
     cor: "#b9520e",
     corSuave: "#fde7d2",
-    imagem: "assets/img/cookies/bueno.png",
-    topo: "assets/img/topo/bueno-mini.png",
-    topoGrande: "assets/img/topo/bueno.png",
+    imagem: "assets/img/cookies/bueno.webp",
+    topo: "assets/img/topo/bueno-mini.webp",
+    topoGrande: "assets/img/topo/bueno.webp",
+    alt: "Cookie grossa com pedaços de Kinder Bueno e fios de chocolate de leite e branco",
+    altTopo: "Cookie Kinder Bueno vista de cima, com fios de chocolate em diagonal",
+    tags: ["recheada","oferecer","sem-batedeira"],
+    totalMin: 110, ativoMin: 40, fornoMin: 12,
     pesoBola: "≈114 g de massa + 15 g de Nutella",
     tempoAtivo: "40 min",
     tempoTotal: "1 h 50 min",
@@ -126,31 +150,31 @@ const RECEITAS = [
       {
         titulo: "Recheio",
         itens: [
-          { q: 90, u: "g", n: "Nutella" }
+          { p: [1], q: 90, u: "g", n: "Nutella" }
         ]
       },
       {
         titulo: "Massa",
         itens: [
-          { q: 115, u: "g", n: "manteiga com sal, a 18–20 °C" },
-          { q: 120, u: "g", n: "açúcar mascavado claro" },
-          { q: 50, u: "g", n: "açúcar branco" },
-          { q: 50, u: "g", n: "ovo batido (1 ovo grande ≈ 50 g), à temperatura ambiente", loja: { por: 50, n: "ovo grande", plural: "ovos grandes", un: "ovo", unPl: "ovos", nomeVol: "grande, à temperatura ambiente", nomeVolPl: "grandes, à temperatura ambiente" } },
-          { q: 5, u: "ml", n: "extrato de baunilha" },
-          { q: 200, u: "g", n: "farinha sem fermento" },
-          { q: 4, u: "g", n: "amido de milho (Maizena)" },
-          { q: 3, u: "g", n: "bicarbonato de sódio" },
-          { q: 2, u: "g", n: "sal fino" },
-          { q: 60, u: "g", n: "chocolate de leite, em pedaços de 1 cm" },
-          { q: 86, u: "g", n: "Kinder Bueno (2 embalagens de 43 g), em pedaços de 1 cm", loja: { por: 43, n: "Kinder Bueno (emb. 43 g)", plural: "Kinder Bueno (emb. 43 g)", un: "emb.", unPl: "emb.", nomeVol: "Kinder Bueno (43 g cada), em pedaços de 1 cm" } }
+          { p: [4], q: 115, u: "g", n: "manteiga com sal, a 18–20 °C" },
+          { p: [4], q: 120, u: "g", n: "açúcar mascavado claro" },
+          { p: [4], q: 50, u: "g", n: "açúcar branco" },
+          { p: [5], q: 50, u: "g", n: "ovo batido (1 ovo grande ≈ 50 g), à temperatura ambiente", loja: { por: 50, n: "ovo grande", plural: "ovos grandes", un: "ovo", unPl: "ovos", nomeVol: "grande, à temperatura ambiente", nomeVolPl: "grandes, à temperatura ambiente" } },
+          { p: [5], q: 5, u: "ml", n: "extrato de baunilha" },
+          { p: [6], q: 200, u: "g", n: "farinha sem fermento" },
+          { p: [6], q: 4, u: "g", n: "amido de milho (Maizena)" },
+          { p: [6], q: 3, u: "g", n: "bicarbonato de sódio" },
+          { p: [6], q: 2, u: "g", n: "sal fino" },
+          { p: [8], q: 60, u: "g", n: "chocolate de leite, em pedaços de 1 cm" },
+          { p: [2, 8], q: 86, u: "g", n: "Kinder Bueno (2 embalagens de 43 g), em pedaços de 1 cm", loja: { por: 43, n: "Kinder Bueno (emb. 43 g)", plural: "Kinder Bueno (emb. 43 g)", un: "emb.", unPl: "emb.", nomeVol: "Kinder Bueno (43 g cada), em pedaços de 1 cm" } }
         ]
       },
       {
         titulo: "Cobertura",
         itens: [
-          { q: 43, u: "g", n: "Kinder Bueno (1 embalagem de 43 g)", loja: { por: 43, n: "Kinder Bueno (emb. 43 g)", plural: "Kinder Bueno (emb. 43 g)", un: "emb.", unPl: "emb.", nomeVol: "Kinder Bueno (43 g cada)" } },
-          { q: 40, u: "g", n: "chocolate de leite" },
-          { q: 25, u: "g", n: "chocolate branco" }
+          { p: [2, 10], q: 43, u: "g", n: "Kinder Bueno (1 embalagem de 43 g)", loja: { por: 43, n: "Kinder Bueno (emb. 43 g)", plural: "Kinder Bueno (emb. 43 g)", un: "emb.", unPl: "emb.", nomeVol: "Kinder Bueno (43 g cada)" } },
+          { p: [13, 14], q: 40, u: "g", n: "chocolate de leite" },
+          { p: [13, 14], q: 25, u: "g", n: "chocolate branco" }
         ]
       }
     ],
@@ -199,9 +223,13 @@ const RECEITAS = [
     descricao: "Cookie red velvet com um toque de cacau e pedaços de chocolate branco e de leite. Borda firme e centro macio.",
     cor: "#b3122a",
     corSuave: "#fbe0e3",
-    imagem: "assets/img/cookies/redvelvet.png",
-    topo: "assets/img/topo/redvelvet-mini.png",
-    topoGrande: "assets/img/topo/redvelvet.png",
+    imagem: "assets/img/cookies/redvelvet.webp",
+    topo: "assets/img/topo/redvelvet-mini.webp",
+    topoGrande: "assets/img/topo/redvelvet.webp",
+    alt: "Cookie red velvet grossa com pepitas de chocolate branco e de leite",
+    altTopo: "Cookie red velvet vista de cima, com pepitas de chocolate branco e de leite",
+    tags: ["rapida","oferecer","sem-batedeira"],
+    totalMin: 75, ativoMin: 30, fornoMin: 11,
     pesoBola: "≈123 g",
     tempoAtivo: "30 min",
     tempoTotal: "1 h 15 min",
@@ -217,25 +245,25 @@ const RECEITAS = [
       {
         titulo: "Massa",
         itens: [
-          { q: 115, u: "g", n: "manteiga com sal, a 18–20 °C" },
-          { q: 100, u: "g", n: "açúcar mascavado claro" },
-          { q: 80, u: "g", n: "açúcar branco" },
-          { q: 50, u: "g", n: "ovo batido (1 ovo grande ≈ 50 g), à temperatura ambiente", loja: { por: 50, n: "ovo grande", plural: "ovos grandes", un: "ovo", unPl: "ovos", nomeVol: "grande, à temperatura ambiente", nomeVolPl: "grandes, à temperatura ambiente" } },
-          { q: 5, u: "ml", n: "extrato de baunilha" },
-          { q: 15, u: "ml", n: "leite" },
-          { q: 6, u: "g", n: "corante alimentar vermelho em gel" },
-          { q: 190, u: "g", n: "farinha sem fermento" },
-          { q: 15, u: "g", n: "cacau em pó sem açúcar" },
-          { q: 4, u: "g", n: "amido de milho (Maizena)" },
-          { q: 3, u: "g", n: "bicarbonato de sódio" },
-          { q: 2, u: "g", n: "sal fino" }
+          { p: [1], q: 115, u: "g", n: "manteiga com sal, a 18–20 °C" },
+          { p: [1], q: 100, u: "g", n: "açúcar mascavado claro" },
+          { p: [1], q: 80, u: "g", n: "açúcar branco" },
+          { p: [2], q: 50, u: "g", n: "ovo batido (1 ovo grande ≈ 50 g), à temperatura ambiente", loja: { por: 50, n: "ovo grande", plural: "ovos grandes", un: "ovo", unPl: "ovos", nomeVol: "grande, à temperatura ambiente", nomeVolPl: "grandes, à temperatura ambiente" } },
+          { p: [2], q: 5, u: "ml", n: "extrato de baunilha" },
+          { p: [2], q: 15, u: "ml", n: "leite" },
+          { p: [2], q: 6, u: "g", n: "corante alimentar vermelho em gel" },
+          { p: [3], q: 190, u: "g", n: "farinha sem fermento" },
+          { p: [3], q: 15, u: "g", n: "cacau em pó sem açúcar" },
+          { p: [3], q: 4, u: "g", n: "amido de milho (Maizena)" },
+          { p: [3], q: 3, u: "g", n: "bicarbonato de sódio" },
+          { p: [3], q: 2, u: "g", n: "sal fino" }
         ]
       },
       {
         titulo: "Chocolates",
         itens: [
-          { q: 100, u: "g", n: "chocolate branco, em pedaços de 1 cm (30 g para o topo)" },
-          { q: 60, u: "g", n: "chocolate de leite, em pedaços de 1 cm" }
+          { p: [5, 8], q: 100, u: "g", n: "chocolate branco, em pedaços de 1 cm (30 g para o topo)" },
+          { p: [5], q: 60, u: "g", n: "chocolate de leite, em pedaços de 1 cm" }
         ]
       }
     ],
@@ -288,7 +316,7 @@ const EQUIPAMENTO = {
   manga: "Saco de congelação"
 };
 
-if (typeof module !== "undefined") module.exports = { RECEITAS, REGRAS_DO_REINO, BASE_COOKIES, NIVEIS, EQUIPAMENTO };
+if (typeof module !== "undefined") module.exports = { RECEITAS, REGRAS_DO_REINO, BASE_COOKIES, NIVEIS, EQUIPAMENTO, FILTROS, COMUNIDADE, NEWSLETTER_ACAO };
 
 /* =========================================================
    MEDIDAS EM CHÁVENAS E COLHERES

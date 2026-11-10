@@ -1,8 +1,8 @@
-<p align="center"><img src="assets/img/monte.png" width="420" alt="Monte de cookies"></p>
+<p align="center"><img src="assets/img/monte.webp" width="420" alt="Monte de cookies"></p>
 
 # La Cookie Locaa 🍪
 
-> Sua Majestade decretou: cookies para todos.
+> Cookies loucas. Receitas simples.
 
 Site com as três receitas de cookies da La Cookie Locaa, cada uma para 6 cookies:
 
@@ -14,41 +14,35 @@ Site com as três receitas de cookies da La Cookie Locaa, cada uma para 6 cookie
 
 ## O que o site faz
 
-- **Página inicial**: hero, as três cookies (foto, nome, tempo e nível), o monte de cookies, "Sobre mim" e vantagens. Carregar numa cookie abre a receita, com uma cortina dessa cookie pelo meio.
-- **Foto do "Sobre mim"**: põe a tua foto em `assets/img/eu.jpg` (enquanto não existir, aparece uma cookie).
-- **Cortina vista de cima** (opcional): imagens em `assets/img/topo/` e `topo: "assets/img/topo/<nome>.png"` na receita.
-- **Página de cada cookie**, organizada em três etapas, com uma barra fixa para saltar entre elas:
-  1. **O que precisas**: equipamento, "antes de começar" e ingredientes em gramas e chávenas/colheres (líquidos em ml), com doses ajustáveis e vistos.
-  2. **Preparação**: cronologia com os passos numerados e agrupados por fase (por exemplo, Recheio → Massa → Moldar → Forno → Decorar), com temporizadores; toca num passo para o marcar como feito.
-  3. **Servir e guardar**: como servir, conservar e congelar.
-  No fim aparecem as outras receitas.
+- **Página inicial**: cabeçalho fixo com pesquisa sempre visível; hero; as 3 cookies (passa o rato para ver o corte); "O que tens em casa?" com filtros (Recheadas, Rápidas, Sem batedeira, Para oferecer) e pesquisa por ingrediente ("tenho Kinder em casa"); pré-visualização do modo cozinha; sobre o chef; galeria "fiz e ficou assim"; newsletter; rodapé.
+- **Página de cada cookie**: botão "Saltar para a receita", ingredientes em gramas com a medida em chávenas/colheres ao lado, doses ajustáveis, passos com os ingredientes de cada passo, temporizadores, e schema Recipe para o Google.
+- **Modo cozinha**: um passo de cada vez em letra grande, com os ingredientes desse passo, temporizador e ecrã sempre ligado (Screen Wake Lock). Avança com um toque, a deslizar ou com as setas.
 - **Lista de compras** (`lista.html`): um talão que junta e soma os ingredientes das receitas escolhidas.
 - **Livro de receitas**: [`livro.html`](livro.html) para imprimir, ou o PDF em [`docs/`](docs/Livro-La-Cookie-Locaa.pdf).
+- Modo escuro automático, navegação por teclado e `prefers-reduced-motion` (desliga as animações).
+
+## Coisas para trocares
+
+| O quê | Onde |
+|---|---|
+| A tua foto (Sobre o chef) | `assets/img/eu.webp` (enquanto não existir, aparece a mascote) |
+| A mascote | `assets/img/mascote.webp` |
+| Fotos "fiz e ficou assim" | `COMUNIDADE` em `js/receitas.js`: `{ foto, nome, receita, texto }` |
+| Newsletter | `NEWSLETTER_ACAO` em `js/receitas.js`: o URL do formulário do serviço (Buttondown, MailerLite, Brevo…) |
 
 ## Estrutura
 
 ```
 kingGcookies/
-├── index.html            ← página inicial
-├── lista.html            ← lista de compras (talão)
-├── cookie-chocolate-recheada.html  ← páginas das receitas (geradas, ver abaixo)
-├── cookie-kinder-bueno.html
-├── cookie-red-velvet.html
+├── index.html, lista.html, cookie-*.html   ← geradas por ferramentas/gerar.js
 ├── livro.html            ← livro de receitas para imprimir (A4)
-├── css/
-│   ├── estilo.css        ← cores, letras e layout da marca
-│   └── fontes.css        ← fontes guardadas localmente
-├── js/
-│   ├── receitas.js       ← AS RECEITAS (muda quantidades e passos aqui)
-│   └── app.js            ← a lógica do site
-├── ferramentas/
-│   ├── pagina.tpl        ← modelo das páginas das receitas
-│   └── gerar.js          ← gera as páginas a partir do modelo
-├── assets/
-│   ├── img/              ← logo, cookies, ícones
-│   └── fonts/
-└── docs/
-    └── Livro-La-Cookie-Locaa.pdf
+├── css/site.css          ← cores, letras e layout (claro e escuro)
+├── css/fontes.css        ← fontes do livro
+├── js/receitas.js        ← AS RECEITAS (muda quantidades e passos aqui)
+├── js/app.js             ← a lógica do site
+├── ferramentas/gerar.js  ← gera as páginas HTML
+├── assets/img/           ← fotos (WebP), ícones, mascote
+└── docs/Livro-La-Cookie-Locaa.pdf
 ```
 
 ## Mudar uma receita
@@ -57,7 +51,8 @@ Abre `js/receitas.js`. Cada receita tem `grupos` (ingredientes) e `passos`; cada
 As quantidades são para 6 cookies; o site faz as contas para outras doses.
 Nos passos, `{N}` é trocado pelo número de cookies escolhido.
 
-Se adicionares uma receita nova (ou mudares o nome ou a cor de uma), volta a gerar as páginas:
+Cada ingrediente tem `p: [números dos passos]` onde é usado, para aparecer nesses passos e no modo cozinha.
+Depois de mudares alguma coisa, volta a gerar as páginas:
 
 ```bash
 node ferramentas/gerar.js .
@@ -80,4 +75,4 @@ python3 -m http.server
 
 ---
 
-Fontes: Luckiest Guy (Apache 2.0), Bebas Neue, Caveat, DM Sans e Jost (SIL OFL), via Fontsource.
+Fontes: Fredoka, DM Sans, Caveat e Space Mono (SIL OFL), via Fontsource.

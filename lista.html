@@ -4,94 +4,94 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Lista de compras · La Cookie Locaa</title>
-  <meta name="description" content="As três receitas de cookies da La Cookie Locaa: recheada de mousse, Kinder Bueno e Red Velvet. Passo a passo, com temporizadores.">
-  <meta property="og:title" content="La Cookie Locaa">
-  <meta property="og:description" content="Cookies grossas e macias, feitas em casa.">
-  <meta property="og:image" content="assets/img/cookies/bueno.png">
-  <meta name="theme-color" content="#fbf6ee">
-  <link rel="icon" type="image/png" href="assets/img/favicon.png">
-  <link rel="apple-touch-icon" href="assets/img/topo/bueno-mini.png">
-  <link rel="preload" href="assets/fonts/luckiest-guy-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/fontes.css">
-  <link rel="stylesheet" href="css/estilo.css">
-  <script>try{if(sessionStorage.getItem("kingg:cortina"))document.documentElement.classList.add("cortina-pre")}catch(e){}</script>
+  <meta name="description" content="A lista de compras das receitas da La Cookie Locaa, somada e pronta para riscar no supermercado.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#fbf5ec" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1b120d" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Lista de compras · La Cookie Locaa">
+  <meta property="og:description" content="A lista de compras das receitas da La Cookie Locaa, somada e pronta para riscar no supermercado.">
+  <meta property="og:image" content="assets/img/monte.webp">
+  <link rel="icon" type="image/webp" href="assets/img/mascote.webp">
+  <link rel="preload" href="assets/fonts/fredoka-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/site.css">
+  <script>try{if(sessionStorage.getItem("lcl:cortina"))document.documentElement.classList.add("cortina-pre")}catch(e){}</script>
 </head>
-<body data-pagina="lista" class="b-pagina">
-
-  <header class="b-nav">
-    <button class="b-nav__menu" aria-expanded="false" aria-controls="b-menu" aria-label="Abrir menu"><span></span><span></span><span></span></button>
-    <nav class="b-nav__links" id="b-menu" aria-label="Principal">
-      <a href="index.html#cookies">Cookies</a>
-      <a href="index.html#sobre">Sobre mim</a>
-      <a href="lista.html">Lista de compras</a>
-      <a href="livro.html">Livro PDF</a>
-    </nav>
-    <a class="b-nav__marca" href="index.html" aria-label="La Cookie Locaa, início">
-      <span class="b-ponto"></span>La Cookie Locaa<span class="b-ponto"></span>
-    </a>
-    <div class="b-nav__icones">
-      <a href="lista.html" aria-label="Lista de compras">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-2-1.5L14 21l-2-1.5L10 21l-2-1.5L6 21Z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>
+<body data-pagina="lista">
+  <a class="saltar" href="#talao">Saltar para a lista</a>
+  <header class="cab">
+    <div class="contentor cab__dentro">
+      <a class="marca" href="index.html" aria-label="La Cookie Locaa, página inicial">
+        <img src="assets/img/mascote.webp" alt="" width="40" height="40">
+        <span>La Cookie <em>Locaa</em></span>
       </a>
-      <a href="livro.html" aria-label="Livro de receitas">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2Z"/><path d="M4 21V5M19 19v2H6"/></svg>
-      </a>
+      <nav class="cab__nav" aria-label="Principal">
+        <a href="index.html#receitas">Receitas</a>
+        <a href="index.html#chef">Sobre o chef</a>
+        <a href="index.html#modo-cozinha">Modo cozinha</a>
+      </nav>
+      <button class="icone-btn" type="button" data-pesquisa aria-label="Pesquisar receitas"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+      <a class="icone-btn" href="lista.html" aria-label="Lista de compras" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-2-1.5L14 21l-2-1.5L10 21l-2-1.5L6 21Z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></a>
+      <button class="icone-btn cab__menu" type="button" aria-expanded="false" aria-controls="gaveta" aria-label="Abrir menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
+    <nav class="cab__gaveta" id="gaveta" aria-label="Menu">
+      <a href="index.html#receitas">Receitas</a>
+      <a href="index.html#chef">Sobre o chef</a>
+      <a href="index.html#modo-cozinha">Modo cozinha</a>
+      <a href="lista.html">Lista de compras</a>
+      <a href="livro.html">Livro de receitas (PDF)</a>
+    </nav>
   </header>
 
-  <main class="pagina-lista">
-    <section class="compras contentor" id="compras">
-      <div class="compras__lado">
-        <p class="etiqueta-rosa">Missão supermercado</p>
-        <h1 class="i-titulo i-titulo--esq">Lista de compras</h1>
-        <p class="compras__intro">Escolhe as receitas que vais fazer. O talão junta os ingredientes e soma as quantidades, com as doses que escolheste em cada receita. Vai riscando o que já tens no cesto.</p>
-        <div class="compras__escolha" id="compras-escolha"></div>
-        <div class="compras__acoes">
-          <button class="pilula" id="copiar-lista">Copiar lista</button>
-          <button class="pilula pilula--claro" id="limpar-lista">Desmarcar tudo</button>
-        </div>
-      </div>
-      <div class="talao-wrap">
-        <div class="talao" id="talao"></div>
-      </div>
-    </section>
-  </main>
+  <dialog class="pesquisa" id="pesquisa" aria-label="Pesquisar receitas">
+    <form method="dialog" class="pesquisa__campo" role="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <label class="vh" for="pesquisa-input">Pesquisar receitas ou ingredientes</label>
+      <input id="pesquisa-input" type="search" placeholder="Ex.: tenho Kinder em casa" autocomplete="off">
+      <button class="icone-btn" value="fechar" aria-label="Fechar pesquisa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </form>
+    <ul class="pesquisa__resultados" id="pesquisa-resultados" aria-live="polite"></ul>
+  </dialog>
 
-  <footer class="b-rodape">
-    <div class="contentor b-rodape__grelha">
-      <div class="b-rodape__marca">
-        <p><span class="b-ponto"></span>La Cookie Locaa<span class="b-ponto"></span></p>
-        <span class="b-script b-script--peq">feito em casa</span>
+  <main class="contentor compras">
+    <div class="compras__lado">
+      <p class="olho">Missão supermercado</p>
+      <h1 class="h2">Lista de compras</h1>
+      <p class="lead">Escolhe as receitas que vais fazer. O talão junta os ingredientes e soma as quantidades, com as doses que escolheste em cada receita.</p>
+      <div class="compras__escolha" id="compras-escolha"></div>
+      <div class="compras__acoes">
+        <button class="btn btn--acao" id="copiar-lista">Copiar lista</button>
+        <button class="btn btn--sec" id="limpar-lista">Desmarcar tudo</button>
       </div>
-      <details class="b-rodape__col" open>
-        <summary>Receitas</summary>
-        <div>
-          <a href="cookie-chocolate-recheada.html">Chocolate Recheada</a>
-          <a href="cookie-kinder-bueno.html">Kinder Bueno</a>
-          <a href="cookie-red-velvet.html">Red Velvet</a>
-        </div>
-      </details>
-      <details class="b-rodape__col" open>
-        <summary>Ferramentas</summary>
-        <div>
-          <a href="lista.html">Lista de compras</a>
-          <a href="livro.html">Livro de receitas (PDF)</a>
-        </div>
-      </details>
-      <details class="b-rodape__col" open>
-        <summary>La Cookie Locaa</summary>
-        <div>
-          <a href="index.html#sobre">Sobre mim</a>
-          <a href="index.html#cookies">Todas as cookies</a>
-        </div>
-      </details>
     </div>
-    <p class="contentor b-rodape__fim">© 2026 La Cookie Locaa · Receitas caseiras</p>
+    <div class="talao-wrap"><div class="talao" id="talao" aria-label="Talão com a lista de compras"></div></div>
+  </main>
+  <footer class="rodape">
+    <div class="contentor">
+      <div class="rodape__grelha">
+        <div class="rodape__marca">
+          <img src="assets/img/mascote.webp" alt="" width="72" height="72" loading="lazy">
+          <div><b>La Cookie Locaa</b><span>Até à próxima fornada!</span></div>
+        </div>
+        <div>
+          <h2>Receitas</h2>
+          <ul><li><a href="cookie-chocolate-recheada.html" data-ir="assets/img/topo/recheada.webp" data-cor="#f3e3d6">Cookie de Chocolate Recheada</a></li><li><a href="cookie-kinder-bueno.html" data-ir="assets/img/topo/bueno.webp" data-cor="#fde7d2">Cookie Kinder Bueno</a></li><li><a href="cookie-red-velvet.html" data-ir="assets/img/topo/redvelvet.webp" data-cor="#fbe0e3">Cookie Red Velvet</a></li></ul>
+        </div>
+        <div>
+          <h2>Mais</h2>
+          <ul>
+            <li><a href="lista.html">Lista de compras</a></li>
+            <li><a href="livro.html">Livro de receitas (PDF)</a></li>
+            <li><a href="https://github.com/cookiept/kingGcookies" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg> Código no GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="rodape__fim">© 2026 La Cookie Locaa · Receitas caseiras feitas com manteiga a mais.</p>
+    </div>
   </footer>
 
   <div class="aviso" id="aviso" role="status" aria-live="polite"></div>
-
-  <script src="js/receitas.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/receitas.js" defer></script>
+  <script src="js/app.js" defer></script>
 </body>
 </html>
