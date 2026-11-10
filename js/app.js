@@ -397,7 +397,7 @@
                 <h4><span class="vh">Passo ${i + 1}: </span>${p.t}</h4>
                 <p>${texto(p.d, r)}</p>
                 <div class="r-passo__acoes">
-                  ${p.min ? `<button class="mini" data-temp="${i}">${SVG_RELOGIO} Temporizador ${p.min} min</button>` : ""}
+                  ${p.min ? `<button class="mini" data-temp="${i}">${SVG_RELOGIO} ${p.min} min</button>` : ""}
                   <span class="r-passo__marca">${pf[i] ? "Feito" : "Toca para marcar como feito"}</span>
                 </div>
               </div>
@@ -600,6 +600,9 @@
     }, 1000);
 
   }
+
+  /* rodapé: no telemóvel as secções começam fechadas */
+  if (window.innerWidth < 761) document.querySelectorAll(".b-rodape__col[open]").forEach(d => d.removeAttribute("open"));
 
   /* menu do cabeçalho (todas as páginas) */
   const mb = $(".b-nav__menu"), mn = $("#b-menu");

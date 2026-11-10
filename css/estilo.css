@@ -877,3 +877,132 @@ html { scroll-padding-top: calc(var(--nav-h) + 72px); }
 .b-pagina { --nav-h: 96px; }
 @media (max-width: 760px) { .b-pagina { --nav-h: 64px; } }
 .b-hero__l1 .b-hero__do { margin-right: .12em; }
+
+/* =========================================================
+   REVISÃO DE TAMANHOS (computador, tablet, telemóvel)
+   ========================================================= */
+/* menu: linha horizontal no computador */
+@media (min-width: 761px) {
+  .b-pagina { --nav-h: 72px; }
+  .b-nav { padding-block: 16px; }
+  .b-nav__links { flex-direction: row; gap: 26px; }
+  .b-nav__links a { font-size: 15px; font-weight: 500; }
+  .b-nav__marca { font-size: 20px; }
+}
+@media (min-width: 761px) and (max-width: 1023px) { .b-nav__links { gap: 16px; } .b-nav__links a { font-size: 14px; } }
+
+/* hero */
+@media (min-width: 761px) {
+  .b-hero__titulo { font-size: clamp(110px, 14.5vw, 220px); }
+  .b-hero__ck { width: clamp(300px, 34vw, 540px); right: -2%; top: 48%; }
+  .b-hero__texto { font-size: 18px; max-width: 40ch; margin-top: 28px; }
+  .b-pill, .b-link { font-size: 16px; }
+  .b-pill { padding: 15px 26px; }
+}
+@media (max-width: 760px) {
+  .b-hero__titulo { font-size: clamp(56px, 17vw, 92px); }
+  .b-hero__ck { width: 42vw; right: -6%; bottom: -26%; }
+  .b-hero__texto { font-size: 16px; max-width: 30ch; }
+}
+
+/* cartões das cookies: sempre 3 juntas a partir do tablet */
+.b-tabs button { font-size: 14px; padding: 10px 18px; }
+@media (min-width: 561px) {
+  .b-cards { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .b-card { grid-template-columns: 1fr; text-align: center; padding: 20px 18px 18px; }
+  .b-card__img { width: 76%; max-width: 220px; margin: 0 auto 6px; }
+  .b-card__img img { width: 100%; }
+  .b-card h3 { font-size: 18px; min-height: 2.4em; display: flex; align-items: center; justify-content: center; }
+  .b-card__desc { font-size: 14px; min-height: 2.9em; }
+  .b-card__meta { justify-content: center; font-size: 12.5px; white-space: nowrap; }
+}
+@media (min-width: 561px) and (max-width: 900px) { .b-card__desc { display: none; } .b-card h3 { font-size: 16px; } .b-card__meta { white-space: normal; } }
+@media (max-width: 560px) {
+  .b-cards { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .b-card { grid-template-columns: 1fr; text-align: center; padding: 14px 12px; background: #fdeed3; }
+  .b-card__img { width: 100%; max-width: 140px; margin: 0 auto 4px; background: #fff; }
+  .b-card__desc, .b-card__meta { display: none; }
+  .b-card h3 { font-size: 15px; min-height: 2.5em; display: flex; align-items: center; justify-content: center; }
+}
+
+/* número */
+@media (min-width: 761px) { .b-numero__pill { font-size: 15px; padding: 10px 24px; } }
+
+/* o sítio */
+@media (min-width: 761px) {
+  .b-sitio__grelha { grid-template-columns: 1fr 1fr; gap: 64px; }
+  .b-sitio__fotos { max-width: 520px; justify-self: end; width: 100%; }
+  .b-sitio__texto p { font-size: 18px; line-height: 1.6; max-width: 42ch; }
+}
+.b-sitio__texto p { font-size: 16px; line-height: 1.6; }
+
+/* sobre mim */
+.b-sobre__texto p { font-size: 16px; line-height: 1.6; }
+@media (min-width: 761px) {
+  .b-sobre__texto p { font-size: 18px; }
+  .b-sobre__foto { width: min(440px, 100%); }
+}
+
+/* rodapé */
+@media (min-width: 761px) { .b-rodape__col a { font-size: 15px; } .b-rodape__marca p { font-size: 26px; } }
+
+/* receita: 4 etiquetas sempre arrumadas em grelha */
+.r-chips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 520px; }
+.r-chips li { padding-right: 12px; }
+@media (min-width: 1200px) { .r-chips { grid-template-columns: repeat(4, auto); max-width: none; justify-content: start; } }
+@media (max-width: 899px) { .r-hero__foto { width: min(230px, 62vw); } .r-hero { padding-top: 4px; } .r-hero__nome { font-size: clamp(34px, 9vw, 48px); } }
+
+/* passos no telemóvel: mais largura para o texto */
+@media (max-width: 560px) {
+  .r-passo__cartao { grid-template-columns: 1fr; gap: 6px; padding: 14px 44px 14px 14px; }
+  .r-passo__ic { width: 40px; height: 40px; }
+  .r-passo__check { right: 12px; top: 14px; }
+  .r-passo__acoes .mini { font-size: 10.5px; padding: 6px 10px; min-height: 34px; }
+}
+/* tablet: menu em botão até 1024px */
+@media (min-width: 761px) and (max-width: 1023px) {
+  .b-nav { grid-template-columns: auto 1fr auto; }
+  .b-nav__menu { display: grid; place-content: center; gap: 5px; width: 40px; height: 40px; border: 0; background: none; }
+  .b-nav__menu span { width: 22px; height: 2px; background: var(--azul); border-radius: 2px; }
+  .b-nav__links { position: fixed; top: 70px; left: 16px; width: 280px; flex-direction: column; gap: 0; background: #fff; border-radius: 18px; padding: 8px; box-shadow: 0 18px 40px rgba(59, 29, 16, .16); opacity: 0; pointer-events: none; transform: translateY(-8px); transition: .2s; }
+  .b-nav__links.aberto { opacity: 1; pointer-events: auto; transform: none; }
+  .b-nav__links a { padding: 14px; font-size: 15px; }
+}
+/* hero: a cookie fica à direita do título, sem o tapar */
+@media (min-width: 1024px) {
+  .b-hero { position: relative; }
+  .b-hero__ck { width: clamp(300px, 30vw, 480px); right: calc(var(--gutter) * -0.5); top: 46%; }
+  .b-hero__titulo { max-width: 72%; }
+}
+@media (min-width: 761px) and (max-width: 1023px) { .b-hero__ck { width: 34vw; right: -3%; top: 40%; } }
+/* telemóvel: a última cookie ímpar fica centrada */
+@media (max-width: 560px) {
+  .b-card:last-child:nth-child(odd) { grid-column: 1 / -1; width: calc(50% - 6px); justify-self: center; }
+}
+.b-hero { position: relative; }
+.b-hero__titulo { position: static; }
+@media (min-width: 761px) {
+  .b-hero__titulo { max-width: none; }
+  .b-hero__ck { width: clamp(260px, 30vw, 470px); right: var(--gutter); top: clamp(40px, 6vw, 90px); translate: none; }
+}
+@media (min-width: 1440px) { .b-hero__ck { right: calc((100vw - var(--max)) / 2 + var(--gutter)); } }
+@media (max-width: 760px) { .b-hero__ck { width: 40vw; right: 0; top: 70px; bottom: auto; } }
+@media (min-width: 1024px) and (max-width: 1120px) { .b-nav__links { gap: 18px; } .b-nav__links a { font-size: 14px; white-space: nowrap; } }
+.b-nav__links a { white-space: nowrap; }
+/* hero em duas colunas no computador: o título nunca fica tapado */
+@media (min-width: 761px) {
+  .b-hero { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: auto auto 1fr; column-gap: clamp(16px, 3vw, 48px); align-items: start; }
+  .b-hero__titulo { grid-column: 1; grid-row: 1; font-size: clamp(96px, 11.5vw, 190px); }
+  .b-hero__texto { grid-column: 1; grid-row: 2; }
+  .b-hero__acoes { grid-column: 1; grid-row: 3; align-self: start; }
+  .b-hero__ck { position: static; grid-column: 2; grid-row: 1 / span 3; align-self: center; justify-self: center; width: min(100%, 520px); translate: none; rotate: -6deg; }
+}
+@media (max-width: 760px) {
+  .b-hero { position: relative; }
+  .b-hero__ck { position: absolute; width: 38vw; max-width: 200px; right: 0; top: auto; bottom: auto; translate: none; }
+  .b-hero__ck { top: calc(16px + clamp(56px, 17vw, 92px) * 1.7 + 10px); }
+}
+@media (max-width: 760px) {
+  .b-hero__ck { position: static; display: block; width: min(250px, 66vw); max-width: none; margin: 10px auto -4px; rotate: -6deg; }
+  .b-hero__texto { margin-top: 14px; }
+}
